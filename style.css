@@ -1072,3 +1072,36 @@ footer {
     padding: 18px;
   }
 }
+
+
+
+
+/* NH3-H2 Combustion Project Overview */
+
+.project-overview {
+  margin: 30px 0 40px;
+  text-align: center;
+}
+
+.project-overview h2 {
+  color: #123b63;
+  margin-bottom: 18px;
+}
+
+.project-overview-image {
+  display: block;
+  width: 100%;
+  max-width: 800px;
+  height: auto;
+  margin: 0 auto;
+  border: 1px solid #dbe4ee;
+  border-radius: 10px;
+  box-shadow: 0 6px 18px rgba(0, 0, 0, 0.08);
+}
+
+.image-caption {
+  margin-top: 12px;
+  color: #64748b;
+  font-size: 0.9rem;
+  line-height: 1.6;
+}
