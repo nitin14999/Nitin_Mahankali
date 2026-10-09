@@ -938,3 +938,34 @@ footer {
     }
 
 }
+
+
+.project-visual {
+  margin: 48px 0;
+}
+
+.project-visual h2 {
+  margin-bottom: 12px;
+}
+
+.project-visual figure {
+  margin: 24px 0;
+}
+
+.project-infographic {
+  display: block;
+  width: 100%;
+  max-width: 1200px;
+  height: auto;
+  margin: 0 auto;
+  border: 1px solid #dbe4ee;
+  border-radius: 12px;
+  box-shadow: 0 8px 24px rgba(0, 0, 0, 0.08);
+}
+
+.project-visual figcaption {
+  margin-top: 12px;
+  text-align: center;
+  font-size: 0.9rem;
+  color: #64748b;
+}
