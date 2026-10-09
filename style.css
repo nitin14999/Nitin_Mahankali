@@ -989,7 +989,7 @@ footer {
 .flowchart-image {
   display: block;
   width: 100%;
-  max-width: 800px;
+  max-width: 600px;
   height: auto;
   margin: 25px auto;
   border: 1px solid #dbe4ee;
@@ -1091,7 +1091,7 @@ footer {
 .project-overview-image {
   display: block;
   width: 100%;
-  max-width: 800px;
+  max-width: 600px;
   height: auto;
   margin: 0 auto;
   border: 1px solid #dbe4ee;
