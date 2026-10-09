@@ -989,7 +989,7 @@ footer {
 .flowchart-image {
   display: block;
   width: 100%;
-  max-width: 900px;
+  max-width: 800px;
   height: auto;
   margin: 25px auto;
   border: 1px solid #dbe4ee;
