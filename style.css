@@ -1388,3 +1388,55 @@ footer {
     padding: 15px 12px;
   }
 }
+
+/* Fuel Cell Project Overview */
+
+.fuel-cell-overview {
+  width: 100%;
+  margin: 40px 0 50px;
+}
+
+.fuel-cell-overview h2 {
+  margin-bottom: 16px;
+}
+
+.fuel-cell-overview p {
+  line-height: 1.7;
+  margin-bottom: 24px;
+}
+
+.fuel-cell-overview-figure {
+  width: 100%;
+  margin: 0 auto;
+}
+
+.fuel-cell-overview-image {
+  display: block;
+  width: 100%;
+  max-width: 1200px;
+  height: auto;
+  margin: 0 auto;
+  border: none;
+  border-radius: 8px;
+  box-shadow: none;
+}
+
+.fuel-cell-overview-figure figcaption {
+  max-width: 900px;
+  margin: 14px auto 0;
+  text-align: center;
+  color: #64748b;
+  font-size: 0.9rem;
+  line-height: 1.6;
+}
+
+@media (max-width: 600px) {
+  .fuel-cell-overview {
+    margin: 28px 0 36px;
+  }
+
+  .fuel-cell-overview-image {
+    max-width: 100%;
+    border-radius: 4px;
+  }
+}
