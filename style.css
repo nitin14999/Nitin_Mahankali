@@ -985,16 +985,18 @@ footer {
   margin-bottom: 20px;
 }
 
+
 .flowchart-image {
   display: block;
   width: 100%;
-  max-width: 1200px;
+  max-width: 900px;
   height: auto;
-  margin: 0 auto;
+  margin: 25px auto;
   border: 1px solid #dbe4ee;
-  border-radius: 12px;
-  box-shadow: 0 8px 24px rgba(0, 0, 0, 0.08);
+  border-radius: 10px;
+  box-shadow: 0 6px 18px rgba(0, 0, 0, 0.08);
 }
+
 
 /* Power-to-Ammonia Project Description */
 
