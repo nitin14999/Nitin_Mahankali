@@ -1218,3 +1218,63 @@ footer {
     max-width: 100%;
   }
 }
+
+/* Ammonia Mitigation — System Overview */
+.mitigation-overview,
+.mitigation-flowchart {
+  width: 100%;
+  margin: 40px 0 50px;
+}
+
+.mitigation-overview h2,
+.mitigation-flowchart h2 {
+  margin-bottom: 16px;
+}
+
+.mitigation-overview p,
+.mitigation-flowchart p {
+  line-height: 1.7;
+  margin-bottom: 24px;
+}
+
+.mitigation-overview-figure,
+.mitigation-flowchart-figure {
+  width: 100%;
+  margin: 0 auto;
+}
+
+.mitigation-overview-image,
+.mitigation-flowchart-image {
+  display: block;
+  width: 100%;
+  max-width: 1050px;
+  height: auto;
+  margin: 0 auto;
+  border: none;
+  border-radius: 8px;
+  box-shadow: none;
+}
+
+.mitigation-overview-figure figcaption,
+.mitigation-flowchart-figure figcaption {
+  max-width: 850px;
+  margin: 14px auto 0;
+  text-align: center;
+  color: #64748b;
+  font-size: 0.9rem;
+  line-height: 1.6;
+}
+
+/* Responsive display on mobile devices */
+@media (max-width: 600px) {
+  .mitigation-overview,
+  .mitigation-flowchart {
+    margin: 28px 0 36px;
+  }
+
+  .mitigation-overview-image,
+  .mitigation-flowchart-image {
+    max-width: 100%;
+    border-radius: 4px;
+  }
+}
