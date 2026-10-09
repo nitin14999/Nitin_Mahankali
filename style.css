@@ -1278,3 +1278,113 @@ footer {
     border-radius: 4px;
   }
 }
+
+/* Ammonia Refueling: Overview and Flowchart */
+
+.refueling-overview,
+.refueling-flowchart {
+  width: 100%;
+  margin: 40px 0 50px;
+}
+
+.refueling-overview h2,
+.refueling-flowchart h2 {
+  margin-bottom: 16px;
+}
+
+.refueling-overview p,
+.refueling-flowchart p {
+  line-height: 1.7;
+  margin-bottom: 24px;
+}
+
+.refueling-figure {
+  width: 100%;
+  margin: 0 auto;
+}
+
+.refueling-overview-image,
+.refueling-flowchart-image {
+  display: block;
+  width: 100%;
+  max-width: 1100px;
+  height: auto;
+  margin: 0 auto;
+  border: none;
+  border-radius: 8px;
+  box-shadow: none;
+}
+
+.refueling-figure figcaption {
+  max-width: 850px;
+  margin: 14px auto 0;
+  text-align: center;
+  color: #64748b;
+  font-size: 0.9rem;
+  line-height: 1.6;
+}
+
+/* HTML-based flowchart */
+
+.refueling-process-flow {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: 10px;
+  margin: 30px auto;
+  max-width: 650px;
+}
+
+.refueling-step {
+  width: 100%;
+  padding: 18px 20px;
+  text-align: center;
+  font-weight: 600;
+  color: #183153;
+  background: #e8f2ff;
+  border: 1px solid #9bbce5;
+  border-radius: 12px;
+}
+
+.refueling-step:first-child {
+  background: #e3f5e8;
+}
+
+.refueling-step:last-of-type {
+  background: #e3f5e8;
+}
+
+.refueling-arrow {
+  color: #365477;
+  font-size: 26px;
+  line-height: 1;
+}
+
+.refueling-side-note {
+  width: 100%;
+  margin-top: 12px;
+  padding: 14px 18px;
+  text-align: center;
+  color: #72501c;
+  background: #fff3dc;
+  border: 1px dashed #d8ad64;
+  border-radius: 10px;
+  line-height: 1.6;
+}
+
+@media (max-width: 600px) {
+  .refueling-overview,
+  .refueling-flowchart {
+    margin: 28px 0 36px;
+  }
+
+  .refueling-overview-image,
+  .refueling-flowchart-image {
+    max-width: 100%;
+    border-radius: 4px;
+  }
+
+  .refueling-step {
+    padding: 15px 12px;
+  }
+}
