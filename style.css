@@ -1154,3 +1154,67 @@ footer {
         width: 100%;
     }
 }
+
+/* NH3/H2 Combustion — Project Overview */
+.project-overview {
+  width: 100%;
+  margin: 35px 0 45px;
+}
+
+.project-overview-image {
+  display: block;
+  width: 100%;
+  max-width: 1000px;
+  height: auto;
+  margin: 0 auto;
+  border: none;
+  border-radius: 0;
+  box-shadow: none;
+}
+
+.project-overview .image-caption {
+  max-width: 850px;
+  margin: 12px auto 0;
+  text-align: center;
+  color: #64748b;
+  font-size: 0.9rem;
+  line-height: 1.6;
+}
+
+@media (max-width: 600px) {
+  .project-overview-image {
+    max-width: 100%;
+  }
+}
+
+/* NH3/H2 Combustion — Experimental Setup */
+.experimental-setup {
+  width: 100%;
+  margin: 30px 0 45px;
+}
+
+.experimental-setup-image {
+  display: block;
+  width: 100%;
+  max-width: 1000px;
+  height: auto;
+  margin: 0 auto;
+  border: none;
+  border-radius: 0;
+  box-shadow: none;
+}
+
+.experimental-setup figcaption {
+  max-width: 850px;
+  margin: 12px auto 0;
+  text-align: center;
+  color: #64748b;
+  font-size: 0.9rem;
+  line-height: 1.6;
+}
+
+@media (max-width: 600px) {
+  .experimental-setup-image {
+    max-width: 100%;
+  }
+}
