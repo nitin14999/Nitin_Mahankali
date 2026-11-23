@@ -1,716 +1,293 @@
 <!DOCTYPE html>
 <html lang="en">
-
 <head>
-
-    <meta charset="UTF-8">
-
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-
-    <title>Power-to-Ammonia | Nitin Mahankali</title>
-
-    <link rel="stylesheet" href="../style.css">
-
-    <style>
-
-        .project-hero {
-            background: #111;
-            color: white;
-            padding: 110px 30px;
-        }
-
-        .project-hero-container {
-            max-width: 1100px;
-            margin: auto;
-        }
-
-        .project-hero h1 {
-            font-size: 60px;
-            line-height: 1.1;
-            max-width: 800px;
-            margin-bottom: 25px;
-        }
-
-        .project-hero p {
-            max-width: 750px;
-            color: #bbb;
-            font-size: 18px;
-        }
-
-        .project-content {
-            max-width: 1100px;
-            margin: auto;
-            padding: 80px 30px;
-        }
-
-        .project-content h2 {
-            font-size: 38px;
-            margin-top: 70px;
-            margin-bottom: 20px;
-        }
-
-        .project-content h3 {
-            font-size: 23px;
-            margin-top: 35px;
-            margin-bottom: 12px;
-        }
-
-        .project-content p {
-            max-width: 850px;
-            color: #555;
-            margin-bottom: 20px;
-        }
-
-        .project-content ul {
-            max-width: 850px;
-            margin-bottom: 25px;
-            padding-left: 25px;
-            color: #555;
-        }
-
-        .project-content li {
-            margin-bottom: 8px;
-        }
-
-        .role-box {
-            background: #f0f0ed;
-            padding: 30px;
-            border-left: 4px solid #0057b8;
-            margin: 30px 0;
-        }
-
-        .diagram {
-            background: #111;
-            color: white;
-            padding: 40px;
-            margin: 35px 0;
-            font-family: monospace;
-            font-size: 16px;
-            line-height: 1.8;
-            overflow-x: auto;
-        }
-
-        .skills-box {
-            display: grid;
-            grid-template-columns: repeat(2, 1fr);
-            gap: 20px;
-            margin-top: 30px;
-        }
-
-        .skill-group {
-            background: #f5f5f3;
-            padding: 25px;
-        }
-
-        .skill-group strong {
-            display: block;
-            margin-bottom: 10px;
-        }
-
-        .back-button {
-            display: inline-block;
-            margin-top: 50px;
-            padding: 12px 20px;
-            background: #0057b8;
-            color: white;
-            text-decoration: none;
-            border-radius: 5px;
-        }
-
-        @media (max-width: 700px) {
-
-            .project-hero h1 {
-                font-size: 42px;
-            }
-
-            .skills-box {
-                grid-template-columns: 1fr;
-            }
-
-            .project-content {
-                padding: 60px 20px;
-            }
-
-        }
-
-    </style>
-
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Power-to-Ammonia Pilot Plant | Nitin Mahankali</title>
+<meta name="description" content="Case study: design, integration, commissioning, dynamic Haber–Bosch experiments and plant-level modelling of a containerized Power-to-Ammonia pilot plant at INP Greifswald.">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link href="https://fonts.googleapis.com/css2?family=IBM+Plex+Sans+Condensed:wght@600;700&family=IBM+Plex+Sans:wght@400;500;600&display=swap" rel="stylesheet">
+<style>
+:root{color-scheme:light dark;
+--bg:light-dark(#fbfbf8,#0f1418);--paper:light-dark(#ffffff,#151c21);--ink:light-dark(#141a1f,#e9edef);
+--mute:light-dark(#56606a,#9aa6ae);--rule:light-dark(#d9ddd8,#2a343b);
+--h2:light-dark(#d4441c,#ff7a52);--n2:light-dark(#0b7a86,#4cc6d1);--nh3:light-dark(#5b3fb5,#a993ff);--soft:light-dark(#f1f2ee,#1b2329)}
+*{box-sizing:border-box;min-width:0}
+body{margin:0;background:var(--bg);color:var(--ink);font:16.5px/1.6 "IBM Plex Sans",system-ui,sans-serif;overflow-x:clip}
+h1,h2,h3{font-family:"IBM Plex Sans Condensed","IBM Plex Sans",sans-serif;line-height:1.08;text-wrap:balance;margin:0}
+h1{font-size:clamp(32px,4.6vw,50px);max-width:26ch}
+h2{font-size:clamp(26px,3vw,34px);margin-bottom:18px}
+h3{font-size:20px;margin-bottom:8px}
+p{margin:0 0 14px;max-width:68ch}
+a{color:var(--n2)}
+.band{padding:clamp(28px,4vw,64px) max(5vw,16px)}
+.wrap{max-width:1240px;margin:0 auto}
+.paper{background:var(--paper);border-block:1px solid var(--rule)}
+nav{display:flex;flex-wrap:wrap;gap:8px 22px;align-items:center;padding:14px max(5vw,16px);border-bottom:1px solid var(--rule);background:var(--paper)}
+nav a{color:var(--ink);text-decoration:none;font-weight:500;padding:10px 0}
+nav .logo{font-family:"IBM Plex Sans Condensed","IBM Plex Sans",sans-serif;font-weight:700;font-size:20px;margin-right:auto}
+.kicker{color:var(--mute);font-weight:500;margin-bottom:14px}
+.lede{font-size:18.5px;color:var(--mute);margin-top:18px}
+.figs{display:grid;grid-template-columns:repeat(4,minmax(0,1fr));gap:0;margin-top:30px;border-top:2px solid var(--ink)}
+.figs div{padding:14px 16px 4px 0;border-right:1px solid var(--rule);margin-right:16px}
+.figs div:last-child{border:0}
+.figs b{display:block;font:700 clamp(26px,3.2vw,36px)/1.1 "IBM Plex Sans Condensed","IBM Plex Sans",sans-serif;white-space:nowrap}
+.figs span{color:var(--mute);font-size:14px}
+.scroll{overflow-x:auto}
+.diagram{min-width:720px}
+.diagram svg{width:100%;height:auto;display:block}
+.cap{color:var(--mute);font-size:14px;margin-top:10px}
+.flow{stroke-dasharray:7 9;animation:run 1.6s linear infinite}
+@keyframes run{to{stroke-dashoffset:-32}}
+.legend{display:flex;flex-wrap:wrap;gap:6px 20px;font-size:14px;color:var(--mute);margin-top:6px}
+.legend i{display:inline-block;width:22px;height:3px;vertical-align:middle;margin-right:6px}
+.two{display:grid;grid-template-columns:minmax(0,1fr) minmax(0,1fr);gap:clamp(24px,4vw,56px)}
+.phases{display:grid;grid-template-columns:repeat(2,minmax(0,1fr));gap:20px}
+.phase{background:var(--paper);border:1px solid var(--rule);padding:22px 22px 10px}
+.phase .tag{font:600 13px "IBM Plex Sans Condensed","IBM Plex Sans",sans-serif;color:var(--n2);margin-bottom:6px}
+.phase ul{margin:0 0 12px;padding-left:18px}.phase li{margin-bottom:7px}
+.kw{display:flex;flex-wrap:wrap;gap:6px;margin:4px 0 14px}
+.kw span,.skills span{font-size:13px;border:1px solid var(--rule);padding:3px 9px;border-radius:99px;background:var(--soft)}
+.decide{display:grid;grid-template-columns:repeat(3,minmax(0,1fr));gap:20px}
+.decide div{border-top:3px solid var(--nh3);padding-top:14px}
+.story{display:grid;grid-template-columns:repeat(4,minmax(0,1fr));gap:0;border:1px solid var(--rule);background:var(--paper)}
+.story div{padding:20px;border-right:1px solid var(--rule)}.story div:last-child{border:0}
+.story b{display:block;font:700 15px "IBM Plex Sans Condensed","IBM Plex Sans",sans-serif;margin-bottom:6px;color:var(--h2)}
+.doe{display:grid;grid-template-columns:minmax(0,1fr) 56px minmax(0,1fr);align-items:center;gap:10px}
+.col{display:grid;gap:10px}
+.col div{background:var(--paper);border:1px solid var(--rule);padding:12px 14px;font-weight:500}
+.col small{display:block;color:var(--mute);font-weight:400;font-size:14px}
+.arrow{font-size:30px;text-align:center;color:var(--mute)}
+.model{display:grid;gap:14px}
+.eq{display:grid;grid-template-columns:repeat(6,minmax(0,1fr));gap:10px}
+.eq div{background:var(--paper);border:1px solid var(--rule);padding:12px 10px;text-align:center;font-weight:500;font-size:15px}
+.plant{background:var(--ink);color:var(--bg);padding:16px 18px;text-align:center;font:600 18px "IBM Plex Sans Condensed","IBM Plex Sans",sans-serif}
+.valid{border:2px dashed var(--h2);padding:12px 16px;text-align:center;font-weight:500}
+.timeline{position:relative;display:grid;grid-template-columns:repeat(8,minmax(0,1fr));gap:8px;padding-top:26px}
+.timeline:before{content:"";position:absolute;top:8px;left:0;height:3px;width:var(--w,0%);background:var(--n2);transition:width 1.6s ease}
+.timeline div{font-size:14px;font-weight:500;position:relative}
+.timeline div:before{content:"";position:absolute;top:-24px;left:0;width:12px;height:12px;border-radius:50%;background:var(--paper);border:3px solid var(--n2)}
+.skills{display:flex;flex-wrap:wrap;gap:8px}
+.note{font-size:14px;color:var(--mute);border-left:3px solid var(--rule);padding-left:12px}
+.reveal{opacity:0;transform:translateY(22px);transition:opacity .7s ease,transform .7s ease}
+.reveal.in{opacity:1;transform:none}
+footer{padding:30px max(5vw,16px);border-top:1px solid var(--rule);color:var(--mute);font-size:14px;display:flex;flex-wrap:wrap;justify-content:space-between;gap:10px}
+@media(max-width:900px){.phases,.two,.decide{grid-template-columns:minmax(0,1fr)}.story{grid-template-columns:repeat(2,minmax(0,1fr))}.story div:nth-child(2){border-right:0}.story div{border-bottom:1px solid var(--rule)}.eq{grid-template-columns:repeat(3,minmax(0,1fr))}.timeline{grid-template-columns:repeat(4,minmax(0,1fr));row-gap:40px}.timeline:before{display:none}}
+@media(max-width:600px){.figs{grid-template-columns:repeat(2,minmax(0,1fr))}.figs div:nth-child(2){border:0}.story{grid-template-columns:minmax(0,1fr)}.story div{border-right:0}.doe{grid-template-columns:minmax(0,1fr)}.arrow{transform:rotate(90deg)}.eq{grid-template-columns:repeat(2,minmax(0,1fr))}.timeline{grid-template-columns:repeat(2,minmax(0,1fr))}}
+@media(prefers-reduced-motion:reduce){.flow{animation:none}.reveal{opacity:1;transform:none;transition:none}.timeline:before{transition:none}}
+</style>
 </head>
-
-
 <body>
-
-
-<!-- NAVIGATION -->
-
-<nav class="navbar">
-
-    <div class="nav-container">
-
-        <a href="../index.html" class="logo">
-            NM
-        </a>
-
-        <div class="nav-links">
-
-            <a href="../index.html#home">Home</a>
-
-            <a href="../index.html#about">About</a>
-
-            <a href="../index.html#projects">Projects</a>
-
-            <a href="../index.html#expertise">Expertise</a>
-
-            <a href="../index.html#experience">Experience</a>
-
-            <a href="../index.html#contact">Contact</a>
-
-        </div>
-
-    </div>
-
+<nav>
+<a class="logo" href="https://nitin14999.github.io/Nitin_Mahankali/">NM</a>
+<a href="#work">My work</a><a href="#decisions">Decisions</a><a href="#experiments">Experiments</a><a href="#modelling">Modelling</a>
+<a href="https://nitin14999.github.io/Nitin_Mahankali/#projects">All projects</a>
 </nav>
 
+<header class="band">
+<div class="wrap">
+<div class="kicker">Case study · INP Greifswald · Research Scientist · 2024 – present</div>
+<h1>Designing and integrating a containerized Power-to-Ammonia pilot plant</h1>
+<p class="lede">I took the Power-to-Ammonia test field from an empty site to a running experimental plant. I did the plot plan, foundations and pipe and cable routing, wrote the P&amp;IDs, specified and procured the ammonia storage, integrated the PSA and Haber–Bosch synthesis containers, and commissioned the plant. I'm now running dynamic synthesis experiments and building a plant-level model from them.</p>
+<div class="figs">
+<div><b>&lt;100 bar</b><span>synthesis pressure range</span></div>
+<div><b>&lt;600 °C</b><span>reactor temperature range</span></div>
+<div><b>3 : 1</b><span>H₂ : N₂ feed ratio</span></div>
+<div><b>4</b><span>DOE factors varied</span></div>
+</div>
+</div>
+</header>
 
-
-<!-- PROJECT HERO -->
-
-<section class="project-hero">
-
-    <div class="project-hero-container">
-
-        <p class="eyebrow">
-            POWER-TO-X · ENERGY SYSTEMS
-        </p>
-
-        <h1>
-            Power-to-Ammonia &
-            Ammonia-to-Power
-        </h1>
-
-        <p>
-            Development and investigation of decentralized and
-            modular ammonia-based energy systems for renewable
-            energy integration and flexible energy conversion.
-        </p>
-
-    </div>
-
+<section class="band paper" aria-label="Process overview">
+<div class="wrap">
+<div class="scroll"><div class="diagram">
+<svg viewBox="0 0 960 420" role="img" aria-label="Block flow diagram of the Power-to-Ammonia test field">
+<g font-family="IBM Plex Sans, sans-serif" font-size="14" fill="var(--ink)">
+<path class="flow" d="M840 150V40H340V105" fill="none" stroke="var(--nh3)" stroke-width="3" opacity=".6"/>
+<text x="590" y="30" text-anchor="middle" fill="var(--mute)" font-size="13">Recycle of unreacted H₂ / N₂</text>
+<rect x="90" y="65" width="160" height="80" rx="4" fill="var(--soft)" stroke="var(--ink)" stroke-width="1.5"/>
+<text x="170" y="100" text-anchor="middle" font-weight="600">H₂ supply</text>
+<text x="170" y="120" text-anchor="middle" fill="var(--mute)" font-size="13">from electrolysis</text>
+<path class="flow" d="M250 105H340V190" fill="none" stroke="var(--h2)" stroke-width="3.5"/>
+<circle cx="340" cy="105" r="5" fill="var(--ink)"/>
+<path class="flow" d="M28 300H90" fill="none" stroke="var(--mute)" stroke-width="3"/>
+<text x="30" y="288" fill="var(--mute)" font-size="13">Air</text>
+<rect x="90" y="255" width="160" height="90" rx="4" fill="var(--paper)" stroke="var(--n2)" stroke-width="2.5"/>
+<text x="170" y="292" text-anchor="middle" font-weight="600">PSA container</text>
+<text x="170" y="312" text-anchor="middle" fill="var(--mute)" font-size="13">N₂ generation</text>
+<path class="flow" d="M250 300H340V220" fill="none" stroke="var(--n2)" stroke-width="3.5"/>
+<circle cx="340" cy="205" r="15" fill="var(--paper)" stroke="var(--ink)" stroke-width="2"/>
+<text x="340" y="250" text-anchor="middle" font-size="13" fill="var(--mute)">3 : 1</text>
+<path class="flow" d="M355 205H400" fill="none" stroke="var(--ink)" stroke-width="3.5"/>
+<circle cx="418" cy="205" r="18" fill="var(--paper)" stroke="var(--ink)" stroke-width="2"/>
+<path d="M404 196L432 199M404 214L432 211" stroke="var(--ink)" stroke-width="1.5"/>
+<text x="418" y="250" text-anchor="middle" font-size="13" fill="var(--mute)">compression</text>
+<path class="flow" d="M436 205H492" fill="none" stroke="var(--ink)" stroke-width="3.5"/>
+<rect x="492" y="95" width="256" height="220" rx="4" fill="var(--paper)" stroke="var(--nh3)" stroke-width="2.5"/>
+<text x="620" y="122" text-anchor="middle" font-weight="600">HBS container</text>
+<rect x="516" y="140" width="48" height="140" rx="20" fill="var(--soft)" stroke="var(--ink)" stroke-width="1.5"/>
+<rect x="596" y="140" width="48" height="140" rx="20" fill="var(--soft)" stroke="var(--ink)" stroke-width="1.5"/>
+<text x="540" y="300" text-anchor="middle" font-size="12" fill="var(--mute)">R-1</text>
+<text x="620" y="300" text-anchor="middle" font-size="12" fill="var(--mute)">R-2</text>
+<path class="flow" d="M564 205H596M644 205H672" fill="none" stroke="var(--nh3)" stroke-width="3"/>
+<polyline points="672,205 680,190 690,220 700,190 710,220 720,205" fill="none" stroke="var(--h2)" stroke-width="2"/>
+<text x="696" y="300" text-anchor="middle" font-size="12" fill="var(--mute)">internal HX</text>
+<path class="flow" d="M720 205H780" fill="none" stroke="var(--nh3)" stroke-width="3.5"/>
+<rect x="780" y="150" width="120" height="100" rx="4" fill="var(--paper)" stroke="var(--ink)" stroke-width="1.5"/>
+<text x="840" y="195" text-anchor="middle" font-weight="600">Condenser /</text>
+<text x="840" y="214" text-anchor="middle" font-weight="600">separator</text>
+<path class="flow" d="M840 250V310" fill="none" stroke="var(--nh3)" stroke-width="3.5"/>
+<rect x="760" y="310" width="170" height="80" rx="4" fill="var(--soft)" stroke="var(--nh3)" stroke-width="2.5"/>
+<text x="845" y="345" text-anchor="middle" font-weight="600">NH₃ storage container</text>
+<text x="845" y="365" text-anchor="middle" fill="var(--mute)" font-size="13">pressure-liquefied</text>
+</g>
+</svg>
+</div></div>
+<div class="legend"><span><i style="background:var(--h2)"></i>Hydrogen</span><span><i style="background:var(--n2)"></i>Nitrogen</span><span><i style="background:var(--ink)"></i>Synthesis gas</span><span><i style="background:var(--nh3)"></i>Ammonia / loop gas</span></div>
+<p class="cap">Simplified block flow diagram of the Power-to-Ammonia test field. It's drawn for this portfolio and isn't the confidential plant P&amp;ID.</p>
+</div>
 </section>
 
-
-
-<!-- PROJECT CONTENT -->
-
-<main class="project-content">
-
-
-    <h2>
-        Project Overview
-    </h2>
-
-    <p>
-
-        Development and investigation of decentralized and modular
-        Power-to-Ammonia (PtA) and Ammonia-to-Power (A2P) systems
-        for renewable energy integration and flexible energy
-        conversion.
-
-    </p>
-
-    <p>
-
-        The work combines process engineering, thermodynamic
-        analysis, mechanical system integration, equipment
-        selection, experimental development and technical
-        documentation.
-
-    </p>
-
-   
-<!-- System-level overview image -->
-<figure class="flowchart-container">
-  <img
-    src="power-to-ammonia-Decription.png"
-    alt="Conceptual overview of Power-to-Ammonia and Ammonia-to-Power"
-    class="system-flowchart-image"
-    loading="lazy"
-  >
-
-  <figcaption class="image-caption">
-    System-level concept: renewable electricity to green ammonia,
-    followed by storage, distribution and downstream energy conversion.
-  </figcaption>
-</figure>
-
-    
-
-    
-<!-- PROJECT DESCRIPTION SECTION -->
-<section class="project-description">
-
-  <h2>Project Description</h2>
-
-  <p>
-    This project presents a system-level concept for integrating
-    renewable electricity with green ammonia production, storage,
-    distribution and downstream energy conversion. The concept
-    combines Power-to-Ammonia (PtA) with Ammonia-to-Power (A2P)
-    pathways to investigate the potential use of ammonia as a
-    renewable energy carrier.
-  </p>
-
-  <h3>Process Overview</h3>
-
-  <p>
-    Renewable electricity is used to produce hydrogen through water
-    electrolysis. Nitrogen is separated from air, and the hydrogen
-    and nitrogen are conditioned for ammonia synthesis using the
-    Haber–Bosch process. The resulting ammonia can be stored and
-    transported for subsequent use.
-  </p>
-
-  <p>
-    For ammonia-to-power applications, ammonia may be used directly
-    in suitable combustion systems or converted through ammonia
-    cracking to hydrogen and nitrogen, with the hydrogen then
-    supplied to a suitable fuel cell system. The appropriate
-    pathway depends on the application, operating conditions
-    and system requirements.
-  </p>
-
-  <h3>System Description Image</h3>
-
-  <figure class="description-figure">
-    <img
-      src="power-to-ammonia-system-description.png"
-      alt="Technical illustration of the Power-to-Ammonia and Ammonia-to-Power system"
-      class="description-image"
-      loading="lazy"
-    >
-    <figcaption>
-      Illustrative system configuration for green ammonia production,
-      storage and downstream utilization.
-    </figcaption>
-  </figure>
-
-  <div class="description-download">
-    <h3>Project Description Document</h3>
-    <p>
-      Download the project description for further technical details.
-    </p>
-    <a
-      href="power-to-ammonia-description.pdf"
-      class="download-link"
-      target="_blank"
-      rel="noopener"
-    >
-      Download Project Description (PDF)
-    </a>
-  </div>
-
+<section class="band reveal">
+<div class="wrap two">
+<div>
+<h2>The problem</h2>
+<p>Conventional Haber–Bosch plants are huge, run continuously, and use catalysts that heat up and cool down slowly. Renewable electricity fluctuates, so a decentralized green-ammonia plant has to start, stop and change load often.</p>
+<p>INP needed a containerized pilot plant to test this: one that is safe with hydrogen and pressurized ammonia, fits a real test field, and is instrumented well enough to show how a fast-response catalyst behaves under dynamic operation. There was little prior operating data to build on.</p>
+</div>
+<div>
+<h2>My role</h2>
+<p>I was the design engineer for the test field and the experimentalist on the synthesis loop. I owned the layout, P&amp;IDs, equipment and instrumentation, safety measures and integration of the containers. I worked with civil engineers, suppliers and the safety team, then defined and ran the experimental campaign and started the modelling.</p>
+<p class="note">Plant capacity, operating data and drawings are confidential. This page shows my scope and methods, not the results.</p>
+</div>
+</div>
 </section>
 
-
-
-    <h2>
-        My Role
-    </h2>
-
-    <div class="role-box">
-
-        <strong>
-            Research Scientist — INP Greifswald
-        </strong>
-
-        <ul>
-
-            <li>Process engineering and system-level development</li>
-
-            <li>PFD and P&ID development</li>
-
-            <li>Mass and energy balances</li>
-
-            <li>Thermodynamic calculations</li>
-
-            <li>Pressure-drop and flow calculations</li>
-
-            <li>Equipment and component selection</li>
-
-            <li>Piping and pressure-system integration</li>
-
-            <li>Mechanical system design and layout</li>
-
-            <li>Technical specifications and documentation</li>
-
-            <li>Experimental setup development</li>
-
-            <li>Commissioning and troubleshooting support</li>
-
-            <li>Safety assessment and risk evaluation</li>
-
-            <li>Supplier and procurement coordination</li>
-
-        </ul>
-
-    </div>
-
-
-
-    <h2>
-        Engineering Challenge
-    </h2>
-
-    <p>
-
-        Renewable electricity generation is inherently variable.
-        Integrating renewable power with chemical energy storage
-        requires systems capable of operating under changing
-        operating conditions.
-
-    </p>
-
-    <p>
-
-        Ammonia provides a potential energy carrier for storing
-        and transporting renewable energy. The engineering
-        challenge is therefore to develop compact, modular and
-        flexible systems integrating hydrogen, nitrogen, ammonia
-        synthesis, storage and downstream energy conversion.
-
-    </p>
-
-
-
-    <h2>
-        Engineering Approach
-    </h2>
-
-
-    <h3>
-        Process Engineering
-    </h3>
-
-    <ul>
-
-        <li>Process flow development</li>
-
-        <li>PFD and P&ID development</li>
-
-        <li>Mass and energy balances</li>
-
-        <li>Thermodynamic calculations</li>
-
-        <li>Flow and pressure-drop calculations</li>
-
-        <li>Equipment specification and selection</li>
-
-        <li>Process integration</li>
-
-    </ul>
-
-
-    <h3>
-        Mechanical Engineering
-    </h3>
-
-    <ul>
-
-        <li>Piping-system design</li>
-
-        <li>Pressure-system integration</li>
-
-        <li>Mechanical component selection</li>
-
-        <li>Equipment interfaces</li>
-
-        <li>CAD layouts and assemblies</li>
-
-        <li>Technical drawings and documentation</li>
-
-    </ul>
-
-
-    <h3>
-        Safety & Reliability
-    </h3>
-
-    <p>
-
-        Particular attention is given to ammonia handling,
-        pressure systems, gas handling, containment and
-        operational safety.
-
-    </p>
-
-    <p>
-
-        Safety activities include HAZID, HAZOP, risk assessment,
-        safety margins and consideration of material compatibility.
-
-    </p>
-
-
-
-    <h2>
-        System-Level Concept
-    </h2>
-
-    <p>
-
-        The system concept connects renewable electricity with
-        hydrogen production, nitrogen supply, ammonia synthesis,
-        storage and downstream power conversion.
-
-    </p>
-
-
-
-
-<section class="system-flowchart">
-  <h2>System-Level Flowchart: Power-to-Ammonia and Ammonia-to-Power</h2>
-
-  <p>
-    This conceptual flowchart illustrates renewable electricity
-    conversion to hydrogen and nitrogen, ammonia synthesis,
-    storage, and downstream ammonia utilization or power generation.
-  </p>
-
-  <img
-    src="power-to-ammonia-Flowchart.png"
-    alt="System-level Power-to-Ammonia and Ammonia-to-Power flowchart"
-    class="flowchart-image"
-  >
+<section class="band reveal" id="work" style="padding-top:0">
+<div class="wrap">
+<h2>What I did</h2>
+<div class="timeline" id="tl">
+<div>Layout &amp; civil</div><div>PFD / P&amp;ID</div><div>Procurement</div><div>Integration</div><div>HAZOP &amp; safety</div><div>Commissioning</div><div>DOE experiments</div><div>Modelling</div>
+</div>
+<div class="phases" style="margin-top:34px">
+<div class="phase reveal"><div class="tag">Site &amp; plant layout</div><h3>Plot plan for a containerized test field</h3>
+<ul><li>I arranged the process containers and supply units on the test field: plot plan, safety distances and access for operation and maintenance.</li>
+<li>I planned the pipe routes between containers to keep forklift lanes clear so containers and equipment can still be moved and serviced.</li>
+<li>I routed the heavy power cables through the test field and connected them to every container.</li></ul>
+<div class="kw"><span>Plot plan</span><span>Pipe routing</span><span>Cable routing</span><span>Modular plant</span></div></div>
+
+<div class="phase reveal"><div class="tag">Civil interface</div><h3>Soil analysis and foundations</h3>
+<ul><li>I worked with civil engineers on the soil (geotechnical) analysis for the site.</li>
+<li>I planned the foundations for each container from its loads and position, then supported the construction work.</li></ul>
+<div class="kw"><span>Geotechnical survey</span><span>Foundation planning</span><span>Construction coordination</span></div></div>
+
+<div class="phase reveal"><div class="tag">Process engineering</div><h3>PFDs and P&amp;IDs</h3>
+<ul><li>I developed the PFDs and P&amp;IDs for the test field, including the PSA (N₂) and HBS (Haber–Bosch synthesis) containers and their tie-ins.</li>
+<li>I set the H₂ / N₂ feed at a 3 : 1 ratio for an operating envelope below 100 bar and 600 °C.</li></ul>
+<div class="kw"><span>PFD</span><span>P&amp;ID</span><span>Mass balance</span><span>Line &amp; instrument tagging</span></div></div>
+
+<div class="phase reveal"><div class="tag">Equipment &amp; procurement</div><h3>Ammonia storage and plant equipment</h3>
+<ul><li>I chose the storage concept, wrote the specification for a <strong>pressure-liquefied ammonia storage container</strong>, and planned and placed the order.</li>
+<li>I designed, specified and procured the plant equipment and instrumentation.</li></ul>
+<div class="kw"><span>Technical specification</span><span>Vendor coordination</span><span>Instrumentation</span><span>NH₃ storage</span></div></div>
+
+<div class="phase reveal"><div class="tag">System integration</div><h3>PSA and HBS containers</h3>
+<ul><li>I integrated the PSA and HBS containers <strong>mechanically</strong> (process piping and tie-ins) and <strong>electrically</strong> (power, signals and instrumentation) with the other containers.</li>
+<li>I defined the interfaces between supplier containers and the INP infrastructure.</li></ul>
+<div class="kw"><span>Mechanical tie-ins</span><span>Electrical integration</span><span>I&amp;C interfaces</span></div></div>
+
+<div class="phase reveal"><div class="tag">Safety &amp; commissioning</div><h3>HAZOP to a gas-tight plant</h3>
+<ul><li>I took part in the hazard (HAZOP) workshops, implemented the safety measures that came out of them, and specified and procured the safety devices.</li>
+<li>I ran the leak-tightness test of the HBS container and commissioned N₂ generation in the PSA container.</li></ul>
+<div class="kw"><span>HAZOP</span><span>H₂ / NH₃ safety</span><span>Leak testing</span><span>Commissioning</span></div></div>
+</div>
+</div>
 </section>
 
-
-
-
-    <h2>
-        Equipment & System Integration
-    </h2>
-
-    <p>
-
-        The work involves integration of components and subsystems
-        including:
-
-    </p>
-
-    <ul>
-
-        <li>Hydrogen and nitrogen systems</li>
-
-        <li>Compressors</li>
-
-        <li>Storage systems</li>
-
-        <li>Piping networks</li>
-
-        <li>Pressure systems</li>
-
-        <li>Gas-handling equipment</li>
-
-        <li>Ammonia systems</li>
-
-        <li>Utilities</li>
-
-        <li>Instrumentation and control interfaces</li>
-
-    </ul>
-
-    <p>
-
-        Component selection considers pressure, temperature,
-        loads, material compatibility, safety requirements and
-        functional requirements.
-
-    </p>
-
-
-
-    <h2>
-        Experimental & Development Work
-    </h2>
-
-    <ul>
-
-        <li>Experimental setup development</li>
-
-        <li>Instrumentation</li>
-
-        <li>Data acquisition</li>
-
-        <li>System validation</li>
-
-        <li>Troubleshooting</li>
-
-        <li>Root-cause analysis</li>
-
-        <li>Performance evaluation</li>
-
-        <li>Technical documentation</li>
-
-    </ul>
-
-
-
-    <h2>
-        Data & Analysis
-    </h2>
-
-    <p>
-
-        Engineering analysis and experimental data are processed
-        using Python and scientific computing tools.
-
-    </p>
-
-    <ul>
-
-        <li>Data processing</li>
-
-        <li>Regression</li>
-
-        <li>Design of Experiments</li>
-
-        <li>Statistical analysis</li>
-
-        <li>Parameter sensitivity analysis</li>
-
-        <li>Performance evaluation</li>
-
-        <li>Process optimization</li>
-
-    </ul>
-
-
-
-    <h2>
-        Engineering Outcome
-    </h2>
-
-    <p>
-
-        The work contributes to the development of modular
-        ammonia-based energy-system concepts and experimental
-        platforms for renewable energy integration.
-
-    </p>
-
-    <p>
-
-        The engineering activities span the development cycle
-        from process concept and calculations through mechanical
-        integration, equipment selection, experimental validation
-        and technical documentation.
-
-    </p>
-
-
-
-    <h2>
-        Tools & Skills
-    </h2>
-
-
-    <div class="skills-box">
-
-
-        <div class="skill-group">
-
-            <strong>
-                Engineering
-            </strong>
-
-            Process Engineering · Mechanical Engineering ·
-            System Integration · Thermodynamics · Fluid Mechanics ·
-            PFD · P&ID · Pressure Systems · Piping
-
-        </div>
-
-
-        <div class="skill-group">
-
-            <strong>
-                Energy Systems
-            </strong>
-
-            Power-to-X · Power-to-Ammonia ·
-            Ammonia-to-Power · Green Ammonia ·
-            Hydrogen · Renewable Integration
-
-        </div>
-
-
-        <div class="skill-group">
-
-            <strong>
-                Analysis
-            </strong>
-
-            Mass & Energy Balances · Pressure Drop ·
-            Flow Calculations · Process Optimization · DoE
-
-        </div>
-
-
-        <div class="skill-group">
-
-            <strong>
-                Software
-            </strong>
-
-            Python · NumPy · Pandas · Matplotlib ·
-            SolidWorks · Autodesk Plant 3D · ANSYS · MS Office
-
-        </div>
-
-
-        <div class="skill-group">
-
-            <strong>
-                Safety
-            </strong>
-
-            HAZID · HAZOP · Risk Assessment ·
-            Ammonia Safety · Pressure Safety
-
-        </div>
-
-
-    </div>
-
-
-
-    <a href="../index.html#projects" class="back-button">
-
-        ← Back to Projects
-
-    </a>
-
-
-</main>
-
-
-
-<footer>
-
-    <div class="footer-container">
-
-        <p>
-            © 2026 Nitin Mahankali
-        </p>
-
-        <p>
-            Mechanical Engineer · Research Scientist
-        </p>
-
-    </div>
-
-</footer>
-
-
+<section class="band paper reveal" id="decisions">
+<div class="wrap">
+<h2>Key engineering decisions</h2>
+<div class="decide">
+<div><h3>Pressure-liquefied NH₃ storage</h3><p>Ammonia is stored as a liquid under its own vapour pressure. At pilot scale this is simpler and needs less infrastructure than refrigerated storage, and it matches how the ammonia is handled downstream.</p></div>
+<div><h3>Layout built around access</h3><p>Pipe and cable routes were laid out to keep forklift lanes clear. In a test field, containers and equipment get moved and exchanged, so access was a design requirement and not left until afterwards.</p></div>
+<div><h3>DOE instead of one-factor testing</h3><p>The operating points come from the reactor and catalyst limits. A designed experiment shows main effects and interactions with far fewer runs, and every run also becomes model-validation data.</p></div>
+</div>
+</div>
+</section>
+
+<section class="band reveal" id="experiments">
+<div class="wrap">
+<h2>Dynamic Haber–Bosch experiments</h2>
+<p>The catalyst heats up and cools down much faster than conventional ammonia-synthesis catalysts, which is what makes flexible operation possible. I designed the campaign to measure that dynamic behaviour.</p>
+<div class="doe" style="margin-top:22px">
+<div class="col">
+<div>Pressure<small>below 100 bar</small></div>
+<div>Temperature<small>below 600 °C</small></div>
+<div>Total flow rate<small>load changes</small></div>
+<div>H₂ : N₂ ratio<small>varied around 3 : 1</small></div>
+</div>
+<div class="arrow" aria-hidden="true">→</div>
+<div class="col">
+<div>NH₃ conversion<small>vs. pressure, temperature and flow</small></div>
+<div>Reactor temperature profiles<small>heat flow across the reactor and internal HX</small></div>
+<div>Start-up / shutdown response<small>time until NH₃ is produced</small></div>
+<div>Energy consumption<small>for the energy balance and model</small></div>
+</div>
+</div>
+<p class="cap">The left column shows the factors I varied (DOE inputs). The right column shows the responses I measured.</p>
+</div>
+</section>
+
+<section class="band paper reveal">
+<div class="wrap">
+<h2>The hardest part: very little data to start from</h2>
+<div class="story">
+<div><b>Challenge</b>There was almost no operating data for this reactor and catalyst under dynamic conditions. At first we could only watch how the temperatures developed.</div>
+<div><b>Diagnosis</b>Unstructured testing would have taken too long and given data that couldn't be compared or used for a model.</div>
+<div><b>Action</b>I defined operating windows from the reactor and catalyst limits, used DOE to cut the number of runs, and added start-up and shutdown tests. I made sure the plant was gas-tight and N₂ was available first.</div>
+<div><b>Result</b>I now have a structured dataset for each operating point covering conversion, temperature profiles and energy. It feeds directly into the plant model.</div>
+</div>
+</div>
+</section>
+
+<section class="band reveal" id="modelling">
+<div class="wrap">
+<h2>From equipment models to a plant model</h2>
+<p>I model each piece of equipment separately (mass and energy balances, plus dynamic behaviour where it matters), then connect the models into one plant-level model. My own pilot-plant measurements validate it.</p>
+<div class="model" style="margin-top:20px">
+<div class="eq"><div>PSA (N₂)</div><div>Compressor</div><div>Synthesis reactor</div><div>Heat exchanger</div><div>Separator</div><div>NH₃ storage</div></div>
+<div class="arrow" aria-hidden="true">↓</div>
+<div class="plant">Dynamic plant-level model of the Power-to-Ammonia test field</div>
+<div class="valid">Validated against the DOE dataset: conversion, temperature profiles, energy</div>
+</div>
+<p class="cap">Work in progress. Python-based 0D / dynamic modelling, designed to grow into a digital twin of the test field.</p>
+</div>
+</section>
+
+<section class="band paper reveal">
+<div class="wrap two">
+<div>
+<h2>Next steps</h2>
+<p>Complete the dynamic campaign, validate the reactor model against the measured start-up and load-change behaviour, then use the plant model to test operating strategies under real renewable power profiles before trying them on the plant.</p>
+</div>
+<div>
+<h2>Skills shown</h2>
+<div class="skills"><span>Plant layout</span><span>PFD / P&amp;ID</span><span>Equipment specification</span><span>Procurement</span><span>Civil interface</span><span>Mechanical &amp; electrical integration</span><span>HAZOP</span><span>Commissioning</span><span>Leak testing</span><span>Haber–Bosch</span><span>PSA</span><span>DOE</span><span>Dynamic operation</span><span>Process modelling</span><span>Python</span></div>
+</div>
+</div>
+</section>
+
+<footer><span>© 2026 Nitin Mahankali · Mechanical Engineer · Research Scientist</span><a href="https://nitin14999.github.io/Nitin_Mahankali/#projects">← Back to projects</a></footer>
+
+<script>
+{
+const els=document.querySelectorAll('.reveal');
+const io=new IntersectionObserver(es=>{for(const e of es){if(e.isIntersecting){e.target.classList.add('in');io.unobserve(e.target)}}},{threshold:.12});
+els.forEach(el=>io.observe(el));
+const tl=document.getElementById('tl');
+const tio=new IntersectionObserver(es=>{if(es[0].isIntersecting){tl.style.setProperty('--w','100%');tio.disconnect()}},{threshold:.5});
+tio.observe(tl);
+}
+</script>
 </body>
-
 </html>
