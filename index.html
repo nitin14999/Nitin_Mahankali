@@ -1,848 +1,355 @@
 <!DOCTYPE html>
 <html lang="en">
-
 <head>
-
-    <meta charset="UTF-8">
-
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-
-    <meta name="description"
-        content="Nitin Mahankali - Mechanical Engineer and Research Scientist specializing in energy systems, Power-to-X, green ammonia, combustion, process engineering and additive manufacturing.">
-
-    <title>Nitin Mahankali | Mechanical Engineer & Research Scientist</title>
-
-    <link rel="stylesheet" href="style.css">
-
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Nitin Mahankali | Mechanical &amp; Process Engineer · Research Scientist</title>
+<meta name="description" content="Nitin Mahankali: mechanical and process engineer working across the ammonia value chain: Power-to-Ammonia pilot plants, NH₃/H₂ combustion, ammonia safety, refuelling, SOFC systems and metal additive manufacturing.">
+<meta property="og:title" content="Nitin Mahankali | Engineering the ammonia value chain">
+<meta property="og:description" content="Six engineering case studies, from a containerized Haber–Bosch pilot plant to NH₃/H₂ engines and SOFC systems.">
+<link rel="icon" href="data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 64 64'%3E%3Crect width='64' height='64' rx='14' fill='%230e1a1f'/%3E%3Cpath d='M14 46V18l16 28V18M34 46V18l8 16 8-16v28' fill='none' stroke='%234cc6d1' stroke-width='5' stroke-linejoin='round'/%3E%3C/svg%3E">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link href="https://fonts.googleapis.com/css2?family=IBM+Plex+Sans+Condensed:wght@600;700&family=IBM+Plex+Sans:wght@400;500;600&display=swap" rel="stylesheet">
+<style>
+/* VOICE: confident engineer's personal site; factual, warm, no slogans.
+   IDEA: the ammonia value chain as a live process line; every project is a station on it.
+   PICTURE: animated hero chain (power → H2/N2 → synthesis → storage → engine/SOFC → power) with molecules flowing; nodes link to case studies.
+   COLOUR and TYPE: deep process-ink hero; H2 vermilion, N2 teal, NH3 violet; IBM Plex Sans Condensed + Plex Sans, same as the case studies.
+   LAYOUT: dark hero + range strip, projects (featured + grid), approach, experience, toolbox, about, dark contact band. */
+:root{color-scheme:light dark;
+--bg:light-dark(#fbfbf8,#0f1418);--paper:light-dark(#ffffff,#151c21);--ink:light-dark(#141a1f,#e9edef);
+--mute:light-dark(#56606a,#9aa6ae);--rule:light-dark(#d9ddd8,#2a343b);--soft:light-dark(#f1f2ee,#1b2329);
+--h2:light-dark(#d4441c,#ff7a52);--n2:light-dark(#0b7a86,#4cc6d1);--nh3:light-dark(#5b3fb5,#a993ff);
+--deep:#0e1a1f;--deep2:#13252c;--on:#e8eff1;--onm:#a6b8be;--dh2:#ff7a52;--dn2:#4cc6d1;--dnh3:#a993ff}
+:root[data-theme=light]{color-scheme:light}:root[data-theme=dark]{color-scheme:dark}
+*{box-sizing:border-box;min-width:0}
+html{scroll-behavior:smooth;scroll-padding-top:72px}
+body{margin:0;background:var(--bg);color:var(--ink);font:16.5px/1.6 "IBM Plex Sans",system-ui,sans-serif;overflow-x:clip}
+h1,h2,h3{font-family:"IBM Plex Sans Condensed","IBM Plex Sans",sans-serif;line-height:1.06;text-wrap:balance;margin:0}
+h2{font-size:clamp(30px,3.6vw,44px);margin-bottom:12px}
+h3{font-size:21px;margin-bottom:6px}
+p{margin:0 0 14px;max-width:66ch}
+a{color:inherit}
+.band{padding:clamp(48px,6vw,96px) max(5vw,16px)}
+.wrap{max-width:1240px;margin:0 auto}
+.sub{color:var(--mute);font-size:18px;margin-bottom:34px}
+/* nav */
+nav{position:sticky;top:0;z-index:20;display:flex;flex-wrap:wrap;align-items:center;gap:6px 24px;padding:12px max(5vw,16px);background:rgba(14,26,31,.88);backdrop-filter:blur(10px);color:var(--on);border-bottom:1px solid rgba(255,255,255,.08)}
+nav .logo{display:flex;align-items:center;gap:10px;margin-right:auto;text-decoration:none;font:700 18px "IBM Plex Sans Condensed","IBM Plex Sans",sans-serif}
+nav .logo svg{width:34px;height:34px}
+nav a.l{color:var(--onm);text-decoration:none;font-weight:500;padding:10px 0}
+nav a.l:hover,nav a.l:focus-visible{color:var(--on)}
+nav .cta{background:var(--dn2);color:var(--deep);padding:8px 16px;border-radius:99px;font-weight:600;text-decoration:none}
+/* hero */
+.hero{background:radial-gradient(1200px 500px at 70% 30%,var(--deep2),var(--deep));color:var(--on);padding:clamp(40px,6vw,84px) max(5vw,16px) 0}
+.hero .eyebrow{color:var(--dn2);font-weight:600;margin-bottom:14px}
+.hero h1{font-size:clamp(40px,6.4vw,78px);letter-spacing:-.01em}
+.hero .tag{font:600 clamp(22px,2.6vw,32px)/1.2 "IBM Plex Sans Condensed","IBM Plex Sans",sans-serif;margin:14px 0 18px;color:var(--on);max-width:26ch}
+.hero .tag em{font-style:normal;color:var(--dnh3)}
+.hero p.lede{color:var(--onm);font-size:18px;max-width:60ch}
+.btns{display:flex;flex-wrap:wrap;gap:12px;margin-top:22px}
+.btn{display:inline-flex;align-items:center;min-height:46px;padding:0 22px;border-radius:99px;font-weight:600;text-decoration:none}
+.btn.p{background:var(--on);color:var(--deep)}.btn.s{border:1.5px solid rgba(255,255,255,.35);color:var(--on)}
+.btn:hover{transform:translateY(-1px)}
+.chain{margin-top:clamp(26px,4vw,48px);padding-bottom:clamp(28px,4vw,56px)}
+.chain .scroll{overflow-x:auto}
+.chain svg{display:block;width:100%;min-width:860px;height:auto}
+.node circle.ring{transition:stroke-width .2s}
+.node:hover circle.ring,.node:focus-visible circle.ring{stroke-width:4}
+.node{cursor:pointer}
+.hint{color:var(--onm);font-size:14px;margin:6px 0 0}
+.top{display:grid;grid-template-columns:minmax(0,1.5fr) minmax(0,1fr);gap:clamp(24px,4vw,64px);align-items:end}
+.range{display:grid;grid-template-columns:repeat(2,minmax(0,1fr));border:1px solid rgba(255,255,255,.12);background:rgba(255,255,255,.03)}
+.range div{border:1px solid rgba(255,255,255,.08)}
+.range div{padding:20px 18px 22px}
+.range b{display:block;font:700 clamp(20px,2.1vw,27px)/1.1 "IBM Plex Sans Condensed","IBM Plex Sans",sans-serif;white-space:nowrap}
+.range span{color:var(--onm);font-size:14px}
+/* projects */
+.feat{display:grid;grid-template-columns:minmax(0,1.1fr) minmax(0,1fr);background:var(--paper);border:1px solid var(--rule);text-decoration:none;margin-bottom:22px;transition:transform .25s,box-shadow .25s}
+.feat .art{background:var(--deep);display:flex;align-items:center;justify-content:center;padding:26px}
+.feat .art svg{width:100%;max-width:520px;height:auto}
+.feat .txt{padding:clamp(22px,3vw,40px)}
+.grid{display:grid;grid-template-columns:repeat(3,minmax(0,1fr));gap:22px}
+.card{display:flex;flex-direction:column;background:var(--paper);border:1px solid var(--rule);text-decoration:none;transition:transform .25s,box-shadow .25s}
+.card .art{background:var(--soft);border-bottom:1px solid var(--rule);height:150px;display:flex;align-items:center;justify-content:center}
+.card .art svg{height:110px;width:auto}
+.card .txt{padding:20px 22px 22px;display:flex;flex-direction:column;flex:1}
+.card p{color:var(--mute);font-size:15.5px}.card p.more{color:var(--n2)}
+.more{margin-top:auto;font-weight:600;color:var(--n2)}
+.card:hover,.feat:hover,.card:focus-visible,.feat:focus-visible{transform:translateY(-4px);box-shadow:0 18px 40px -22px rgba(0,0,0,.45)}
+.meta{display:flex;flex-wrap:wrap;gap:8px;margin-bottom:10px;font-size:13px}
+.meta span{padding:2px 10px;border-radius:99px;border:1px solid var(--rule);background:var(--soft)}
+.meta .st{border-color:transparent;color:#fff}
+.st.on{background:var(--n2)}.st.cp{background:var(--nh3)}.st.ds{background:var(--h2)}
+/* approach */
+.steps{display:grid;grid-template-columns:repeat(4,minmax(0,1fr));gap:0;counter-reset:s;border-top:2px solid var(--ink)}
+.steps div{padding:22px 22px 6px 0;border-right:1px solid var(--rule);margin-right:22px}
+.steps div:last-child{border:0}
+.steps b{display:block;font:700 15px "IBM Plex Sans Condensed","IBM Plex Sans",sans-serif;color:var(--n2);margin-bottom:6px}
+.steps p{font-size:15.5px;color:var(--mute)}
+/* experience */
+.tl{position:relative;display:grid;gap:26px;padding-left:34px}
+.tl:before{content:"";position:absolute;left:9px;top:6px;bottom:6px;width:3px;background:var(--rule)}
+.tl .it{position:relative;display:grid;grid-template-columns:170px minmax(0,1fr);gap:20px}
+.tl .it:before{content:"";position:absolute;left:-34px;top:4px;width:21px;height:21px;border-radius:50%;background:var(--bg);border:4px solid var(--n2)}
+.tl .it.ed:before{border-color:var(--nh3)}
+.tl .when{font-weight:600;color:var(--mute)}
+.tl h3{margin-bottom:2px}.tl .org{font-weight:600;margin-bottom:6px}
+.tl a{color:var(--n2);font-weight:600}
+/* toolbox */
+.tools{display:grid;grid-template-columns:repeat(3,minmax(0,1fr));gap:22px}
+.tools>div{background:var(--paper);border:1px solid var(--rule);padding:20px}
+.chips{display:flex;flex-wrap:wrap;gap:6px;margin-top:10px}
+.chips span{font-size:13.5px;padding:3px 10px;border-radius:99px;background:var(--soft);border:1px solid var(--rule)}
+/* about */
+.about{display:grid;grid-template-columns:minmax(0,1.2fr) minmax(0,1fr);gap:clamp(24px,4vw,64px);align-items:start}
+.facts{display:grid;gap:12px}
+.facts div{display:grid;grid-template-columns:130px minmax(0,1fr);gap:14px;border-bottom:1px solid var(--rule);padding-bottom:12px}
+.facts dt{color:var(--mute);font-weight:500}
+.now{background:var(--paper);border:1px solid var(--rule);border-left:4px solid var(--nh3);padding:18px 20px;margin-top:20px}
+/* contact */
+.contact{background:var(--deep);color:var(--on)}
+.contact h2{font-size:clamp(34px,5vw,60px);max-width:16ch}
+.contact p{color:var(--onm);font-size:18px}
+.contact .addr{font:600 clamp(18px,2.2vw,24px) "IBM Plex Sans",sans-serif;color:var(--on);margin:18px 0 4px;word-break:break-all}
+footer{background:var(--deep);color:var(--onm);border-top:1px solid rgba(255,255,255,.1);padding:22px max(5vw,16px);font-size:14px;display:flex;flex-wrap:wrap;justify-content:space-between;gap:10px}
+/* motion */
+.reveal{opacity:0;transform:translateY(26px);transition:opacity .8s ease,transform .8s ease}
+.reveal.in{opacity:1;transform:none}
+a:focus-visible{outline:3px solid var(--dn2);outline-offset:3px}
+@media(max-width:980px){.top{grid-template-columns:minmax(0,1fr)}.grid,.tools{grid-template-columns:repeat(2,minmax(0,1fr))}.steps{grid-template-columns:repeat(2,minmax(0,1fr))}.steps div:nth-child(2){border:0}.feat,.about{grid-template-columns:minmax(0,1fr)}}
+@media(max-width:600px){.grid,.tools,.steps{grid-template-columns:minmax(0,1fr)}.steps div{border-right:0;border-bottom:1px solid var(--rule);margin-right:0}.range{grid-template-columns:repeat(2,minmax(0,1fr))}.tl .it{grid-template-columns:minmax(0,1fr);gap:4px}.facts div{grid-template-columns:minmax(0,1fr);gap:2px}nav a.l{display:none}}
+@media(prefers-reduced-motion:reduce){html{scroll-behavior:auto}.reveal{opacity:1;transform:none;transition:none}.card,.feat{transition:none}}
+</style>
 </head>
-
-
 <body>
 
-
-<!-- =========================
-     NAVIGATION
-========================= -->
-
-<nav class="navbar">
-
-    <div class="nav-container">
-
-        <a href="#home" class="logo">
-            NM
-        </a>
-
-        <div class="nav-links">
-
-            <a href="#home">Home</a>
-
-            <a href="#about">About</a>
-
-            <a href="#projects">Projects</a>
-
-            <a href="#expertise">Expertise</a>
-
-            <a href="#experience">Experience</a>
-
-            <a href="#contact">Contact</a>
-
-        </div>
-
-    </div>
-
+<nav aria-label="Main">
+<a class="logo" href="#home" aria-label="Nitin Mahankali, home">
+<svg viewBox="0 0 64 64" aria-hidden="true"><rect width="64" height="64" rx="14" fill="#13252c" stroke="#4cc6d1" stroke-width="2"/><path d="M14 46V18l16 28V18M34 46V18l8 16 8-16v28" fill="none" stroke="#e8eff1" stroke-width="4.5" stroke-linejoin="round" stroke-linecap="round"/><circle cx="50" cy="14" r="4" fill="#a993ff"/></svg>
+Nitin Mahankali</a>
+<a class="l" href="#projects">Projects</a><a class="l" href="#approach">Approach</a><a class="l" href="#experience">Experience</a><a class="l" href="#about">About</a>
+<a class="cta" href="#contact">Contact</a>
 </nav>
 
+<header class="hero" id="home">
+<div class="wrap">
+<div class="top"><div>
+<div class="eyebrow">Mechanical &amp; Process Engineer · Research Scientist · Rostock, Germany</div>
+<h1>Nitin Mahankali</h1>
+<div class="tag">Engineering the <em>ammonia</em> value chain, from pilot plant to power.</div>
+<p class="lede">Green-ammonia production, safe storage and refuelling, NH₃/H₂ combustion and fuel cells. Experience spans plant layout and P&amp;IDs, test rigs and DOE, and Python-based data analysis and modelling, at Leibniz INP, Sunfire and Fraunhofer IWS.</p>
+<div class="btns"><a class="btn p" href="#projects">Explore the projects</a><a class="btn s" href="#contact">Get in touch</a></div>
+</div>
+<div class="range">
+<div><b>−33 → 600 °C</b><span>from refrigerated NH₃ storage to synthesis</span></div>
+<div><b>1 → 150 bar</b><span>atmospheric to synthesis-loop pressure</span></div>
+<div><b>6</b><span>engineering case studies</span></div>
+<div><b>3</b><span>research &amp; industry employers in Germany</span></div>
+</div>
+</div>
+</div>
 
+<div class="chain" aria-label="Interactive ammonia value chain: each station links to a case study">
+<div class="scroll">
+<svg id="chain" viewBox="0 0 1200 330" role="img" aria-label="Value chain: renewable power, H2 and N2, Haber–Bosch synthesis, storage and refuelling protected by release mitigation, engine and SOFC, power. Metal additive manufacturing supplies hardware.">
+<defs>
+<g id="mol"><circle r="6" fill="#a993ff"/><circle cx="-7" cy="-5" r="3" fill="#e8eff1"/><circle cx="7" cy="-5" r="3" fill="#e8eff1"/><circle cx="0" cy="8" r="3" fill="#e8eff1"/></g>
+<g id="h2m"><circle cx="-3" r="4" fill="#ff7a52"/><circle cx="4" r="4" fill="#ff7a52"/></g>
+<g id="n2m"><circle cx="-3" r="4" fill="#4cc6d1"/><circle cx="4" r="4" fill="#4cc6d1"/></g>
+</defs>
+<g font-family="IBM Plex Sans, sans-serif" fill="#e8eff1">
+<path id="p1" d="M90 150H500" stroke="rgba(255,255,255,.18)" stroke-width="10" stroke-linecap="round" fill="none"/>
+<path id="p2" d="M500 150H1110" stroke="rgba(169,147,255,.25)" stroke-width="10" stroke-linecap="round" fill="none"/>
+<!-- safety shield -->
+<a href="projects/ammonia-mitigation.html" class="node" aria-label="Ammonia release mitigation case study">
+<path d="M655 112A70 70 0 0 1 765 112" fill="none" stroke="#ff7a52" stroke-width="3" stroke-dasharray="6 6"/>
+<text x="710" y="52" text-anchor="middle" font-size="14" font-weight="600" fill="#ff7a52">Release mitigation ↗</text>
+<text x="710" y="70" text-anchor="middle" font-size="12" fill="#a6b8be">safety layer</text>
+</a>
+<!-- molecules -->
+<g id="flow">
+<use href="#h2m"><animateMotion dur="5s" repeatCount="indefinite" path="M90 150H500"/></use>
+<use href="#n2m"><animateMotion dur="5s" begin="-1.6s" repeatCount="indefinite" path="M90 150H500"/></use>
+<use href="#h2m"><animateMotion dur="5s" begin="-3.2s" repeatCount="indefinite" path="M90 150H500"/></use>
+<use href="#mol"><animateMotion dur="7s" repeatCount="indefinite" path="M500 150H1110"/></use>
+<use href="#mol"><animateMotion dur="7s" begin="-2.3s" repeatCount="indefinite" path="M500 150H1110"/></use>
+<use href="#mol"><animateMotion dur="7s" begin="-4.6s" repeatCount="indefinite" path="M500 150H1110"/></use>
+</g>
+<!-- nodes -->
+<g class="node"><circle class="ring" cx="90" cy="150" r="38" fill="#13252c" stroke="#a6b8be" stroke-width="2"/><text x="90" y="156" text-anchor="middle" font-weight="600" font-size="17">kW</text>
+<text x="90" y="216" text-anchor="middle" font-size="14" font-weight="600">Renewable power</text></g>
+<g class="node"><circle class="ring" cx="290" cy="150" r="38" fill="#13252c" stroke="#4cc6d1" stroke-width="2"/><text x="290" y="156" text-anchor="middle" font-weight="600" font-size="16">H₂ · N₂</text>
+<text x="290" y="216" text-anchor="middle" font-size="14" font-weight="600">Electrolysis · PSA</text></g>
+<a href="projects/power-to-ammonia.html" class="node" aria-label="Power-to-Ammonia pilot plant case study"><circle class="ring" cx="500" cy="150" r="46" fill="#1d1a35" stroke="#a993ff" stroke-width="2.5"/><text x="500" y="146" text-anchor="middle" font-weight="700" font-size="19">NH₃</text><text x="500" y="166" text-anchor="middle" font-size="11" fill="#a6b8be">Haber–Bosch</text>
+<text x="500" y="222" text-anchor="middle" font-size="14" font-weight="600" fill="#a993ff">Pilot plant ↗</text><text x="500" y="240" text-anchor="middle" font-size="12" fill="#a6b8be">produce</text></a>
+<a href="projects/ammonia-refueling.html" class="node" aria-label="Ammonia refuelling station case study"><circle class="ring" cx="710" cy="150" r="42" fill="#13252c" stroke="#4cc6d1" stroke-width="2.5"/><text x="710" y="155" text-anchor="middle" font-weight="600" font-size="15">−33 °C</text>
+<text x="710" y="218" text-anchor="middle" font-size="14" font-weight="600" fill="#4cc6d1">Storage &amp; refuelling ↗</text><text x="710" y="236" text-anchor="middle" font-size="12" fill="#a6b8be">store · distribute</text></a>
+<a href="projects/nh3-h2-combustion.html" class="node" aria-label="NH3/H2 engine combustion case study"><circle class="ring" cx="905" cy="150" r="40" fill="#2a1712" stroke="#ff7a52" stroke-width="2.5"/><text x="905" y="155" text-anchor="middle" font-weight="600" font-size="14">NH₃+H₂</text>
+<text x="905" y="214" text-anchor="middle" font-size="14" font-weight="600" fill="#ff7a52">Engine ↗</text><text x="905" y="232" text-anchor="middle" font-size="12" fill="#a6b8be">convert</text></a>
+<a href="projects/fuel-cell.html" class="node" aria-label="SOFC system case study"><rect class="ring" x="954" y="92" width="76" height="40" rx="8" fill="#13252c" stroke="#a993ff" stroke-width="2"/><text x="992" y="117" text-anchor="middle" font-size="13" font-weight="600">SOFC ↗</text>
+<path d="M992 132V150" stroke="#a993ff" stroke-width="2"/></a>
+<g class="node"><circle class="ring" cx="1110" cy="150" r="38" fill="#13252c" stroke="#a6b8be" stroke-width="2"/><text x="1110" y="156" text-anchor="middle" font-weight="600" font-size="17">kW</text>
+<text x="1110" y="216" text-anchor="middle" font-size="14" font-weight="600">Power</text></g>
+<!-- manufacturing -->
+<a href="projects/laser-ded.html" class="node" aria-label="Laser DED additive manufacturing case study">
+<path d="M860 282H1010V160" fill="none" stroke="#a6b8be" stroke-width="1.5" stroke-dasharray="3 5"/>
+<rect x="640" y="262" width="220" height="40" rx="20" fill="#13252c" stroke="#a6b8be" stroke-width="1.5"/>
+<text x="750" y="287" text-anchor="middle" font-size="13" font-weight="600">Metal AM hardware · Laser DED ↗</text></a>
+</g>
+</svg>
+</div>
+<p class="hint">Tap a highlighted station to open its case study. On a phone, swipe the chain sideways.</p>
+</div>
 
-<!-- =========================
-     HERO SECTION
-========================= -->
+</div>
+</header>
 
-<section id="home" class="hero">
+<section class="band" id="projects">
+<div class="wrap">
+<h2>One molecule, six engineering problems</h2>
+<p class="sub">Each case study covers the problem, the decisions, what went wrong and how it was solved.</p>
 
-    <div class="hero-container">
+<a class="feat reveal" href="projects/power-to-ammonia.html">
+<div class="art"><svg viewBox="0 0 520 260" aria-hidden="true"><g fill="none" stroke-width="3">
+<rect x="20" y="30" width="110" height="70" rx="6" stroke="#4cc6d1"/><rect x="20" y="150" width="110" height="70" rx="6" stroke="#ff7a52"/>
+<path d="M130 65H190V115M130 185H190V135" stroke="#e8eff1" stroke-dasharray="6 7"/>
+<circle cx="200" cy="125" r="14" stroke="#e8eff1"/>
+<rect x="250" y="40" width="180" height="170" rx="6" stroke="#a993ff"/>
+<rect x="272" y="70" width="40" height="110" rx="18" stroke="#e8eff1"/><rect x="330" y="70" width="40" height="110" rx="18" stroke="#e8eff1"/>
+<polyline points="384,125 392,110 400,140 408,110 416,140" stroke="#ff7a52"/>
+<path d="M214 125H250M430 125H480V200" stroke="#a993ff" stroke-dasharray="6 7"/>
+<rect x="450" y="200" width="60" height="40" rx="6" stroke="#a993ff"/></g>
+<g font-family="IBM Plex Sans,sans-serif" font-size="14" fill="#a6b8be" font-weight="600"><text x="75" y="70" text-anchor="middle" fill="#4cc6d1">PSA</text><text x="75" y="190" text-anchor="middle" fill="#ff7a52">H₂</text><text x="340" y="30" text-anchor="middle" fill="#a993ff">HBS container</text></g></svg></div>
+<div class="txt">
+<div class="meta"><span class="st on">Ongoing</span><span>INP Greifswald</span><span>Produce</span></div>
+<h3 style="font-size:clamp(24px,2.6vw,32px)">Containerized Power-to-Ammonia pilot plant</h3>
+<p>Plot plan, foundations, pipe and cable routing, P&amp;IDs, NH₃ storage procurement, integration of the PSA and Haber–Bosch synthesis containers, plus a DOE campaign and plant-level model for dynamic operation in preparation.</p>
+<p class="more">Read case study →</p>
+</div>
+</a>
 
+<div class="grid">
+<a class="card reveal" href="projects/nh3-h2-combustion.html">
+<div class="art"><svg viewBox="0 0 140 110" aria-hidden="true"><g fill="none" stroke-width="3"><rect x="45" y="10" width="50" height="80" rx="4" stroke="var(--ink)"/><rect x="49" y="50" width="42" height="24" fill="var(--mute)" opacity=".4" stroke="none"/><path d="M70 74V104" stroke="var(--ink)"/><ellipse cx="70" cy="28" rx="16" ry="9" fill="var(--h2)" opacity=".5" stroke="none"/><path d="M95 30H130" stroke="var(--n2)" stroke-dasharray="4 4"/><path d="M5 30H45" stroke="var(--nh3)"/></g></svg></div>
+<div class="txt"><div class="meta"><span class="st on">Ongoing</span><span>Convert</span></div>
+<h3>NH₃ / H₂ engine combustion</h3>
+<p>Blended-fuel combustion on a dynamometer: cylinder pressure, heat-release analysis in Python and NOx emissions for a yacht engine.</p><p class="more">Read case study →</p></div></a>
 
-        <div class="hero-content">
+<a class="card reveal" href="projects/ammonia-mitigation.html">
+<div class="art"><svg viewBox="0 0 160 110" aria-hidden="true"><g fill="none" stroke-width="3"><rect x="10" y="15" width="55" height="85" rx="8" stroke="var(--n2)"/><rect x="12" y="62" width="51" height="36" rx="6" fill="var(--n2)" opacity=".2" stroke="none"/><path d="M22 28L18 44M37 28V44M52 28L56 44" stroke="var(--n2)"/><rect x="85" y="30" width="65" height="30" rx="15" stroke="var(--nh3)"/><path d="M65 40H85" stroke="var(--nh3)" stroke-dasharray="4 4"/><rect x="95" y="78" width="45" height="22" rx="4" stroke="var(--h2)"/></g></svg></div>
+<div class="txt"><div class="meta"><span class="st on">Ongoing</span><span>Protect</span></div>
+<h3>Ammonia release mitigation</h3>
+<p>Two-stage capture (water scrubbing, then a sulfuric-acid membrane contactor) targeting ≥ 99 % NH₃ removal on an ammonia-fuelled yacht.</p><p class="more">Read case study →</p></div></a>
 
-            <p class="eyebrow">
-                MECHANICAL ENGINEER · RESEARCH SCIENTIST
-            </p>
+<a class="card reveal" href="projects/ammonia-refueling.html">
+<div class="art"><svg viewBox="0 0 170 110" aria-hidden="true"><g fill="none" stroke-width="3"><rect x="10" y="30" width="60" height="50" rx="22" stroke="var(--n2)"/><rect x="100" y="30" width="60" height="50" rx="22" stroke="var(--h2)"/><path d="M40 30V12H130V30" stroke="var(--nh3)" stroke-dasharray="4 4"/><path d="M130 80V98H40V80" stroke="var(--h2)" stroke-dasharray="4 4"/><path d="M78 92L92 104M78 104L92 92" stroke="var(--ink)"/></g></svg></div>
+<div class="txt"><div class="meta"><span class="st ds">Concept design</span><span>Store</span></div>
+<h3>Ammonia refuelling station</h3>
+<p>Refrigerated (−33 °C) and pressure-liquefied storage, with boil-off recovery and switching between modes on demand.</p><p class="more">Read case study →</p></div></a>
 
+<a class="card reveal" href="projects/fuel-cell.html">
+<div class="art"><svg viewBox="0 0 140 110" aria-hidden="true"><g fill="none" stroke-width="5"><path d="M25 20H115M25 36H115M25 52H115M25 68H115" stroke="var(--nh3)" opacity=".7"/></g><rect x="20" y="10" width="100" height="70" rx="4" fill="none" stroke="var(--ink)" stroke-width="2.5"/><rect x="30" y="88" width="80" height="16" rx="3" fill="none" stroke="var(--h2)" stroke-width="2.5"/><g fill="var(--h2)"><circle cx="45" cy="96" r="2"/><circle cx="57" cy="96" r="2"/><circle cx="69" cy="96" r="2"/><circle cx="81" cy="96" r="2"/><circle cx="93" cy="96" r="2"/></g></svg></div>
+<div class="txt"><div class="meta"><span class="st cp">Completed</span><span>Sunfire</span><span>Convert</span></div>
+<h3>SOFC system: smaller, cleaner, NH₃-ready</h3>
+<p>Burner redesign for complete combustion, a one-piece AM burner/heat-exchanger, and the root cause of interconnect damage under ammonia.</p><p class="more">Read case study →</p></div></a>
 
-            <h1>
+<a class="card reveal" href="projects/laser-ded.html">
+<div class="art"><svg viewBox="0 0 140 110" aria-hidden="true"><path d="M45 8H95L84 50H56Z" fill="none" stroke="var(--ink)" stroke-width="2.5"/><path d="M70 4V78" stroke="var(--h2)" stroke-width="4"/><path d="M58 50L69 78M82 50L71 78" stroke="var(--n2)" stroke-width="2.5" stroke-dasharray="3 4"/><rect x="30" y="80" width="80" height="9" rx="4" fill="var(--nh3)" opacity=".55"/><rect x="30" y="89" width="80" height="9" rx="4" fill="var(--nh3)" opacity=".35"/><rect x="20" y="98" width="100" height="8" fill="none" stroke="var(--ink)" stroke-width="2"/></svg></div>
+<div class="txt"><div class="meta"><span class="st cp">Completed</span><span>Fraunhofer IWS</span><span>Manufacture</span></div>
+<h3>Laser DED of Ti-6Al-4V</h3>
+<p>DOE parameter development from tracks to tensile specimens, G-code fixes for tall builds, and why build orientation changes strength and ductility.</p><p class="more">Read case study →</p></div></a>
 
-                Engineering
-                <span>Energy Systems</span>
-                for a Sustainable Future
-
-            </h1>
-
-
-            <p class="hero-description">
-
-                Mechanical engineer and research scientist working across
-                Power-to-X, green ammonia, hydrogen technologies,
-                experimental combustion, process engineering,
-                mechanical design and advanced manufacturing.
-
-            </p>
-
-
-            <div class="hero-buttons">
-
-                <a href="#projects" class="btn btn-primary">
-                    Explore My Projects
-                </a>
-
-
-                <a href="#contact" class="btn btn-outline">
-                    Get in Touch
-                </a>
-
-            </div>
-
-
-            <div class="hero-tags">
-
-                <span>Power-to-X</span>
-
-                <span>Green Ammonia</span>
-
-                <span>Combustion</span>
-
-                <span>Process Engineering</span>
-
-                <span>Mechanical Design</span>
-
-                <span>Additive Manufacturing</span>
-
-            </div>
-
-        </div>
-
-
-
-        <div class="hero-visual">
-
-            <div class="engineering-card">
-
-                <div class="card-line"></div>
-
-                <p>
-                    ENERGY SYSTEMS
-                </p>
-
-                <h3>
-                    Research · Design · Experimentation
-                </h3>
-
-                <div class="system-diagram">
-
-                    <div>H₂</div>
-
-                    <div class="arrow">→</div>
-
-                    <div>NH₃</div>
-
-                    <div class="arrow">→</div>
-
-                    <div>POWER</div>
-
-                </div>
-
-            </div>
-
-        </div>
-
-
-    </div>
-
+<div class="card reveal" style="background:var(--deep);color:var(--on);border-color:var(--deep)">
+<div class="txt" style="justify-content:center">
+<div class="meta"><span class="st" style="background:var(--dnh3);color:var(--deep)">The common thread</span></div>
+<h3 style="font-size:26px">Concept → design → build → data</h3>
+<p style="color:var(--onm)">Six projects, one way of working: understand the physics, design it safely, test it systematically, and let the data decide.</p>
+<a class="more" href="#approach" style="color:var(--dn2);text-decoration:none">See the approach →</a>
+</div></div>
+</div>
+</div>
 </section>
 
-
-
-<!-- =========================
-     ABOUT SECTION
-========================= -->
-
-<section id="about" class="section about">
-
-    <div class="section-container">
-
-
-        <div class="section-heading">
-
-            <p class="eyebrow">
-                ABOUT
-            </p>
-
-            <h2>
-                Bridging Engineering,
-                Research & Experimentation
-            </h2>
-
-        </div>
-
-
-        <div class="about-grid">
-
-
-            <div>
-
-                <p class="large-text">
-
-                    I am a mechanical engineer and research scientist
-                    working on the development and experimental
-                    investigation of advanced energy systems.
-
-                </p>
-
-            </div>
-
-
-            <div>
-
-                <p>
-
-                    My work combines mechanical engineering,
-                    thermodynamics, fluid mechanics, process engineering,
-                    system integration and experimental research.
-
-                </p>
-
-
-                <p>
-
-                    I work on Power-to-X and ammonia-based energy
-                    systems, combustion research, hydrogen technologies,
-                    process development, mechanical design and
-                    additive manufacturing.
-
-                </p>
-
-
-                <p>
-
-                    My engineering approach combines analytical
-                    calculations, CAD, experimental testing,
-                    data analysis and system-level thinking.
-
-                </p>
-
-            </div>
-
-        </div>
-
-    </div>
-
+<section class="band" id="approach" style="background:var(--paper);border-block:1px solid var(--rule)">
+<div class="wrap reveal">
+<h2>From sketch to data</h2>
+<p class="sub">The same four steps run through every project, from a test field in Greifswald to a laser cell in Dresden.</p>
+<div class="steps">
+<div><b>1 · Concept &amp; safety</b><h3>Understand the physics</h3><p>Literature review, thermodynamics, hazard thinking. Ammonia and hydrogen don't forgive shortcuts.</p></div>
+<div><b>2 · Engineering design</b><h3>Make it buildable</h3><p>PFDs and P&amp;IDs, plot plans, equipment specification, CAD and design for additive manufacturing.</p></div>
+<div><b>3 · Build &amp; test</b><h3>Measure what matters</h3><p>Test rigs, instrumentation, commissioning support and DOE-based experimental campaigns.</p></div>
+<div><b>4 · Analyse &amp; model</b><h3>Let the data decide</h3><p>Python workflows, heat-release analysis, and equipment and plant models validated against experiments.</p></div>
+</div>
+</div>
 </section>
 
-
-
-<!-- =========================
-     PROJECTS
-========================= -->
-
-<section id="projects" class="section projects">
-
-    <div class="section-container">
-
-
-        <div class="section-heading">
-
-            <p class="eyebrow">
-                SELECTED WORK
-            </p>
-
-            <h2>
-                Engineering Projects
-            </h2>
-
-            <p>
-
-                Selected research and engineering projects spanning
-                energy systems, combustion, process engineering,
-                mechanical design and additive manufacturing.
-
-            </p>
-
-        </div>
-
-
-
-        <div class="project-grid">
-
-
-            <!-- PROJECT 1 -->
-
-            <article class="project-card">
-
-                <div class="project-number">
-                    01
-                </div>
-
-                <p class="project-category">
-                    POWER-TO-X · AMMONIA
-                </p>
-
-                <h3>
-                    Power-to-Ammonia &
-                    Ammonia-to-Power
-                </h3>
-
-                <p>
-
-                    Development and investigation of decentralized
-                    and modular ammonia-based energy systems for
-                    renewable integration and dynamic operation.
-
-                </p>
-
-                <a href="projects/power-to-ammonia.html">
-
-                    View Case Study →
-
-                </a>
-
-            </article>
-
-
-
-            <!-- PROJECT 2 -->
-
-            <article class="project-card">
-
-                <div class="project-number">
-                    02
-                </div>
-
-                <p class="project-category">
-                    COMBUSTION · EXPERIMENTAL
-                </p>
-
-                <h3>
-                    NH₃/H₂ Combustion
-                </h3>
-
-                <p>
-
-                    Experimental investigation of ammonia-hydrogen
-                    combustion using an IC-engine test bench,
-                    combustion mapping and emissions analysis.
-
-                </p>
-
-                <a href="projects/nh3-h2-combustion.html">
-
-                    View Case Study →
-
-                </a>
-
-            </article>
-
-
-
-            <!-- PROJECT 3 -->
-
-            <article class="project-card">
-
-                <div class="project-number">
-                    03
-                </div>
-
-                <p class="project-category">
-                    SAFETY · AMMONIA
-                </p>
-
-                <h3>
-                    Ammonia Release
-                    Mitigation System
-                </h3>
-
-                <p>
-
-                    Engineering development of ammonia release
-                    detection and mitigation using containment,
-                    scrubbing, absorption and membrane-based
-                    separation.
-
-                </p>
-
-                <a href="projects/ammonia-mitigation.html">
-
-                    View Case Study →
-
-                </a>
-
-            </article>
-
-
-
-            <!-- PROJECT 4 -->
-
-            <article class="project-card">
-
-                <div class="project-number">
-                    04
-                </div>
-
-                <p class="project-category">
-                    PROCESS · MECHANICAL
-                </p>
-
-                <h3>
-                    Ammonia Refueling
-                    System
-                </h3>
-
-                <p>
-
-                    Engineering work involving ammonia handling,
-                    pressure systems, storage, piping and
-                    cold-liquefied ammonia conversion.
-
-                </p>
-
-                <a href="projects/ammonia-refueling.html">
-
-                    View Case Study →
-
-                </a>
-
-            </article>
-
-
-
-            <!-- PROJECT 5 -->
-
-            <article class="project-card">
-
-                <div class="project-number">
-                    05
-                </div>
-
-                <p class="project-category">
-                    ENERGY · FUEL CELLS
-                </p>
-
-                <h3>
-                    High-Temperature
-                    Fuel Cell Systems
-                </h3>
-
-                <p>
-
-                    Mechanical design, system integration,
-                    thermal management, testing and validation
-                    of high-temperature fuel-cell systems.
-
-                </p>
-
-                <a href="projects/fuel-cell.html">
-
-                    View Case Study →
-
-                </a>
-
-            </article>
-
-
-
-            <!-- PROJECT 6 -->
-
-            <article class="project-card">
-
-                <div class="project-number">
-                    06
-                </div>
-
-                <p class="project-category">
-                    ADDITIVE MANUFACTURING
-                </p>
-
-                <h3>
-                    Laser DED &
-                    Ti-6Al-4V
-                </h3>
-
-                <p>
-
-                    Experimental research on laser Directed Energy
-                    Deposition, process parameters, microstructure,
-                    defects and process optimization.
-
-                </p>
-
-                <a href="projects/laser-ded.html">
-
-                    View Case Study →
-
-                </a>
-
-            </article>
-
-
-        </div>
-
-    </div>
-
+<section class="band" id="experience">
+<div class="wrap">
+<h2 class="reveal">Experience &amp; education</h2>
+<p class="sub reveal">Research institutes and industry, all in Germany's hydrogen and advanced-manufacturing landscape.</p>
+<div class="tl">
+<div class="it reveal"><div class="when">2024 – present</div><div><h3>Research Scientist</h3><div class="org">Leibniz Institute for Plasma Science and Technology (INP), Greifswald</div><p>Green ammonia and Power-to-X: containerized pilot plant design and integration, ammonia release mitigation, NH₃/H₂ engine combustion, refuelling concepts, process safety and modelling.</p><a href="projects/power-to-ammonia.html">Pilot plant case study →</a></div></div>
+<div class="it reveal"><div class="when">2023 – 2024</div><div><h3>Development Engineer</h3><div class="org">Sunfire Fuel Cells GmbH</div><p>SOFC systems: start-up burner and heat-exchanger redesign, design for additive manufacturing, exhaust-gas analysis and ammonia-related root-cause analysis.</p><a href="projects/fuel-cell.html">SOFC case study →</a></div></div>
+<div class="it reveal"><div class="when">2021 – 2022</div><div><h3>Student Researcher · Master's thesis</h3><div class="org">Fraunhofer IWS, Dresden</div><p>Laser directed energy deposition of Ti-6Al-4V: DOE parameter development, CNC programming, tensile testing.</p><a href="projects/laser-ded.html">Laser DED case study →</a></div></div>
+<div class="it ed reveal"><div class="when">M.Sc.</div><div><h3>Merge Technologies for Resource Efficiency</h3><div class="org">Technische Universität Chemnitz</div><p>Specialisation in additive manufacturing and composites.</p></div></div>
+<div class="it ed reveal"><div class="when">B.E. · 2017</div><div><h3>Mechanical Engineering</h3><div class="org">Chaitanya Bharathi Institute of Technology (CBIT), Hyderabad</div><p>Thermodynamics, heat transfer, fluid mechanics, IC engines and machine design.</p></div></div>
+</div>
+</div>
 </section>
 
-
-
-<!-- =========================
-     EXPERTISE
-========================= -->
-
-<section id="expertise" class="section expertise">
-
-    <div class="section-container">
-
-
-        <div class="section-heading">
-
-            <p class="eyebrow">
-                ENGINEERING EXPERTISE
-            </p>
-
-            <h2>
-                Technical Capabilities
-            </h2>
-
-        </div>
-
-
-
-        <div class="expertise-grid">
-
-
-            <div class="expertise-card">
-
-                <span>01</span>
-
-                <h3>
-                    Energy Systems
-                </h3>
-
-                <p>
-
-                    Power-to-X · Green Ammonia · Hydrogen ·
-                    Ammonia-to-Power · Fuel Cells ·
-                    Renewable Integration
-
-                </p>
-
-            </div>
-
-
-
-            <div class="expertise-card">
-
-                <span>02</span>
-
-                <h3>
-                    Process Engineering
-                </h3>
-
-                <p>
-
-                    PFD/P&ID · Mass & Energy Balances ·
-                    Thermodynamics · Pressure Drop ·
-                    Equipment Selection · System Integration
-
-                </p>
-
-            </div>
-
-
-
-            <div class="expertise-card">
-
-                <span>03</span>
-
-                <h3>
-                    Combustion
-                </h3>
-
-                <p>
-
-                    NH₃/H₂ · IC Engines · Lean Combustion ·
-                    Flame Stability · NOx · NH₃ Slip ·
-                    Experimental Testing
-
-                </p>
-
-            </div>
-
-
-
-            <div class="expertise-card">
-
-                <span>04</span>
-
-                <h3>
-                    Mechanical Engineering
-                </h3>
-
-                <p>
-
-                    CAD · Mechanical Design · Piping ·
-                    Pressure Systems · Equipment Integration ·
-                    BOM · Technical Documentation
-
-                </p>
-
-            </div>
-
-
-
-            <div class="expertise-card">
-
-                <span>05</span>
-
-                <h3>
-                    Additive Manufacturing
-                </h3>
-
-                <p>
-
-                    DED · DfAM · Ti-6Al-4V · Process Windows ·
-                    Metallography · Microstructure · Defect Analysis
-
-                </p>
-
-            </div>
-
-
-
-            <div class="expertise-card">
-
-                <span>06</span>
-
-                <h3>
-                    Data & Modelling
-                </h3>
-
-                <p>
-
-                    Python · NumPy · Pandas · Matplotlib ·
-                    DoE · Regression · Statistical Analysis ·
-                    Parameter Sensitivity
-
-                </p>
-
-            </div>
-
-
-        </div>
-
-    </div>
-
+<section class="band" id="toolbox" style="background:var(--paper);border-block:1px solid var(--rule)">
+<div class="wrap">
+<h2 class="reveal">Toolbox</h2>
+<p class="sub reveal">Grouped by what they are used for.</p>
+<div class="tools">
+<div class="reveal"><h3>Process &amp; plant</h3><div class="chips"><span>PFD / P&amp;ID</span><span>Plot plans</span><span>Mass &amp; energy balances</span><span>Equipment selection</span><span>Package-unit integration</span><span>Pressure systems</span></div></div>
+<div class="reveal"><h3>Hydrogen &amp; ammonia</h3><div class="chips"><span>Haber–Bosch</span><span>Power-to-X</span><span>NH₃ storage &amp; BOG</span><span>NH₃ cracking</span><span>Gas scrubbing</span><span>Membrane contactors</span></div></div>
+<div class="reveal"><h3>Experiments</h3><div class="chips"><span>Test-rig design</span><span>DOE</span><span>Engine dynamometer</span><span>In-cylinder pressure</span><span>Gas analysis</span><span>MFCs &amp; instrumentation</span></div></div>
+<div class="reveal"><h3>Data &amp; modelling</h3><div class="chips"><span>Python</span><span>NumPy · Pandas · Matplotlib</span><span>Heat-release analysis</span><span>0D / dynamic modelling</span><span>PyPSA</span><span>Regression &amp; ML</span></div></div>
+<div class="reveal"><h3>Safety</h3><div class="chips"><span>HAZOP / HAZID</span><span>Ammonia safety</span><span>Hydrogen safety</span><span>Gas detection</span><span>Leak testing</span></div></div>
+<div class="reveal"><h3>Design &amp; manufacturing</h3><div class="chips"><span>SolidWorks</span><span>Autodesk Plant 3D</span><span>Design for AM</span><span>Laser DED</span><span>G-code / M-code</span><span>Tensile testing</span></div></div>
+</div>
+</div>
 </section>
 
-
-
-<!-- =========================
-     EXPERIENCE
-========================= -->
-
-<section id="experience" class="section experience">
-
-    <div class="section-container">
-
-
-        <div class="section-heading">
-
-            <p class="eyebrow">
-                EXPERIENCE
-            </p>
-
-            <h2>
-                Professional Journey
-            </h2>
-
-        </div>
-
-
-
-        <div class="timeline">
-
-
-            <div class="timeline-item">
-
-                <div class="timeline-year">
-                    2024 — Present
-                </div>
-
-                <div>
-
-                    <h3>
-                        Research Scientist
-                    </h3>
-
-                    <p class="company">
-                        INP Greifswald
-                    </p>
-
-                    <p>
-
-                        Power-to-Ammonia and Ammonia-to-Power
-                        systems, process engineering, experimental
-                        research, ammonia safety and mechanical
-                        system integration.
-
-                    </p>
-
-                </div>
-
-            </div>
-
-
-
-            <div class="timeline-item">
-
-                <div class="timeline-year">
-                    2023 — 2024
-                </div>
-
-                <div>
-
-                    <h3>
-                        Development Engineer
-                    </h3>
-
-                    <p class="company">
-                        Sunfire fuelcells GmbH
-                    </p>
-
-                    <p>
-
-                        High-temperature fuel-cell systems,
-                        mechanical design, system integration,
-                        thermal management, additive manufacturing
-                        and prototype validation.
-
-                    </p>
-
-                </div>
-
-            </div>
-
-
-
-            <div class="timeline-item">
-
-                <div class="timeline-year">
-                    2021 — 2022
-                </div>
-
-                <div>
-
-                    <h3>
-                        Student / Research Assistant
-                    </h3>
-
-                    <p class="company">
-                        Fraunhofer IWS
-                    </p>
-
-                    <p>
-
-                        Laser Directed Energy Deposition,
-                        process parameter development,
-                        Ti-6Al-4V characterization, DoE,
-                        microscopy and process qualification.
-
-                    </p>
-
-                </div>
-
-            </div>
-
-
-        </div>
-
-    </div>
-
+<section class="band" id="about">
+<div class="wrap about">
+<div class="reveal">
+<h2>Beyond the CV</h2>
+<p>A mechanical engineer from Hyderabad who came to Germany for a master's degree in resource efficiency and stayed for the energy transition. The path runs from laser-melted titanium in Dresden, through fuel-cell systems at Sunfire, to green ammonia at Leibniz INP. Each step moved closer to the question that drives the work now: how to make ammonia a safe, practical carrier for renewable energy.</p>
+<p>Happiest where the drawing meets the hardware: when a P&amp;ID becomes a running rig, or a pressure trace explains why something behaves the way it does.</p>
+<div class="now"><b>Currently building:</b> dynamic equipment and plant-level models of the pilot plant in Python, energy-system modelling with PyPSA, and machine learning for engineering data.</div>
+</div>
+<dl class="facts reveal">
+<div><dt>Based in</dt><dd style="margin:0">Rostock, Germany</dd></div>
+<div><dt>From</dt><dd style="margin:0">Hyderabad, India</dd></div>
+<div><dt>Languages</dt><dd style="margin:0">English (fluent) · German (A2–B1, actively improving)</dd></div>
+<div><dt>Focus</dt><dd style="margin:0">Power-to-X, green ammonia, process engineering, combustion R&amp;D</dd></div>
+<div><dt>Open to</dt><dd style="margin:0">Process, PtX and R&amp;D engineering roles in Germany</dd></div>
+</dl>
+</div>
 </section>
 
-
-
-<!-- =========================
-     CONTACT
-========================= -->
-
-<section id="contact" class="section contact">
-
-    <div class="section-container">
-
-
-        <p class="eyebrow">
-            CONTACT
-        </p>
-
-
-        <h2>
-            Let's build something
-            meaningful.
-        </h2>
-
-
-        <p>
-
-            I am interested in engineering and research
-            opportunities involving energy systems,
-            Power-to-X, combustion, process engineering
-            and advanced manufacturing.
-
-        </p>
-
-
-        <div class="contact-links">
-
-            <a href="mailto:nitin14999@gmail.com">
-
-                nitin14999@gmail.com
-
-            </a>
-
-
-            <a href="https://www.linkedin.com/in/nitinmahankali14999/" target="_blank">
-
-                LinkedIn →
-
-            </a>
-
-        </div>
-
-    </div>
-
+<section class="band contact" id="contact">
+<div class="wrap reveal">
+<h2>Let's build the hydrogen economy, safely.</h2>
+<p>Open to process engineering, Power-to-X and energy R&amp;D roles. Email or LinkedIn is the fastest way to get in touch.</p>
+<div class="addr">nitin14999@gmail.com</div>
+<div class="btns"><a class="btn p" href="mailto:nitin14999@gmail.com">Send an email</a><a class="btn s" href="https://www.linkedin.com/in/nitinmahankali14999/">LinkedIn ↗</a></div>
+</div>
 </section>
 
+<footer><span>© 2026 Nitin Mahankali · Mechanical &amp; Process Engineer · Research Scientist</span><a href="#home" style="color:var(--on)">Back to top ↑</a></footer>
 
-
-<!-- =========================
-     FOOTER
-========================= -->
-
-<footer>
-
-    <div class="footer-container">
-
-        <p>
-            © 2026 Nitin Mahankali
-        </p>
-
-        <p>
-            Mechanical Engineer · Research Scientist
-        </p>
-
-    </div>
-
-</footer>
-
-
+<script>
+{
+const io=new IntersectionObserver(es=>{for(const e of es){if(e.isIntersecting){e.target.classList.add('in');io.unobserve(e.target)}}},{threshold:.1});
+document.querySelectorAll('.reveal').forEach(el=>io.observe(el));
+const chain=document.getElementById('chain');
+const rm=window.matchMedia('(prefers-reduced-motion: reduce)');
+if(rm.matches){const f=document.getElementById('flow');if(f)f.style.display='none'}
+}
+</script>
 </body>
-
 </html>
