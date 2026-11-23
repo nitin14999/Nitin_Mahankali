@@ -8,10 +8,16 @@
 <link rel="preconnect" href="https://fonts.googleapis.com">
 <link href="https://fonts.googleapis.com/css2?family=IBM+Plex+Sans+Condensed:wght@600;700&family=IBM+Plex+Sans:wght@400;500;600&display=swap" rel="stylesheet">
 <style>
+/* VOICE: a confident engineering case study, factual, first person, no fluff.
+   IDEA: a process engineering drawing sheet: line colours, title block, tag labels.
+   PICTURE: the pilot-plant process loop drawn as a live block flow diagram with gas moving through it.
+   COLOUR and TYPE: drawing-paper white, ink, H2 vermilion, N2 teal, NH3 violet; IBM Plex Sans Condensed + Plex Sans.
+   LAYOUT: headline + key figures, then the diagram full width, then phases, decisions, story, model, skills. */
 :root{color-scheme:light dark;
 --bg:light-dark(#fbfbf8,#0f1418);--paper:light-dark(#ffffff,#151c21);--ink:light-dark(#141a1f,#e9edef);
 --mute:light-dark(#56606a,#9aa6ae);--rule:light-dark(#d9ddd8,#2a343b);
 --h2:light-dark(#d4441c,#ff7a52);--n2:light-dark(#0b7a86,#4cc6d1);--nh3:light-dark(#5b3fb5,#a993ff);--soft:light-dark(#f1f2ee,#1b2329)}
+:root[data-theme=light]{color-scheme:light}:root[data-theme=dark]{color-scheme:dark}
 *{box-sizing:border-box;min-width:0}
 body{margin:0;background:var(--bg);color:var(--ink);font:16.5px/1.6 "IBM Plex Sans",system-ui,sans-serif;overflow-x:clip}
 h1,h2,h3{font-family:"IBM Plex Sans Condensed","IBM Plex Sans",sans-serif;line-height:1.08;text-wrap:balance;margin:0}
@@ -80,7 +86,7 @@ footer{padding:30px max(5vw,16px);border-top:1px solid var(--rule);color:var(--m
 <body>
 <nav>
 <a class="logo" href="https://nitin14999.github.io/Nitin_Mahankali/">NM</a>
-<a href="#work">My work</a><a href="#decisions">Decisions</a><a href="#experiments">Experiments</a><a href="#modelling">Modelling</a>
+<a href="#work">Scope</a><a href="#decisions">Decisions</a><a href="#experiments">Experiments</a><a href="#modelling">Modelling</a>
 <a href="https://nitin14999.github.io/Nitin_Mahankali/#projects">All projects</a>
 </nav>
 
@@ -88,7 +94,7 @@ footer{padding:30px max(5vw,16px);border-top:1px solid var(--rule);color:var(--m
 <div class="wrap">
 <div class="kicker">Case study · INP Greifswald · Research Scientist · 2024 – present</div>
 <h1>Designing and integrating a containerized Power-to-Ammonia pilot plant</h1>
-<p class="lede">I took the Power-to-Ammonia test field from an empty site to a running experimental plant. I did the plot plan, foundations and pipe and cable routing, wrote the P&amp;IDs, specified and procured the ammonia storage, integrated the PSA and Haber–Bosch synthesis containers, and commissioned the plant. I'm now running dynamic synthesis experiments and building a plant-level model from them.</p>
+<p class="lede">From an empty site to a running experimental plant: plot plan, foundations, pipe and cable routing, P&amp;IDs, ammonia storage, integration of the PSA and Haber–Bosch synthesis containers, and commissioning. Dynamic synthesis experiments and plant-level modelling are now under way.</p>
 <div class="figs">
 <div><b>&lt;100 bar</b><span>synthesis pressure range</span></div>
 <div><b>&lt;600 °C</b><span>reactor temperature range</span></div>
@@ -101,21 +107,26 @@ footer{padding:30px max(5vw,16px);border-top:1px solid var(--rule);color:var(--m
 <section class="band paper" aria-label="Process overview">
 <div class="wrap">
 <div class="scroll"><div class="diagram">
-<svg viewBox="0 0 960 420" role="img" aria-label="Block flow diagram of the Power-to-Ammonia test field">
+<svg viewBox="0 0 960 420" role="img" aria-label="Block flow diagram: H2 supply and PSA nitrogen mix at 3 to 1, are compressed, react in the HBS container with two reactors and an internal heat exchanger, ammonia is separated into pressure-liquefied storage, unreacted gas is recycled">
+<defs><marker id="ah" viewBox="0 0 10 10" refX="8" refY="5" markerWidth="7" markerHeight="7" orient="auto"><path d="M0 0L10 5L0 10z" fill="currentColor"/></marker></defs>
 <g font-family="IBM Plex Sans, sans-serif" font-size="14" fill="var(--ink)">
+<!-- recycle -->
 <path class="flow" d="M840 150V40H340V105" fill="none" stroke="var(--nh3)" stroke-width="3" opacity=".6"/>
 <text x="590" y="30" text-anchor="middle" fill="var(--mute)" font-size="13">Recycle of unreacted H₂ / N₂</text>
+<!-- H2 -->
 <rect x="90" y="65" width="160" height="80" rx="4" fill="var(--soft)" stroke="var(--ink)" stroke-width="1.5"/>
 <text x="170" y="100" text-anchor="middle" font-weight="600">H₂ supply</text>
 <text x="170" y="120" text-anchor="middle" fill="var(--mute)" font-size="13">from electrolysis</text>
 <path class="flow" d="M250 105H340V190" fill="none" stroke="var(--h2)" stroke-width="3.5"/>
 <circle cx="340" cy="105" r="5" fill="var(--ink)"/>
+<!-- Air / PSA -->
 <path class="flow" d="M28 300H90" fill="none" stroke="var(--mute)" stroke-width="3"/>
 <text x="30" y="288" fill="var(--mute)" font-size="13">Air</text>
 <rect x="90" y="255" width="160" height="90" rx="4" fill="var(--paper)" stroke="var(--n2)" stroke-width="2.5"/>
 <text x="170" y="292" text-anchor="middle" font-weight="600">PSA container</text>
 <text x="170" y="312" text-anchor="middle" fill="var(--mute)" font-size="13">N₂ generation</text>
 <path class="flow" d="M250 300H340V220" fill="none" stroke="var(--n2)" stroke-width="3.5"/>
+<!-- mixer / compressor -->
 <circle cx="340" cy="205" r="15" fill="var(--paper)" stroke="var(--ink)" stroke-width="2"/>
 <text x="340" y="250" text-anchor="middle" font-size="13" fill="var(--mute)">3 : 1</text>
 <path class="flow" d="M355 205H400" fill="none" stroke="var(--ink)" stroke-width="3.5"/>
@@ -123,6 +134,7 @@ footer{padding:30px max(5vw,16px);border-top:1px solid var(--rule);color:var(--m
 <path d="M404 196L432 199M404 214L432 211" stroke="var(--ink)" stroke-width="1.5"/>
 <text x="418" y="250" text-anchor="middle" font-size="13" fill="var(--mute)">compression</text>
 <path class="flow" d="M436 205H492" fill="none" stroke="var(--ink)" stroke-width="3.5"/>
+<!-- HBS -->
 <rect x="492" y="95" width="256" height="220" rx="4" fill="var(--paper)" stroke="var(--nh3)" stroke-width="2.5"/>
 <text x="620" y="122" text-anchor="middle" font-weight="600">HBS container</text>
 <rect x="516" y="140" width="48" height="140" rx="20" fill="var(--soft)" stroke="var(--ink)" stroke-width="1.5"/>
@@ -133,10 +145,12 @@ footer{padding:30px max(5vw,16px);border-top:1px solid var(--rule);color:var(--m
 <polyline points="672,205 680,190 690,220 700,190 710,220 720,205" fill="none" stroke="var(--h2)" stroke-width="2"/>
 <text x="696" y="300" text-anchor="middle" font-size="12" fill="var(--mute)">internal HX</text>
 <path class="flow" d="M720 205H780" fill="none" stroke="var(--nh3)" stroke-width="3.5"/>
+<!-- separator -->
 <rect x="780" y="150" width="120" height="100" rx="4" fill="var(--paper)" stroke="var(--ink)" stroke-width="1.5"/>
 <text x="840" y="195" text-anchor="middle" font-weight="600">Condenser /</text>
 <text x="840" y="214" text-anchor="middle" font-weight="600">separator</text>
 <path class="flow" d="M840 250V310" fill="none" stroke="var(--nh3)" stroke-width="3.5"/>
+<!-- storage -->
 <rect x="760" y="310" width="170" height="80" rx="4" fill="var(--soft)" stroke="var(--nh3)" stroke-width="2.5"/>
 <text x="845" y="345" text-anchor="middle" font-weight="600">NH₃ storage container</text>
 <text x="845" y="365" text-anchor="middle" fill="var(--mute)" font-size="13">pressure-liquefied</text>
@@ -156,49 +170,49 @@ footer{padding:30px max(5vw,16px);border-top:1px solid var(--rule);color:var(--m
 <p>INP needed a containerized pilot plant to test this: one that is safe with hydrogen and pressurized ammonia, fits a real test field, and is instrumented well enough to show how a fast-response catalyst behaves under dynamic operation. There was little prior operating data to build on.</p>
 </div>
 <div>
-<h2>My role</h2>
-<p>I was the design engineer for the test field and the experimentalist on the synthesis loop. I owned the layout, P&amp;IDs, equipment and instrumentation, safety measures and integration of the containers. I worked with civil engineers, suppliers and the safety team, then defined and ran the experimental campaign and started the modelling.</p>
-<p class="note">Plant capacity, operating data and drawings are confidential. This page shows my scope and methods, not the results.</p>
+<h2>Role</h2>
+<p>Design engineer for the test field and experimentalist on the synthesis loop. Responsible for the layout, P&amp;IDs, equipment and instrumentation, safety measures and container integration, working closely with civil engineers, suppliers and the safety team. Defined and ran the experimental campaign and built the first plant models.</p>
+<p class="note">Plant capacity, operating data and drawings are confidential. This page shows scope and methods, not results.</p>
 </div>
 </div>
 </section>
 
 <section class="band reveal" id="work" style="padding-top:0">
 <div class="wrap">
-<h2>What I did</h2>
+<h2>Scope of work</h2>
 <div class="timeline" id="tl">
 <div>Layout &amp; civil</div><div>PFD / P&amp;ID</div><div>Procurement</div><div>Integration</div><div>HAZOP &amp; safety</div><div>Commissioning</div><div>DOE experiments</div><div>Modelling</div>
 </div>
 <div class="phases" style="margin-top:34px">
 <div class="phase reveal"><div class="tag">Site &amp; plant layout</div><h3>Plot plan for a containerized test field</h3>
-<ul><li>I arranged the process containers and supply units on the test field: plot plan, safety distances and access for operation and maintenance.</li>
-<li>I planned the pipe routes between containers to keep forklift lanes clear so containers and equipment can still be moved and serviced.</li>
-<li>I routed the heavy power cables through the test field and connected them to every container.</li></ul>
+<ul><li>Arranged the process containers and supply units on the test field, covering the plot plan, safety distances and access for operation and maintenance.</li>
+<li>Planned pipe routes between containers that keep forklift lanes clear, so containers and equipment can still be moved and serviced.</li>
+<li>Routed the heavy power cables through the test field to every container.</li></ul>
 <div class="kw"><span>Plot plan</span><span>Pipe routing</span><span>Cable routing</span><span>Modular plant</span></div></div>
 
 <div class="phase reveal"><div class="tag">Civil interface</div><h3>Soil analysis and foundations</h3>
-<ul><li>I worked with civil engineers on the soil (geotechnical) analysis for the site.</li>
-<li>I planned the foundations for each container from its loads and position, then supported the construction work.</li></ul>
+<ul><li>Soil (geotechnical) analysis of the site together with civil engineers.</li>
+<li>Foundation planning for each container based on its loads and position, followed by construction support.</li></ul>
 <div class="kw"><span>Geotechnical survey</span><span>Foundation planning</span><span>Construction coordination</span></div></div>
 
 <div class="phase reveal"><div class="tag">Process engineering</div><h3>PFDs and P&amp;IDs</h3>
-<ul><li>I developed the PFDs and P&amp;IDs for the test field, including the PSA (N₂) and HBS (Haber–Bosch synthesis) containers and their tie-ins.</li>
-<li>I set the H₂ / N₂ feed at a 3 : 1 ratio for an operating envelope below 100 bar and 600 °C.</li></ul>
+<ul><li>Developed the PFDs and P&amp;IDs for the test field, including the PSA (N₂) and HBS (Haber–Bosch synthesis) containers and their tie-ins.</li>
+<li>H₂ / N₂ feed at a 3 : 1 ratio, with an operating envelope below 100 bar and 600 °C.</li></ul>
 <div class="kw"><span>PFD</span><span>P&amp;ID</span><span>Mass balance</span><span>Line &amp; instrument tagging</span></div></div>
 
 <div class="phase reveal"><div class="tag">Equipment &amp; procurement</div><h3>Ammonia storage and plant equipment</h3>
-<ul><li>I chose the storage concept, wrote the specification for a <strong>pressure-liquefied ammonia storage container</strong>, and planned and placed the order.</li>
-<li>I designed, specified and procured the plant equipment and instrumentation.</li></ul>
+<ul><li>Selected the storage concept, specified a <strong>pressure-liquefied ammonia storage container</strong>, and planned and placed the order.</li>
+<li>Designed, specified and procured the plant equipment and instrumentation.</li></ul>
 <div class="kw"><span>Technical specification</span><span>Vendor coordination</span><span>Instrumentation</span><span>NH₃ storage</span></div></div>
 
 <div class="phase reveal"><div class="tag">System integration</div><h3>PSA and HBS containers</h3>
-<ul><li>I integrated the PSA and HBS containers <strong>mechanically</strong> (process piping and tie-ins) and <strong>electrically</strong> (power, signals and instrumentation) with the other containers.</li>
-<li>I defined the interfaces between supplier containers and the INP infrastructure.</li></ul>
+<ul><li>Integrated the PSA and HBS containers <strong>mechanically</strong> (process piping and tie-ins) and <strong>electrically</strong> (power, signals and instrumentation) with the other containers.</li>
+<li>Defined the interfaces between supplier containers and the INP infrastructure.</li></ul>
 <div class="kw"><span>Mechanical tie-ins</span><span>Electrical integration</span><span>I&amp;C interfaces</span></div></div>
 
 <div class="phase reveal"><div class="tag">Safety &amp; commissioning</div><h3>HAZOP to a gas-tight plant</h3>
-<ul><li>I took part in the hazard (HAZOP) workshops, implemented the safety measures that came out of them, and specified and procured the safety devices.</li>
-<li>I ran the leak-tightness test of the HBS container and commissioned N₂ generation in the PSA container.</li></ul>
+<ul><li>Took part in the hazard (HAZOP) workshops, implemented the resulting safety measures, and specified and procured the safety devices.</li>
+<li>Carried out the leak-tightness test of the HBS container and commissioned N₂ generation in the PSA container.</li></ul>
 <div class="kw"><span>HAZOP</span><span>H₂ / NH₃ safety</span><span>Leak testing</span><span>Commissioning</span></div></div>
 </div>
 </div>
@@ -218,7 +232,7 @@ footer{padding:30px max(5vw,16px);border-top:1px solid var(--rule);color:var(--m
 <section class="band reveal" id="experiments">
 <div class="wrap">
 <h2>Dynamic Haber–Bosch experiments</h2>
-<p>The catalyst heats up and cools down much faster than conventional ammonia-synthesis catalysts, which is what makes flexible operation possible. I designed the campaign to measure that dynamic behaviour.</p>
+<p>The catalyst heats up and cools down much faster than conventional ammonia-synthesis catalysts, which is what makes flexible operation possible. The experimental campaign is designed to measure exactly this dynamic behaviour.</p>
 <div class="doe" style="margin-top:22px">
 <div class="col">
 <div>Pressure<small>below 100 bar</small></div>
@@ -234,7 +248,7 @@ footer{padding:30px max(5vw,16px);border-top:1px solid var(--rule);color:var(--m
 <div>Energy consumption<small>for the energy balance and model</small></div>
 </div>
 </div>
-<p class="cap">The left column shows the factors I varied (DOE inputs). The right column shows the responses I measured.</p>
+<p class="cap">Left: factors varied (DOE inputs). Right: responses measured.</p>
 </div>
 </section>
 
@@ -242,10 +256,10 @@ footer{padding:30px max(5vw,16px);border-top:1px solid var(--rule);color:var(--m
 <div class="wrap">
 <h2>The hardest part: very little data to start from</h2>
 <div class="story">
-<div><b>Challenge</b>There was almost no operating data for this reactor and catalyst under dynamic conditions. At first we could only watch how the temperatures developed.</div>
+<div><b>Challenge</b>There was almost no operating data for this reactor and catalyst under dynamic conditions. Initially, only the temperature development could be observed.</div>
 <div><b>Diagnosis</b>Unstructured testing would have taken too long and given data that couldn't be compared or used for a model.</div>
-<div><b>Action</b>I defined operating windows from the reactor and catalyst limits, used DOE to cut the number of runs, and added start-up and shutdown tests. I made sure the plant was gas-tight and N₂ was available first.</div>
-<div><b>Result</b>I now have a structured dataset for each operating point covering conversion, temperature profiles and energy. It feeds directly into the plant model.</div>
+<div><b>Action</b>Operating windows defined from the reactor and catalyst limits, DOE used to cut the number of runs, and start-up and shutdown tests added. Gas-tightness and N₂ supply were secured first.</div>
+<div><b>Result</b>A structured dataset for every operating point, covering conversion, temperature profiles and energy, which feeds directly into the plant model.</div>
 </div>
 </div>
 </section>
@@ -253,7 +267,7 @@ footer{padding:30px max(5vw,16px);border-top:1px solid var(--rule);color:var(--m
 <section class="band reveal" id="modelling">
 <div class="wrap">
 <h2>From equipment models to a plant model</h2>
-<p>I model each piece of equipment separately (mass and energy balances, plus dynamic behaviour where it matters), then connect the models into one plant-level model. My own pilot-plant measurements validate it.</p>
+<p>Each piece of equipment is modelled separately (mass and energy balances, plus dynamic behaviour where it matters). The equipment models are then connected into one plant-level model, validated against measurements from the pilot plant.</p>
 <div class="model" style="margin-top:20px">
 <div class="eq"><div>PSA (N₂)</div><div>Compressor</div><div>Synthesis reactor</div><div>Heat exchanger</div><div>Separator</div><div>NH₃ storage</div></div>
 <div class="arrow" aria-hidden="true">↓</div>
