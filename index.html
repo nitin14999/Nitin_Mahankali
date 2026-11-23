@@ -7,15 +7,10 @@
 <meta name="description" content="Nitin Mahankali: mechanical and process engineer working across the ammonia value chain: Power-to-Ammonia pilot plants, NH₃/H₂ combustion, ammonia safety, refuelling, SOFC systems and metal additive manufacturing.">
 <meta property="og:title" content="Nitin Mahankali | Engineering the ammonia value chain">
 <meta property="og:description" content="Six engineering case studies, from a containerized Haber–Bosch pilot plant to NH₃/H₂ engines and SOFC systems.">
-<link rel="icon" href="data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 64 64'%3E%3Crect width='64' height='64' rx='14' fill='%230e1a1f'/%3E%3Cpath d='M14 46V18l16 28V18M34 46V18l8 16 8-16v28' fill='none' stroke='%234cc6d1' stroke-width='5' stroke-linejoin='round'/%3E%3C/svg%3E">
+<link rel="icon" href="data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 64 64'%3E%3Crect width='64' height='64' rx='15' fill='%2313252c' stroke='%232c4a54' stroke-width='1.5'/%3E%3Ctext x='32' y='40' text-anchor='middle' font-family='IBM Plex Sans Condensed, Arial Narrow, Arial, sans-serif' font-weight='700' font-size='28' letter-spacing='-0.5' fill='%23e8eff1'%3ENM%3C/text%3E%3Crect x='14' y='48' width='12' height='4' rx='2' fill='%234cc6d1'/%3E%3Crect x='26' y='48' width='12' height='4' fill='%23a993ff'/%3E%3Crect x='38' y='48' width='12' height='4' rx='2' fill='%23ff7a52'/%3E%3C/svg%3E">
 <link rel="preconnect" href="https://fonts.googleapis.com">
 <link href="https://fonts.googleapis.com/css2?family=IBM+Plex+Sans+Condensed:wght@600;700&family=IBM+Plex+Sans:wght@400;500;600&display=swap" rel="stylesheet">
 <style>
-/* VOICE: confident engineer's personal site; factual, warm, no slogans.
-   IDEA: the ammonia value chain as a live process line; every project is a station on it.
-   PICTURE: animated hero chain (power → H2/N2 → synthesis → storage → engine/SOFC → power) with molecules flowing; nodes link to case studies.
-   COLOUR and TYPE: deep process-ink hero; H2 vermilion, N2 teal, NH3 violet; IBM Plex Sans Condensed + Plex Sans, same as the case studies.
-   LAYOUT: dark hero + range strip, projects (featured + grid), approach, experience, toolbox, about, dark contact band. */
 :root{color-scheme:light dark;
 --bg:light-dark(#fbfbf8,#0f1418);--paper:light-dark(#ffffff,#151c21);--ink:light-dark(#141a1f,#e9edef);
 --mute:light-dark(#56606a,#9aa6ae);--rule:light-dark(#d9ddd8,#2a343b);--soft:light-dark(#f1f2ee,#1b2329);
@@ -33,14 +28,12 @@ a{color:inherit}
 .band{padding:clamp(48px,6vw,96px) max(5vw,16px)}
 .wrap{max-width:1240px;margin:0 auto}
 .sub{color:var(--mute);font-size:18px;margin-bottom:34px}
-/* nav */
 nav{position:sticky;top:0;z-index:20;display:flex;flex-wrap:wrap;align-items:center;gap:6px 24px;padding:12px max(5vw,16px);background:rgba(14,26,31,.88);backdrop-filter:blur(10px);color:var(--on);border-bottom:1px solid rgba(255,255,255,.08)}
 nav .logo{display:flex;align-items:center;gap:10px;margin-right:auto;text-decoration:none;font:700 18px "IBM Plex Sans Condensed","IBM Plex Sans",sans-serif}
 nav .logo svg{width:34px;height:34px}
 nav a.l{color:var(--onm);text-decoration:none;font-weight:500;padding:10px 0}
 nav a.l:hover,nav a.l:focus-visible{color:var(--on)}
 nav .cta{background:var(--dn2);color:var(--deep);padding:8px 16px;border-radius:99px;font-weight:600;text-decoration:none}
-/* hero */
 .hero{background:radial-gradient(1200px 500px at 70% 30%,var(--deep2),var(--deep));color:var(--on);padding:clamp(40px,6vw,84px) max(5vw,16px) 0}
 .hero .eyebrow{color:var(--dn2);font-weight:600;margin-bottom:14px}
 .hero h1{font-size:clamp(40px,6.4vw,78px);letter-spacing:-.01em}
@@ -64,7 +57,6 @@ nav .cta{background:var(--dn2);color:var(--deep);padding:8px 16px;border-radius:
 .range div{padding:20px 18px 22px}
 .range b{display:block;font:700 clamp(20px,2.1vw,27px)/1.1 "IBM Plex Sans Condensed","IBM Plex Sans",sans-serif;white-space:nowrap}
 .range span{color:var(--onm);font-size:14px}
-/* projects */
 .feat{display:grid;grid-template-columns:minmax(0,1.1fr) minmax(0,1fr);background:var(--paper);border:1px solid var(--rule);text-decoration:none;margin-bottom:22px;transition:transform .25s,box-shadow .25s}
 .feat .art{background:var(--deep);display:flex;align-items:center;justify-content:center;padding:26px}
 .feat .art svg{width:100%;max-width:520px;height:auto}
@@ -81,13 +73,11 @@ nav .cta{background:var(--dn2);color:var(--deep);padding:8px 16px;border-radius:
 .meta span{padding:2px 10px;border-radius:99px;border:1px solid var(--rule);background:var(--soft)}
 .meta .st{border-color:transparent;color:#fff}
 .st.on{background:var(--n2)}.st.cp{background:var(--nh3)}.st.ds{background:var(--h2)}
-/* approach */
 .steps{display:grid;grid-template-columns:repeat(4,minmax(0,1fr));gap:0;counter-reset:s;border-top:2px solid var(--ink)}
 .steps div{padding:22px 22px 6px 0;border-right:1px solid var(--rule);margin-right:22px}
 .steps div:last-child{border:0}
 .steps b{display:block;font:700 15px "IBM Plex Sans Condensed","IBM Plex Sans",sans-serif;color:var(--n2);margin-bottom:6px}
 .steps p{font-size:15.5px;color:var(--mute)}
-/* experience */
 .tl{position:relative;display:grid;gap:26px;padding-left:34px}
 .tl:before{content:"";position:absolute;left:9px;top:6px;bottom:6px;width:3px;background:var(--rule)}
 .tl .it{position:relative;display:grid;grid-template-columns:170px minmax(0,1fr);gap:20px}
@@ -96,24 +86,20 @@ nav .cta{background:var(--dn2);color:var(--deep);padding:8px 16px;border-radius:
 .tl .when{font-weight:600;color:var(--mute)}
 .tl h3{margin-bottom:2px}.tl .org{font-weight:600;margin-bottom:6px}
 .tl a{color:var(--n2);font-weight:600}
-/* toolbox */
 .tools{display:grid;grid-template-columns:repeat(3,minmax(0,1fr));gap:22px}
 .tools>div{background:var(--paper);border:1px solid var(--rule);padding:20px}
 .chips{display:flex;flex-wrap:wrap;gap:6px;margin-top:10px}
 .chips span{font-size:13.5px;padding:3px 10px;border-radius:99px;background:var(--soft);border:1px solid var(--rule)}
-/* about */
 .about{display:grid;grid-template-columns:minmax(0,1.2fr) minmax(0,1fr);gap:clamp(24px,4vw,64px);align-items:start}
 .facts{display:grid;gap:12px}
 .facts div{display:grid;grid-template-columns:130px minmax(0,1fr);gap:14px;border-bottom:1px solid var(--rule);padding-bottom:12px}
 .facts dt{color:var(--mute);font-weight:500}
 .now{background:var(--paper);border:1px solid var(--rule);border-left:4px solid var(--nh3);padding:18px 20px;margin-top:20px}
-/* contact */
 .contact{background:var(--deep);color:var(--on)}
 .contact h2{font-size:clamp(34px,5vw,60px);max-width:16ch}
 .contact p{color:var(--onm);font-size:18px}
 .contact .addr{font:600 clamp(18px,2.2vw,24px) "IBM Plex Sans",sans-serif;color:var(--on);margin:18px 0 4px;word-break:break-all}
 footer{background:var(--deep);color:var(--onm);border-top:1px solid rgba(255,255,255,.1);padding:22px max(5vw,16px);font-size:14px;display:flex;flex-wrap:wrap;justify-content:space-between;gap:10px}
-/* motion */
 .reveal{opacity:0;transform:translateY(26px);transition:opacity .8s ease,transform .8s ease}
 .reveal.in{opacity:1;transform:none}
 a:focus-visible{outline:3px solid var(--dn2);outline-offset:3px}
@@ -126,7 +112,7 @@ a:focus-visible{outline:3px solid var(--dn2);outline-offset:3px}
 
 <nav aria-label="Main">
 <a class="logo" href="#home" aria-label="Nitin Mahankali, home">
-<svg viewBox="0 0 64 64" aria-hidden="true"><rect width="64" height="64" rx="14" fill="#13252c" stroke="#4cc6d1" stroke-width="2"/><path d="M14 46V18l16 28V18M34 46V18l8 16 8-16v28" fill="none" stroke="#e8eff1" stroke-width="4.5" stroke-linejoin="round" stroke-linecap="round"/><circle cx="50" cy="14" r="4" fill="#a993ff"/></svg>
+<svg viewBox="0 0 64 64" aria-hidden="true"><rect width="64" height="64" rx="15" fill="#13252c" stroke="#2c4a54" stroke-width="1.5"/><text x="32" y="40" text-anchor="middle" font-family="IBM Plex Sans Condensed, Arial Narrow, Arial, sans-serif" font-weight="700" font-size="28" letter-spacing="-0.5" fill="#e8eff1">NM</text><rect x="14" y="48" width="12" height="4" rx="2" fill="#4cc6d1"/><rect x="26" y="48" width="12" height="4" fill="#a993ff"/><rect x="38" y="48" width="12" height="4" rx="2" fill="#ff7a52"/></svg>
 Nitin Mahankali</a>
 <a class="l" href="#projects">Projects</a><a class="l" href="#approach">Approach</a><a class="l" href="#experience">Experience</a><a class="l" href="#about">About</a>
 <a class="cta" href="#contact">Contact</a>
@@ -161,13 +147,11 @@ Nitin Mahankali</a>
 <g font-family="IBM Plex Sans, sans-serif" fill="#e8eff1">
 <path id="p1" d="M90 150H500" stroke="rgba(255,255,255,.18)" stroke-width="10" stroke-linecap="round" fill="none"/>
 <path id="p2" d="M500 150H1110" stroke="rgba(169,147,255,.25)" stroke-width="10" stroke-linecap="round" fill="none"/>
-<!-- safety shield -->
 <a href="projects/ammonia-mitigation.html" class="node" aria-label="Ammonia release mitigation case study">
 <path d="M655 112A70 70 0 0 1 765 112" fill="none" stroke="#ff7a52" stroke-width="3" stroke-dasharray="6 6"/>
 <text x="710" y="52" text-anchor="middle" font-size="14" font-weight="600" fill="#ff7a52">Release mitigation ↗</text>
 <text x="710" y="70" text-anchor="middle" font-size="12" fill="#a6b8be">safety layer</text>
 </a>
-<!-- molecules -->
 <g id="flow">
 <use href="#h2m"><animateMotion dur="5s" repeatCount="indefinite" path="M90 150H500"/></use>
 <use href="#n2m"><animateMotion dur="5s" begin="-1.6s" repeatCount="indefinite" path="M90 150H500"/></use>
@@ -176,7 +160,6 @@ Nitin Mahankali</a>
 <use href="#mol"><animateMotion dur="7s" begin="-2.3s" repeatCount="indefinite" path="M500 150H1110"/></use>
 <use href="#mol"><animateMotion dur="7s" begin="-4.6s" repeatCount="indefinite" path="M500 150H1110"/></use>
 </g>
-<!-- nodes -->
 <g class="node"><circle class="ring" cx="90" cy="150" r="38" fill="#13252c" stroke="#a6b8be" stroke-width="2"/><text x="90" y="156" text-anchor="middle" font-weight="600" font-size="17">kW</text>
 <text x="90" y="216" text-anchor="middle" font-size="14" font-weight="600">Renewable power</text></g>
 <g class="node"><circle class="ring" cx="290" cy="150" r="38" fill="#13252c" stroke="#4cc6d1" stroke-width="2"/><text x="290" y="156" text-anchor="middle" font-weight="600" font-size="16">H₂ · N₂</text>
@@ -191,7 +174,6 @@ Nitin Mahankali</a>
 <path d="M992 132V150" stroke="#a993ff" stroke-width="2"/></a>
 <g class="node"><circle class="ring" cx="1110" cy="150" r="38" fill="#13252c" stroke="#a6b8be" stroke-width="2"/><text x="1110" y="156" text-anchor="middle" font-weight="600" font-size="17">kW</text>
 <text x="1110" y="216" text-anchor="middle" font-size="14" font-weight="600">Power</text></g>
-<!-- manufacturing -->
 <a href="projects/laser-ded.html" class="node" aria-label="Laser DED additive manufacturing case study">
 <path d="M860 282H1010V160" fill="none" stroke="#a6b8be" stroke-width="1.5" stroke-dasharray="3 5"/>
 <rect x="640" y="262" width="220" height="40" rx="20" fill="#13252c" stroke="#a6b8be" stroke-width="1.5"/>
@@ -346,7 +328,6 @@ Nitin Mahankali</a>
 {
 const io=new IntersectionObserver(es=>{for(const e of es){if(e.isIntersecting){e.target.classList.add('in');io.unobserve(e.target)}}},{threshold:.1});
 document.querySelectorAll('.reveal').forEach(el=>io.observe(el));
-const chain=document.getElementById('chain');
 const rm=window.matchMedia('(prefers-reduced-motion: reduce)');
 if(rm.matches){const f=document.getElementById('flow');if(f)f.style.display='none'}
 }
