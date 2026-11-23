@@ -1,513 +1,312 @@
 <!DOCTYPE html>
 <html lang="en">
-
 <head>
-
-<meta charset="UTF-8">
-
-<meta name="viewport" content="width=device-width, initial-scale=1.0">
-
-<title>NH₃/H₂ Combustion | Nitin Mahankali</title>
-
-<link rel="stylesheet" href="../style.css">
-
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>NH₃/H₂ Engine Combustion | Nitin Mahankali</title>
+<meta name="description" content="Case study: ammonia–hydrogen blend combustion in a marine IC engine on a dynamometer: in-cylinder pressure, heat-release analysis in Python and exhaust-gas analysis at INP Greifswald.">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link href="https://fonts.googleapis.com/css2?family=IBM+Plex+Sans+Condensed:wght@600;700&family=IBM+Plex+Sans:wght@400;500;600&display=swap" rel="stylesheet">
 <style>
-
-.project-hero {
-    background:#111;
-    color:white;
-    padding:110px 30px;
-}
-
-.project-hero-container {
-    max-width:1100px;
-    margin:auto;
-}
-
-.project-hero h1 {
-    font-size:60px;
-    line-height:1.1;
-    max-width:850px;
-    margin-bottom:25px;
-}
-
-.project-hero p {
-    max-width:800px;
-    color:#bbb;
-    font-size:18px;
-}
-
-.project-content {
-    max-width:1100px;
-    margin:auto;
-    padding:80px 30px;
-}
-
-.project-content h2 {
-    font-size:38px;
-    margin-top:70px;
-    margin-bottom:20px;
-}
-
-.project-content h3 {
-    font-size:23px;
-    margin-top:35px;
-    margin-bottom:12px;
-}
-
-.project-content p {
-    max-width:850px;
-    color:#555;
-    margin-bottom:20px;
-}
-
-.project-content ul {
-    max-width:850px;
-    padding-left:25px;
-    color:#555;
-}
-
-.project-content li {
-    margin-bottom:8px;
-}
-
-.role-box {
-    background:#f0f0ed;
-    padding:30px;
-    border-left:4px solid #0057b8;
-    margin:30px 0;
-}
-
-.diagram {
-    background:#111;
-    color:white;
-    padding:40px;
-    margin:35px 0;
-    font-family:monospace;
-    font-size:15px;
-    line-height:1.8;
-    overflow-x:auto;
-}
-
-.skills-box {
-    display:grid;
-    grid-template-columns:repeat(2,1fr);
-    gap:20px;
-    margin-top:30px;
-}
-
-.skill-group {
-    background:#f5f5f3;
-    padding:25px;
-}
-
-.skill-group strong {
-    display:block;
-    margin-bottom:10px;
-}
-
-.back-button {
-    display:inline-block;
-    margin-top:50px;
-    padding:12px 20px;
-    background:#0057b8;
-    color:white;
-    text-decoration:none;
-    border-radius:5px;
-}
-
-@media(max-width:700px) {
-
-.project-hero h1 {
-    font-size:42px;
-}
-
-.skills-box {
-    grid-template-columns:1fr;
-}
-
-.project-content {
-    padding:60px 20px;
-}
-
-}
-
+/* VOICE: a confident engineering case study, factual, first person, no fluff.
+   IDEA: a process engineering drawing sheet: line colours, title block, tag labels.
+   PICTURE: the pilot-plant process loop drawn as a live block flow diagram with gas moving through it.
+   COLOUR and TYPE: drawing-paper white, ink, H2 vermilion, N2 teal, NH3 violet; IBM Plex Sans Condensed + Plex Sans.
+   LAYOUT: headline + key figures, then the diagram full width, then phases, decisions, story, model, skills. */
+:root{color-scheme:light dark;
+--bg:light-dark(#fbfbf8,#0f1418);--paper:light-dark(#ffffff,#151c21);--ink:light-dark(#141a1f,#e9edef);
+--mute:light-dark(#56606a,#9aa6ae);--rule:light-dark(#d9ddd8,#2a343b);
+--h2:light-dark(#d4441c,#ff7a52);--n2:light-dark(#0b7a86,#4cc6d1);--nh3:light-dark(#5b3fb5,#a993ff);--soft:light-dark(#f1f2ee,#1b2329)}
+:root[data-theme=light]{color-scheme:light}:root[data-theme=dark]{color-scheme:dark}
+*{box-sizing:border-box;min-width:0}
+body{margin:0;background:var(--bg);color:var(--ink);font:16.5px/1.6 "IBM Plex Sans",system-ui,sans-serif;overflow-x:clip}
+h1,h2,h3{font-family:"IBM Plex Sans Condensed","IBM Plex Sans",sans-serif;line-height:1.08;text-wrap:balance;margin:0}
+h1{font-size:clamp(32px,4.6vw,50px);max-width:26ch}
+h2{font-size:clamp(26px,3vw,34px);margin-bottom:18px}
+h3{font-size:20px;margin-bottom:8px}
+p{margin:0 0 14px;max-width:68ch}
+a{color:var(--n2)}
+.band{padding:clamp(28px,4vw,64px) max(5vw,16px)}
+.wrap{max-width:1240px;margin:0 auto}
+.paper{background:var(--paper);border-block:1px solid var(--rule)}
+nav{display:flex;flex-wrap:wrap;gap:8px 22px;align-items:center;padding:14px max(5vw,16px);border-bottom:1px solid var(--rule);background:var(--paper)}
+nav a{color:var(--ink);text-decoration:none;font-weight:500;padding:10px 0}
+nav .logo{font-family:"IBM Plex Sans Condensed","IBM Plex Sans",sans-serif;font-weight:700;font-size:20px;margin-right:auto}
+.kicker{color:var(--mute);font-weight:500;margin-bottom:14px}
+.lede{font-size:18.5px;color:var(--mute);margin-top:18px}
+.figs{display:grid;grid-template-columns:repeat(4,minmax(0,1fr));gap:0;margin-top:30px;border-top:2px solid var(--ink)}
+.figs div{padding:14px 16px 4px 0;border-right:1px solid var(--rule);margin-right:16px}
+.figs div:last-child{border:0}
+.figs b{display:block;font:700 clamp(26px,3.2vw,36px)/1.1 "IBM Plex Sans Condensed","IBM Plex Sans",sans-serif;white-space:nowrap}
+.figs span{color:var(--mute);font-size:14px}
+.scroll{overflow-x:auto}
+.diagram{min-width:720px}
+.diagram svg{width:100%;height:auto;display:block}
+.cap{color:var(--mute);font-size:14px;margin-top:10px}
+.flow{stroke-dasharray:7 9;animation:run 1.6s linear infinite}
+@keyframes run{to{stroke-dashoffset:-32}}
+.legend{display:flex;flex-wrap:wrap;gap:6px 20px;font-size:14px;color:var(--mute);margin-top:6px}
+.legend i{display:inline-block;width:22px;height:3px;vertical-align:middle;margin-right:6px}
+.two{display:grid;grid-template-columns:minmax(0,1fr) minmax(0,1fr);gap:clamp(24px,4vw,56px)}
+.phases{display:grid;grid-template-columns:repeat(2,minmax(0,1fr));gap:20px}
+.phase{background:var(--paper);border:1px solid var(--rule);padding:22px 22px 10px}
+.phase .tag{font:600 13px "IBM Plex Sans Condensed","IBM Plex Sans",sans-serif;color:var(--n2);margin-bottom:6px}
+.phase ul{margin:0 0 12px;padding-left:18px}.phase li{margin-bottom:7px}
+.kw{display:flex;flex-wrap:wrap;gap:6px;margin:4px 0 14px}
+.kw span,.skills span{font-size:13px;border:1px solid var(--rule);padding:3px 9px;border-radius:99px;background:var(--soft)}
+.decide{display:grid;grid-template-columns:repeat(3,minmax(0,1fr));gap:20px}
+.decide div{border-top:3px solid var(--nh3);padding-top:14px}
+.story{display:grid;grid-template-columns:repeat(4,minmax(0,1fr));gap:0;border:1px solid var(--rule);background:var(--paper)}
+.story div{padding:20px;border-right:1px solid var(--rule)}.story div:last-child{border:0}
+.story b{display:block;font:700 15px "IBM Plex Sans Condensed","IBM Plex Sans",sans-serif;margin-bottom:6px;color:var(--h2)}
+.doe{display:grid;grid-template-columns:minmax(0,1fr) 56px minmax(0,1fr);align-items:center;gap:10px}
+.col{display:grid;gap:10px}
+.col div{background:var(--paper);border:1px solid var(--rule);padding:12px 14px;font-weight:500}
+.col small{display:block;color:var(--mute);font-weight:400;font-size:14px}
+.arrow{font-size:30px;text-align:center;color:var(--mute)}
+.model{display:grid;gap:14px}
+.eq{display:grid;grid-template-columns:repeat(6,minmax(0,1fr));gap:10px}
+.eq div{background:var(--paper);border:1px solid var(--rule);padding:12px 10px;text-align:center;font-weight:500;font-size:15px}
+.plant{background:var(--ink);color:var(--bg);padding:16px 18px;text-align:center;font:600 18px "IBM Plex Sans Condensed","IBM Plex Sans",sans-serif}
+.valid{border:2px dashed var(--h2);padding:12px 16px;text-align:center;font-weight:500}
+.timeline{position:relative;display:grid;grid-template-columns:repeat(8,minmax(0,1fr));gap:8px;padding-top:26px}
+.timeline:before{content:"";position:absolute;top:8px;left:0;height:3px;width:var(--w,0%);background:var(--n2);transition:width 1.6s ease}
+.timeline div{font-size:14px;font-weight:500;position:relative}
+.timeline div:before{content:"";position:absolute;top:-24px;left:0;width:12px;height:12px;border-radius:50%;background:var(--paper);border:3px solid var(--n2)}
+.skills{display:flex;flex-wrap:wrap;gap:8px}
+.note{font-size:14px;color:var(--mute);border-left:3px solid var(--rule);padding-left:12px}
+.reveal{opacity:0;transform:translateY(22px);transition:opacity .7s ease,transform .7s ease}
+.reveal.in{opacity:1;transform:none}
+footer{padding:30px max(5vw,16px);border-top:1px solid var(--rule);color:var(--mute);font-size:14px;display:flex;flex-wrap:wrap;justify-content:space-between;gap:10px}
+@media(max-width:900px){.phases,.two,.decide{grid-template-columns:minmax(0,1fr)}.story{grid-template-columns:repeat(2,minmax(0,1fr))}.story div:nth-child(2){border-right:0}.story div{border-bottom:1px solid var(--rule)}.eq{grid-template-columns:repeat(3,minmax(0,1fr))}.timeline{grid-template-columns:repeat(4,minmax(0,1fr));row-gap:40px}.timeline:before{display:none}}
+@media(max-width:600px){.figs{grid-template-columns:repeat(2,minmax(0,1fr))}.figs div:nth-child(2){border:0}.story{grid-template-columns:minmax(0,1fr)}.story div{border-right:0}.doe{grid-template-columns:minmax(0,1fr)}.arrow{transform:rotate(90deg)}.eq{grid-template-columns:repeat(2,minmax(0,1fr))}.timeline{grid-template-columns:repeat(2,minmax(0,1fr))}}
+@media(prefers-reduced-motion:reduce){.flow{animation:none}.reveal{opacity:1;transform:none;transition:none}.timeline:before{transition:none}}
+.t6{grid-template-columns:repeat(6,minmax(0,1fr))}
+.pool{animation:glow 1.4s ease-in-out infinite}
+@keyframes glow{50%{opacity:.45}}
+.cmp{display:grid;grid-template-columns:minmax(0,1fr) minmax(0,1fr);gap:20px}
+.cmp>div{background:var(--paper);border:1px solid var(--rule);padding:22px 22px 8px}
+.cmp .c1{border-top:4px solid var(--h2)}.cmp .c2{border-top:4px solid var(--n2)}
+.small{font-size:14px;color:var(--mute)}
+.learn{padding-left:18px;margin:0}.learn li{margin-bottom:9px}
+@media(max-width:900px){.t6{grid-template-columns:repeat(3,minmax(0,1fr))}}
+@media(max-width:600px){.cmp,.t6{grid-template-columns:minmax(0,1fr)}.t6{grid-template-columns:repeat(2,minmax(0,1fr))}}
+@media(prefers-reduced-motion:reduce){.pool{animation:none}}
+.eqn{font:600 clamp(18px,2.2vw,22px) "IBM Plex Sans",sans-serif;background:var(--paper);border:1px solid var(--rule);padding:14px 18px;display:inline-block;max-width:100%}
+.rig{background:var(--paper);border:1px solid var(--rule);padding:20px}
+.rig .tag{font:600 14px "IBM Plex Sans Condensed","IBM Plex Sans",sans-serif;color:var(--n2)}
+.rig .doe{margin:14px 0}
+.rig .doe{grid-template-columns:minmax(0,1fr) 34px minmax(0,1fr)}
+.spray{animation:glow 1.2s ease-in-out infinite}
+@media(prefers-reduced-motion:reduce){.spray{animation:none}}
+.ptab{width:100%;border-collapse:collapse;background:var(--paper);font-size:15px;min-width:640px}
+.ptab th,.ptab td{border-bottom:1px solid var(--rule);padding:10px 12px;text-align:left;vertical-align:top}
+.ptab th{font-family:"IBM Plex Sans Condensed","IBM Plex Sans",sans-serif;font-size:15px;border-bottom:2px solid var(--ink)}
+.ptab td:nth-child(2),.ptab td:nth-child(3){white-space:nowrap}
+.fig2{max-width:680px}.fig2 svg{width:100%;height:auto;display:block}
+.piston{animation:pist 1.2s ease-in-out infinite}@keyframes pist{50%{transform:translateY(26px)}}
+.flame{animation:glow 1.2s ease-in-out infinite}
+.eqn{overflow-x:auto}
+@media(prefers-reduced-motion:reduce){.piston,.flame{animation:none}}
 </style>
-
 </head>
-
-
 <body>
-
-
-<nav class="navbar">
-
-<div class="nav-container">
-
-<a href="../index.html" class="logo">NM</a>
-
-<div class="nav-links">
-
-<a href="../index.html#home">Home</a>
-<a href="../index.html#about">About</a>
-<a href="../index.html#projects">Projects</a>
-<a href="../index.html#expertise">Expertise</a>
-<a href="../index.html#experience">Experience</a>
-<a href="../index.html#contact">Contact</a>
-
-</div>
-
-</div>
-
+<nav>
+<a class="logo" href="https://nitin14999.github.io/Nitin_Mahankali/">NM</a>
+<a href="#objective">Objective</a><a href="#fuels">NH₃ vs H₂</a><a href="#setup">Test bench</a><a href="#analysis">Analysis</a>
+<a href="https://nitin14999.github.io/Nitin_Mahankali/#projects">All projects</a>
 </nav>
 
-
-
-<section class="project-hero">
-
-<div class="project-hero-container">
-
-<p class="eyebrow">
-COMBUSTION · EXPERIMENTAL RESEARCH
-</p>
-
-<h1>
-NH₃/H₂ Combustion
-& Engine Testing
-</h1>
-
-<p>
-Experimental investigation of ammonia-hydrogen combustion
-using an internal-combustion engine test bench, dynamometer
-testing, combustion mapping and emissions analysis.
-</p>
-
+<header class="band">
+<div class="wrap">
+<div class="kicker">Case study · INP Greifswald · Research Scientist · Ongoing</div>
+<h1>NH₃ / H₂ combustion in a marine engine on the dynamometer</h1>
+<p class="lede">Controlled combustion experiments with ammonia–hydrogen blends in an internal combustion engine intended for an ammonia-fuelled yacht. Crank-angle-resolved in-cylinder pressure, dynamometer torque and exhaust-gas analysis are combined in a Python workflow to link fuel composition to combustion behaviour, performance and emissions.</p>
+<div class="figs">
+<div><b>NH₃ + H₂</b><span>blended fuel</span></div>
+<div><b>p(θ)</b><span>in-cylinder pressure vs crank angle</span></div>
+<div><b>Torque</b><span>engine dynamometer</span></div>
+<div><b>NOx</b><span>exhaust-gas analysis</span></div>
 </div>
+</div>
+</header>
 
+<section class="band paper" aria-label="Test bench">
+<div class="wrap" id="setup">
+<div class="scroll"><div class="diagram">
+<svg viewBox="0 0 960 380" role="img" aria-label="Test bench: NH3 and H2 are blended and fed to the engine, which is coupled to a dynamometer. A cylinder pressure sensor and crank angle encoder feed data acquisition and Python analysis. Exhaust goes to a gas analyser.">
+<g font-family="IBM Plex Sans, sans-serif" font-size="14" fill="var(--ink)">
+<rect x="30" y="50" width="120" height="50" rx="4" fill="var(--soft)" stroke="var(--nh3)" stroke-width="2"/>
+<text x="90" y="80" text-anchor="middle" font-weight="600">NH₃</text>
+<rect x="30" y="130" width="120" height="50" rx="4" fill="var(--soft)" stroke="var(--h2)" stroke-width="2"/>
+<text x="90" y="160" text-anchor="middle" font-weight="600">H₂</text>
+<path class="flow" d="M150 75H210V105H230M150 155H210V125H230" fill="none" stroke="var(--ink)" stroke-width="2.5"/>
+<rect x="230" y="85" width="120" height="60" rx="4" fill="var(--paper)" stroke="var(--ink)" stroke-width="1.6"/>
+<text x="290" y="110" text-anchor="middle" font-weight="600">Blending</text>
+<text x="290" y="128" text-anchor="middle" font-size="12" fill="var(--mute)">NH₃ / H₂ ratio</text>
+<path class="flow" d="M350 115H420" fill="none" stroke="var(--ink)" stroke-width="3"/>
+<!-- engine -->
+<rect x="420" y="60" width="170" height="210" rx="6" fill="var(--paper)" stroke="var(--ink)" stroke-width="2"/>
+<text x="505" y="84" text-anchor="middle" font-weight="600">IC engine</text>
+<rect x="465" y="100" width="80" height="120" fill="var(--soft)" stroke="var(--ink)" stroke-width="1.5"/>
+<rect x="469" y="150" width="72" height="40" fill="var(--mute)" opacity=".5" class="piston"/>
+<path d="M505 190V240" stroke="var(--ink)" stroke-width="4"/>
+<ellipse cx="505" cy="122" rx="24" ry="12" fill="var(--h2)" opacity=".45" class="flame"/>
+<circle cx="452" cy="160" r="9" fill="var(--paper)" stroke="var(--n2)" stroke-width="2.5"/>
+<path d="M443 160H405V321H400" fill="none" stroke="var(--n2)" stroke-width="1.8"/>
+<text x="508" y="262" text-anchor="middle" font-size="12" fill="var(--mute)">crank</text>
+<!-- dyno -->
+<path d="M590 220H680" stroke="var(--ink)" stroke-width="6"/>
+<rect x="680" y="180" width="140" height="80" rx="6" fill="var(--soft)" stroke="var(--ink)" stroke-width="1.8"/>
+<text x="750" y="214" text-anchor="middle" font-weight="600">Dynamometer</text>
+<text x="750" y="234" text-anchor="middle" font-size="12" fill="var(--mute)">torque · speed</text>
+<!-- exhaust -->
+<path class="flow" d="M590 90H760V70" fill="none" stroke="var(--mute)" stroke-width="3"/>
+<rect x="700" y="20" width="230" height="50" rx="4" fill="var(--paper)" stroke="var(--ink)" stroke-width="1.6"/>
+<text x="815" y="42" text-anchor="middle" font-weight="600">Exhaust-gas analysis</text>
+<text x="815" y="60" text-anchor="middle" font-size="12" fill="var(--mute)">NOx · unburned NH₃</text>
+<!-- DAQ -->
+<rect x="130" y="290" width="270" height="62" rx="4" fill="var(--paper)" stroke="var(--n2)" stroke-width="2.5"/>
+<text x="265" y="316" text-anchor="middle" font-weight="600">DAQ → Python analysis</text>
+<text x="265" y="336" text-anchor="middle" font-size="12" fill="var(--mute)">p(θ), heat release, torque, emissions</text>
+<text x="265" y="372" text-anchor="middle" font-size="12" fill="var(--mute)">cylinder-pressure sensor + crank-angle signal</text>
+</g>
+</svg>
+</div></div>
+<div class="legend"><span><i style="background:var(--nh3)"></i>Ammonia</span><span><i style="background:var(--h2)"></i>Hydrogen</span><span><i style="background:var(--n2)"></i>Measurement signals</span></div>
+<p class="cap">Simplified schematic of the engine test bench, drawn for this portfolio.</p>
+</div>
 </section>
 
-
-
-<main class="project-content">
-
-
-<h2>Project Overview</h2>
-
-<p>
-Experimental research on ammonia-hydrogen combustion as an
-alternative fuel pathway for low-carbon power generation and
-mobility applications.
-</p>
-
-<p>
-The work involved controlled combustion experiments using an
-IC-engine test bench coupled with a dynamometer, together with
-fuel-composition studies, combustion mapping and emissions
-measurements.
-</p>
-
-
-
-<!-- Project Overview Image -->
-<section class="project-overview">
-  <h2>Project Overview</h2>
-
-  <img
-    src="NH₃_H₂ Engine Combustion Guide.png"
-    alt="Overview of ammonia-hydrogen combustion experiments and engine testing"
-    class="project-overview-image"
-    loading="lazy"
-  >
-
-  <p class="image-caption">
-    Overview of NH₃/H₂ fuel supply, engine test bench,
-    combustion diagnostics and experimental measurements.
-  </p>
+<section class="band reveal" id="objective">
+<div class="wrap two">
+<div>
+<h2>Objective</h2>
+<p>Ammonia is a carbon-free fuel that is easier to store and carry on board than hydrogen. But it is hard to burn in an engine: it ignites poorly, burns slowly and can form NOx from the nitrogen it contains. Adding hydrogen speeds up combustion, but too much hydrogen raises combustion temperatures and NOx.</p>
+<p>The aim is to find out <strong>how the NH₃ / H₂ blend ratio and the operating conditions affect combustion, engine performance and emissions</strong> in an engine intended for an ammonia-fuelled yacht.</p>
+</div>
+<div>
+<h2>Role</h2>
+<p>Research Scientist on the engine test bench. Responsibilities: literature review of NH₃ and H₂ as engine fuels, the controlled combustion experiments on the dynamometer, cylinder-pressure and exhaust-gas measurements, and a Python-based workflow for processing and analysing the combustion data.</p>
+<p class="note">Experiments are running. Quantitative results will be added once they can be published.</p>
+</div>
+</div>
 </section>
 
+<section class="band paper reveal" id="fuels">
+<div class="wrap">
+<h2>Why blend? Ammonia and hydrogen complement each other</h2>
+<div class="scroll">
+<table class="ptab">
+<thead><tr><th>Property (approx., literature)</th><th>NH₃</th><th>H₂</th><th>Effect on the blend</th></tr></thead>
+<tbody>
+<tr><td>Laminar burning velocity, stoichiometric</td><td>≈ 7 cm/s</td><td>≈ 200+ cm/s</td><td>H₂ speeds up a slow-burning NH₃ flame</td></tr>
+<tr><td>Flammability limits in air</td><td>≈ 15–28 vol %</td><td>≈ 4–75 vol %</td><td>H₂ widens the stable operating range</td></tr>
+<tr><td>Lower heating value</td><td>≈ 18.6 MJ/kg</td><td>≈ 120 MJ/kg</td><td>NH₃ needs more fuel mass per unit of energy</td></tr>
+<tr><td>Storage</td><td>liquid at ≈ 8–10 bar</td><td>compressed or cryogenic</td><td>NH₃ is the practical on-board energy carrier</td></tr>
+<tr><td>Carbon content</td><td>none</td><td>none</td><td>no CO₂ from combustion</td></tr>
+</tbody>
+</table>
+</div>
+<div class="cmp" style="margin-top:26px">
+<div class="c2"><h3>Ammonia: benefits and drawbacks</h3>
+<p><strong>+</strong> carbon-free, high energy density as a liquid, established handling, high knock resistance.</p>
+<p><strong>−</strong> poor ignition and slow burning, which limits combustion stability. Nitrogen in the fuel can form NOx, unburned NH₃ can pass into the exhaust (NH₃ slip), and it is toxic.</p></div>
+<div class="c1"><h3>Hydrogen: benefits and drawbacks</h3>
+<p><strong>+</strong> fast, easily ignited combustion that strengthens and stabilises the NH₃ flame.</p>
+<p><strong>−</strong> at high H₂ fractions, higher combustion temperatures increase thermal NOx. The literature review identified this as a key trade-off, along with the difficulty of storing H₂ on board.</p></div>
+</div>
+<div class="tradeoff" style="margin-top:26px">
+<div class="fig2">
+<svg viewBox="0 0 640 300" role="img" aria-label="Qualitative trends: combustion stability rises with hydrogen fraction, NOx also rises; a balanced operating window lies in between">
+<g font-family="IBM Plex Sans, sans-serif" font-size="13" fill="var(--ink)">
+<rect x="250" y="30" width="150" height="220" fill="var(--n2)" opacity=".1"/>
+<text x="325" y="50" text-anchor="middle" font-size="12" fill="var(--n2)" font-weight="600">balanced window</text>
+<path d="M60 250H610M60 250V20" stroke="var(--ink)" stroke-width="1.5"/>
+<path d="M60 220C150 210 200 120 300 90C400 64 500 58 600 55" fill="none" stroke="var(--n2)" stroke-width="3"/>
+<path d="M60 235C200 232 300 205 400 150C480 105 540 70 600 40" fill="none" stroke="var(--h2)" stroke-width="3"/>
+<text x="600" y="38" text-anchor="end" fill="var(--n2)" font-weight="600">combustion speed &amp; stability</text>
+<text x="440" y="190" fill="var(--h2)" font-weight="600">NOx (thermal)</text>
+<text x="335" y="280" text-anchor="middle" fill="var(--mute)">H₂ fraction in the blend →</text>
+<text x="50" y="140" text-anchor="middle" fill="var(--mute)" transform="rotate(-90 50 140)">relative effect</text>
+</g>
+</svg>
+</div>
+<p class="cap">Qualitative trend from the literature that guides the experiments. Not measured data.</p>
+</div>
+</div>
+</section>
 
+<section class="band reveal">
+<div class="wrap">
+<h2>Controlled combustion experiments</h2>
+<div class="doe" style="margin-top:12px">
+<div class="col">
+<div>NH₃ / H₂ blend ratio<small>fuel composition</small></div>
+<div>Engine operating conditions<small>speed, load, mixture preparation</small></div>
+<div>Ignition / combustion settings<small>under controlled conditions</small></div>
+</div>
+<div class="arrow" aria-hidden="true">→</div>
+<div class="col">
+<div>In-cylinder pressure vs crank angle<small>combustion behaviour</small></div>
+<div>Torque<small>from the dynamometer</small></div>
+<div>Exhaust composition<small>NOx and unburned NH₃</small></div>
+</div>
+</div>
+<p class="cap">Left: factors varied. Right: quantities measured.</p>
+</div>
+</section>
 
-    
-
-<h2>My Role</h2>
-
-<div class="role-box">
-
-<strong>
-Research Scientist — INP Greifswald
-</strong>
-
-<ul>
-
-<li>Experimental combustion research</li>
-
-<li>IC-engine test bench operation</li>
-
-<li>Dynamometer-based testing</li>
-
-<li>NH₃/H₂ fuel blending and controlled operation</li>
-
-<li>Combustion mapping</li>
-
-<li>Investigation of ignition timing and mixture preparation</li>
-
-<li>Torque and engine-performance measurements</li>
-
-<li>Exhaust-temperature measurements</li>
-
-<li>Emissions analysis</li>
-
-<li>NH₃ slip investigation</li>
-
-<li>NOx-related combustion analysis</li>
-
-<li>Data acquisition and processing</li>
-
-<li>Experimental documentation</li>
-
+<section class="band paper reveal" id="analysis">
+<div class="wrap two">
+<div>
+<h2>From pressure trace to heat release</h2>
+<p>Cylinder pressure is recorded against crank angle, then processed in Python (NumPy, Pandas, Matplotlib). The apparent heat-release rate comes from the first law of thermodynamics:</p>
+<p class="eqn">dQ/dθ = γ/(γ−1) · p · dV/dθ + 1/(γ−1) · V · dp/dθ</p>
+<p>From this the workflow evaluates heat-release behaviour, combustion phasing and stability, and correlates them with fuel composition, operating point, torque and exhaust emissions.</p>
+</div>
+<div>
+<h2>Scope of work</h2>
+<ul class="learn">
+<li>Literature review of ammonia and hydrogen as engine fuels: combustion properties, benefits, drawbacks and emission pathways.</li>
+<li>Controlled combustion experiments with NH₃ / H₂ blends on the engine–dynamometer test bench.</li>
+<li>Crank-angle-resolved in-cylinder pressure measurement and data acquisition.</li>
+<li>Exhaust-gas analysis with a focus on NOx and unburned ammonia.</li>
+<li>Python workflows for data processing, heat-release analysis and visualisation.</li>
+<li>Correlation of fuel composition and operating conditions with torque and combustion behaviour.</li>
 </ul>
-
 </div>
+</div>
+</section>
 
-
-
-<h2>Research Challenge</h2>
-
-<p>
-Ammonia has potential as a carbon-free energy carrier and fuel,
-but its combustion characteristics differ significantly from
-conventional hydrocarbon fuels.
-</p>
-
-<p>
-The experimental challenge is to understand how fuel composition,
-ignition conditions and mixture preparation influence combustion
-behaviour, engine performance, stability and emissions.
-</p>
-
-
-
-<h2>Experimental Setup</h2>
-
-<p>
-The experimental work was conducted using an internal-combustion
-engine test bench coupled to a dynamometer.
-</p>
-
-
-<!-- Experimental Setup Flowchart -->
-<figure class="experimental-setup">
-  <img
-    src="NH₃_H₂ Engine Combustion PFD.png"
-    alt="Experimental setup flowchart for NH3 and H2 combustion engine testing"
-    class="experimental-setup-image"
-    loading="lazy"
-  >
-
-  <figcaption>
-    Experimental workflow: NH₃/H₂ fuel preparation, IC-engine
-    combustion, dynamometer measurements and exhaust-emission analysis.
-  </figcaption>
-</figure>
-
-
-
-
-<h2>Experimental Investigation</h2>
-
-
-<h3>Fuel Composition</h3>
-
-<ul>
-
-<li>Variation of ammonia-hydrogen fuel composition</li>
-
-<li>Controlled operating conditions</li>
-
-<li>Investigation of fuel effects on combustion behaviour</li>
-
+<section class="band reveal">
+<div class="wrap two">
+<div>
+<h2>Key learnings so far</h2>
+<ul class="learn">
+<li>Ammonia's weakness, slow and hard-to-ignite combustion, can be offset with hydrogen, but only up to a point.</li>
+<li>The H₂ fraction is a trade-off between combustion stability and NOx, so the "best" blend depends on the operating point.</li>
+<li>Cylinder pressure against crank angle is the most direct window into combustion, and a solid analysis workflow turns raw traces into comparable metrics.</li>
+<li>Emissions from ammonia combustion (NOx, NH₃ slip) need to be considered from the start, especially for marine use.</li>
 </ul>
-
-
-<h3>Engine Operation</h3>
-
-<ul>
-
-<li>Controlled engine speed</li>
-
-<li>Torque measurement</li>
-
-<li>Ignition-timing investigation</li>
-
-<li>Mixture-preparation effects</li>
-
-<li>Combustion stability evaluation</li>
-
-</ul>
-
-
-<h3>Emissions</h3>
-
-<ul>
-
-<li>NOx formation</li>
-
-<li>Unburned ammonia / NH₃ slip</li>
-
-<li>Exhaust-gas analysis</li>
-
-<li>Emission-reduction strategies</li>
-
-</ul>
-
-
-
-<h2>Data Acquisition & Analysis</h2>
-
-<p>
-Experimental measurements were collected and processed to
-evaluate the relationship between operating conditions,
-combustion behaviour, engine performance and emissions.
-</p>
-
-<ul>
-
-<li>Experimental data logging</li>
-
-<li>Data processing using Python</li>
-
-<li>Parameter comparison</li>
-
-<li>Regression and statistical analysis</li>
-
-<li>Design of Experiments</li>
-
-<li>Parameter sensitivity analysis</li>
-
-</ul>
-
-
-
-<h2>Combustion Diagnostics</h2>
-
-<p>
-The broader combustion research environment included practical
-exposure to optical and laser-based diagnostics used for
-investigating reacting flows and flame behaviour.
-</p>
-
-<ul>
-
-<li>PLIF</li>
-
-<li>LIF</li>
-
-<li>PIV</li>
-
-<li>Chemiluminescence</li>
-
-<li>Flame imaging</li>
-
-<li>Flame stability investigation</li>
-
-</ul>
-
-
-
-<h2>Engineering Outcome</h2>
-
-<p>
-The work provided experimental understanding of ammonia-hydrogen
-combustion behaviour and its relationship with engine operating
-conditions, performance and emissions.
-</p>
-
-<p>
-The research combines hands-on experimental engineering with
-data-driven analysis and combustion fundamentals.
-</p>
-
-
-
-<h2>Tools & Skills</h2>
-
-<div class="skills-box">
-
-<div class="skill-group">
-
-<strong>Combustion</strong>
-
-NH₃/H₂ · Ammonia Combustion · IC Engines ·
-Lean Combustion · Ignition · Flame Stability
-
+<h2 style="margin-top:30px">Next steps</h2>
+<p>Complete the test matrix, map combustion and emissions across blend ratios and operating points, and identify a recommended operating window for the yacht engine.</p>
 </div>
-
-
-<div class="skill-group">
-
-<strong>Experimental</strong>
-
-Engine Test Bench · Dynamometer ·
-Data Acquisition · Combustion Mapping
-
+<div>
+<h2>Skills shown</h2>
+<div class="skills"><span>NH₃ / H₂ combustion</span><span>IC engines</span><span>Engine dynamometer</span><span>In-cylinder pressure</span><span>Heat-release analysis</span><span>Exhaust-gas analysis</span><span>NOx</span><span>NH₃ slip</span><span>Alternative fuels</span><span>Data acquisition</span><span>Python</span><span>NumPy · Pandas · Matplotlib</span><span>Marine fuels</span></div>
 </div>
-
-
-<div class="skill-group">
-
-<strong>Diagnostics</strong>
-
-PLIF · LIF · PIV · Chemiluminescence ·
-Flame Imaging
-
 </div>
+</section>
 
+<footer><span>© 2026 Nitin Mahankali · Mechanical Engineer · Research Scientist</span><a href="https://nitin14999.github.io/Nitin_Mahankali/#projects">← Back to projects</a></footer>
 
-<div class="skill-group">
-
-<strong>Emissions</strong>
-
-NOx · NH₃ Slip · Exhaust Gas Analysis ·
-Emission Reduction
-
-</div>
-
-
-<div class="skill-group">
-
-<strong>Data</strong>
-
-Python · NumPy · Pandas · Matplotlib ·
-DoE · Regression · Statistical Analysis
-
-</div>
-
-</div>
-
-
-
-<a href="../index.html#projects" class="back-button">
-
-← Back to Projects
-
-</a>
-
-</main>
-
-
-<footer>
-
-<div class="footer-container">
-
-<p>© 2026 Nitin Mahankali</p>
-
-<p>Mechanical Engineer · Research Scientist</p>
-
-</div>
-
-</footer>
-
-
+<script>
+{
+const els=document.querySelectorAll('.reveal');
+const io=new IntersectionObserver(es=>{for(const e of es){if(e.isIntersecting){e.target.classList.add('in');io.unobserve(e.target)}}},{threshold:.12});
+els.forEach(el=>io.observe(el));
+}
+</script>
 </body>
-
 </html>
