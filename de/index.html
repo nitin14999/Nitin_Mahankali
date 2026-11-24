@@ -1,0 +1,361 @@
+<!DOCTYPE html>
+<html lang="de">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Nitin Mahankali | Maschinenbau- &amp; Verfahrensingenieur · Wissenschaftlicher Mitarbeiter</title>
+<meta name="description" content="Nitin Mahankali: Maschinenbau- und Verfahrensingenieur entlang der gesamten Ammoniak-Wertschöpfungskette: Power-to-Ammonia-Pilotanlagen, NH₃/H₂-Verbrennung, Ammoniaksicherheit, Betankung, SOFC-Systeme und additive Fertigung von Metallen.">
+<meta property="og:title" content="Nitin Mahankali | Engineering für die Ammoniak-Wertschöpfungskette">
+<meta property="og:description" content="Sechs Engineering-Fallstudien: von einer containerisierten Haber-Bosch-Pilotanlage bis zu NH₃/H₂-Motoren und SOFC-Systemen.">
+<link rel="icon" href="data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 64 64'%3E%3Crect width='64' height='64' rx='15' fill='%2313252c' stroke='%232c4a54' stroke-width='1.5'/%3E%3Ctext x='32' y='40' text-anchor='middle' font-family='IBM Plex Sans Condensed, Arial Narrow, Arial, sans-serif' font-weight='700' font-size='28' letter-spacing='-0.5' fill='%23e8eff1'%3ENM%3C/text%3E%3Crect x='14' y='48' width='12' height='4' rx='2' fill='%234cc6d1'/%3E%3Crect x='26' y='48' width='12' height='4' fill='%23a993ff'/%3E%3Crect x='38' y='48' width='12' height='4' rx='2' fill='%23ff7a52'/%3E%3C/svg%3E">
+<link rel="alternate" hreflang="en" href="https://nitin14999.github.io/Nitin_Mahankali/de/">
+<link rel="alternate" hreflang="de" href="https://nitin14999.github.io/Nitin_Mahankali/de/">
+<link rel="alternate" hreflang="x-default" href="https://nitin14999.github.io/Nitin_Mahankali/de/">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link href="https://fonts.googleapis.com/css2?family=IBM+Plex+Sans+Condensed:wght@600;700&family=IBM+Plex+Sans:wght@400;500;600&display=swap" rel="stylesheet">
+<style>
+/* VOICE: confident engineer's personal site; factual, warm, no slogans.
+   IDEA: the ammonia value chain as a live process line; every project is a station on it.
+   PICTURE: animated hero chain (power → H2/N2 → synthesis → storage → engine/SOFC → power) with molecules flowing; nodes link to case studies.
+   COLOUR and TYPE: deep process-ink hero; H2 vermilion, N2 teal, NH3 violet; IBM Plex Sans Condensed + Plex Sans, same as the case studies.
+   LAYOUT: dark hero + range strip, projects (featured + grid), approach, experience, toolbox, about, dark contact band. */
+:root{color-scheme:light dark;
+--bg:light-dark(#fbfbf8,#0f1418);--paper:light-dark(#ffffff,#151c21);--ink:light-dark(#141a1f,#e9edef);
+--mute:light-dark(#56606a,#9aa6ae);--rule:light-dark(#d9ddd8,#2a343b);--soft:light-dark(#f1f2ee,#1b2329);
+--h2:light-dark(#d4441c,#ff7a52);--n2:light-dark(#0b7a86,#4cc6d1);--nh3:light-dark(#5b3fb5,#a993ff);
+--deep:#0e1a1f;--deep2:#13252c;--on:#e8eff1;--onm:#a6b8be;--dh2:#ff7a52;--dn2:#4cc6d1;--dnh3:#a993ff}
+:root[data-theme=light]{color-scheme:light}:root[data-theme=dark]{color-scheme:dark}
+*{box-sizing:border-box;min-width:0}
+html{scroll-behavior:smooth;scroll-padding-top:72px}
+body{margin:0;background:var(--bg);color:var(--ink);font:16.5px/1.6 "IBM Plex Sans",system-ui,sans-serif;overflow-x:clip}
+h1,h2,h3{font-family:"IBM Plex Sans Condensed","IBM Plex Sans",sans-serif;line-height:1.06;text-wrap:balance;margin:0}
+h2{font-size:clamp(30px,3.6vw,44px);margin-bottom:12px}
+h3{font-size:21px;margin-bottom:6px}
+p{margin:0 0 14px;max-width:66ch}
+a{color:inherit}
+.band{padding:clamp(48px,6vw,96px) max(5vw,16px)}
+.wrap{max-width:1240px;margin:0 auto}
+.sub{color:var(--mute);font-size:18px;margin-bottom:34px}
+/* nav */
+nav{position:sticky;top:0;z-index:20;display:flex;flex-wrap:wrap;align-items:center;gap:6px 24px;padding:12px max(5vw,16px);background:rgba(14,26,31,.88);backdrop-filter:blur(10px);color:var(--on);border-bottom:1px solid rgba(255,255,255,.08)}
+nav .logo{display:flex;align-items:center;gap:10px;margin-right:auto;text-decoration:none;font:700 18px "IBM Plex Sans Condensed","IBM Plex Sans",sans-serif}
+nav .logo svg{width:34px;height:34px}
+nav a.l{color:var(--onm);text-decoration:none;font-weight:500;padding:10px 0}
+nav a.l:hover,nav a.l:focus-visible{color:var(--on)}
+nav .cta{background:var(--dn2);color:var(--deep);padding:8px 16px;border-radius:99px;font-weight:600;text-decoration:none}
+/* hero */
+.hero{background:radial-gradient(1200px 500px at 70% 30%,var(--deep2),var(--deep));color:var(--on);padding:clamp(40px,6vw,84px) max(5vw,16px) 0}
+.hero .eyebrow{color:var(--dn2);font-weight:600;margin-bottom:14px}
+.hero h1{font-size:clamp(40px,6.4vw,78px);letter-spacing:-.01em}
+.hero .tag{font:600 clamp(22px,2.6vw,32px)/1.2 "IBM Plex Sans Condensed","IBM Plex Sans",sans-serif;margin:14px 0 18px;color:var(--on);max-width:26ch}
+.hero .tag em{font-style:normal;color:var(--dnh3)}
+.hero p.lede{color:var(--onm);font-size:18px;max-width:60ch}
+.btns{display:flex;flex-wrap:wrap;gap:12px;margin-top:22px}
+.btn{display:inline-flex;align-items:center;min-height:46px;padding:0 22px;border-radius:99px;font-weight:600;text-decoration:none}
+.btn.p{background:var(--on);color:var(--deep)}.btn.s{border:1.5px solid rgba(255,255,255,.35);color:var(--on)}
+.btn:hover{transform:translateY(-1px)}
+.chain{margin-top:clamp(26px,4vw,48px);padding-bottom:clamp(28px,4vw,56px)}
+.chain .scroll{overflow-x:auto}
+.chain svg{display:block;width:100%;min-width:860px;height:auto}
+.node circle.ring{transition:stroke-width .2s}
+.node:hover circle.ring,.node:focus-visible circle.ring{stroke-width:4}
+.node{cursor:pointer}
+.hint{color:var(--onm);font-size:14px;margin:6px 0 0}
+.top{display:grid;grid-template-columns:minmax(0,1.5fr) minmax(0,1fr);gap:clamp(24px,4vw,64px);align-items:end}
+.range{display:grid;grid-template-columns:repeat(2,minmax(0,1fr));border:1px solid rgba(255,255,255,.12);background:rgba(255,255,255,.03)}
+.range div{border:1px solid rgba(255,255,255,.08)}
+.range div{padding:20px 18px 22px}
+.range b{display:block;font:700 clamp(20px,2.1vw,27px)/1.1 "IBM Plex Sans Condensed","IBM Plex Sans",sans-serif;white-space:nowrap}
+.range span{color:var(--onm);font-size:14px}
+/* projects */
+.feat{display:grid;grid-template-columns:minmax(0,1.1fr) minmax(0,1fr);background:var(--paper);border:1px solid var(--rule);text-decoration:none;margin-bottom:22px;transition:transform .25s,box-shadow .25s}
+.feat .art{background:var(--deep);display:flex;align-items:center;justify-content:center;padding:26px}
+.feat .art svg{width:100%;max-width:520px;height:auto}
+.feat .txt{padding:clamp(22px,3vw,40px)}
+.grid{display:grid;grid-template-columns:repeat(3,minmax(0,1fr));gap:22px}
+.card{display:flex;flex-direction:column;background:var(--paper);border:1px solid var(--rule);text-decoration:none;transition:transform .25s,box-shadow .25s}
+.card .art{background:var(--soft);border-bottom:1px solid var(--rule);height:150px;display:flex;align-items:center;justify-content:center}
+.card .art svg{height:110px;width:auto}
+.card .txt{padding:20px 22px 22px;display:flex;flex-direction:column;flex:1}
+.card p{color:var(--mute);font-size:15.5px}.card p.more{color:var(--n2)}
+.more{margin-top:auto;font-weight:600;color:var(--n2)}
+.card:hover,.feat:hover,.card:focus-visible,.feat:focus-visible{transform:translateY(-4px);box-shadow:0 18px 40px -22px rgba(0,0,0,.45)}
+.meta{display:flex;flex-wrap:wrap;gap:8px;margin-bottom:10px;font-size:13px}
+.meta span{padding:2px 10px;border-radius:99px;border:1px solid var(--rule);background:var(--soft)}
+.meta .st{border-color:transparent;color:#fff}
+.st.on{background:var(--n2)}.st.cp{background:var(--nh3)}.st.ds{background:var(--h2)}
+/* approach */
+.steps{display:grid;grid-template-columns:repeat(4,minmax(0,1fr));gap:0;counter-reset:s;border-top:2px solid var(--ink)}
+.steps div{padding:22px 22px 6px 0;border-right:1px solid var(--rule);margin-right:22px}
+.steps div:last-child{border:0}
+.steps b{display:block;font:700 15px "IBM Plex Sans Condensed","IBM Plex Sans",sans-serif;color:var(--n2);margin-bottom:6px}
+.steps p{font-size:15.5px;color:var(--mute)}
+/* experience */
+.tl{position:relative;display:grid;gap:26px;padding-left:34px}
+.tl:before{content:"";position:absolute;left:9px;top:6px;bottom:6px;width:3px;background:var(--rule)}
+.tl .it{position:relative;display:grid;grid-template-columns:170px minmax(0,1fr);gap:20px}
+.tl .it:before{content:"";position:absolute;left:-34px;top:4px;width:21px;height:21px;border-radius:50%;background:var(--bg);border:4px solid var(--n2)}
+.tl .it.ed:before{border-color:var(--nh3)}
+.tl .when{font-weight:600;color:var(--mute)}
+.tl h3{margin-bottom:2px}.tl .org{font-weight:600;margin-bottom:6px}
+.tl a{color:var(--n2);font-weight:600}
+/* toolbox */
+.tools{display:grid;grid-template-columns:repeat(3,minmax(0,1fr));gap:22px}
+.tools>div{background:var(--paper);border:1px solid var(--rule);padding:20px}
+.chips{display:flex;flex-wrap:wrap;gap:6px;margin-top:10px}
+.chips span{font-size:13.5px;padding:3px 10px;border-radius:99px;background:var(--soft);border:1px solid var(--rule)}
+/* about */
+.about{display:grid;grid-template-columns:minmax(0,1.2fr) minmax(0,1fr);gap:clamp(24px,4vw,64px);align-items:start}
+.facts{display:grid;gap:12px}
+.facts div{display:grid;grid-template-columns:130px minmax(0,1fr);gap:14px;border-bottom:1px solid var(--rule);padding-bottom:12px}
+.facts dt{color:var(--mute);font-weight:500}
+.now{background:var(--paper);border:1px solid var(--rule);border-left:4px solid var(--nh3);padding:18px 20px;margin-top:20px}
+/* contact */
+.contact{background:var(--deep);color:var(--on)}
+.contact h2{font-size:clamp(34px,5vw,60px);max-width:16ch}
+.contact p{color:var(--onm);font-size:18px}
+.contact .addr{font:600 clamp(18px,2.2vw,24px) "IBM Plex Sans",sans-serif;color:var(--on);margin:18px 0 4px;word-break:break-all}
+footer{background:var(--deep);color:var(--onm);border-top:1px solid rgba(255,255,255,.1);padding:22px max(5vw,16px);font-size:14px;display:flex;flex-wrap:wrap;justify-content:space-between;gap:10px}
+/* motion */
+.reveal{opacity:0;transform:translateY(26px);transition:opacity .8s ease,transform .8s ease}
+.reveal.in{opacity:1;transform:none}
+a:focus-visible{outline:3px solid var(--dn2);outline-offset:3px}
+@media(max-width:980px){.top{grid-template-columns:minmax(0,1fr)}.grid,.tools{grid-template-columns:repeat(2,minmax(0,1fr))}.steps{grid-template-columns:repeat(2,minmax(0,1fr))}.steps div:nth-child(2){border:0}.feat,.about{grid-template-columns:minmax(0,1fr)}}
+@media(max-width:600px){.grid,.tools,.steps{grid-template-columns:minmax(0,1fr)}.steps div{border-right:0;border-bottom:1px solid var(--rule);margin-right:0}.range{grid-template-columns:repeat(2,minmax(0,1fr))}.tl .it{grid-template-columns:minmax(0,1fr);gap:4px}.facts div{grid-template-columns:minmax(0,1fr);gap:2px}nav a.l{display:none}nav .logo{font-size:16px}}
+@media(max-width:430px){nav .cta{display:none}}
+@media(prefers-reduced-motion:reduce){html{scroll-behavior:auto}.reveal{opacity:1;transform:none;transition:none}.card,.feat{transition:none}}
+h1,h2,h3,p,li,small,.col div,.rig{hyphens:auto;-webkit-hyphens:auto;overflow-wrap:break-word}
+</style>
+</head>
+<body>
+
+<nav aria-label="Hauptnavigation">
+<a class="logo" href="#home" aria-label="Nitin Mahankali, Startseite">
+<svg viewBox="0 0 64 64" aria-hidden="true"><rect width="64" height="64" rx="15" fill="#13252c" stroke="#2c4a54" stroke-width="1.5"/><text x="32" y="40" text-anchor="middle" font-family="IBM Plex Sans Condensed, Arial Narrow, Arial, sans-serif" font-weight="700" font-size="28" letter-spacing="-0.5" fill="#e8eff1">NM</text><rect x="14" y="48" width="12" height="4" rx="2" fill="#4cc6d1"/><rect x="26" y="48" width="12" height="4" fill="#a993ff"/><rect x="38" y="48" width="12" height="4" rx="2" fill="#ff7a52"/></svg>
+Nitin Mahankali</a>
+<a class="l" href="#projects">Projekte</a><a class="l" href="#approach">Arbeitsweise</a><a class="l" href="#experience">Werdegang</a><a class="l" href="#about">Über mich</a>
+<span class="lang" style="display:inline-flex;align-items:center;gap:6px;font-weight:600;font-size:14px;border:1px solid currentColor;border-radius:99px;padding:6px 12px;opacity:.9"><a href="../" hreflang="en" lang="en" style="text-decoration:none;padding:0" aria-label="English version">EN</a><span aria-hidden="true">|</span><b>DE</b></span>
+<a class="cta" href="#contact">Kontakt</a>
+</nav>
+
+<header class="hero" id="home">
+<div class="wrap">
+<div class="top"><div>
+<div class="eyebrow">Maschinenbau- &amp; Verfahrensingenieur · Wissenschaftlicher Mitarbeiter · Rostock</div>
+<h1>Nitin Mahankali</h1>
+<div class="tag">Engineering für die <em>Ammoniak</em>-Wertschöpfungskette: von der Pilotanlage bis zur Energie.</div>
+<p class="lede">Grüne Ammoniakerzeugung, sichere Lagerung und Betankung, NH₃/H₂-Verbrennung und Brennstoffzellen. Erfahrung von Anlagenaufstellung und R&amp;I-Fließbildern über Prüfstände und statistische Versuchsplanung (DoE) bis zu Python-basierter Datenanalyse und Modellierung: am Leibniz-INP, bei Sunfire und am Fraunhofer IWS.</p>
+<div class="btns"><a class="btn p" href="#projects">Zu den Projekten</a><a class="btn s" href="#contact">Kontakt aufnehmen</a></div>
+</div>
+<div class="range">
+<div><b>−33 → 600 °C</b><span>von der tiefkalten NH₃-Lagerung bis zur Synthese</span></div>
+<div><b>1 → 150 bar</b><span>von Atmosphärendruck bis zum Druck im Synthesekreislauf</span></div>
+<div><b>6</b><span>Engineering-Fallstudien</span></div>
+<div><b>3</b><span>Arbeitgeber in Forschung und Industrie in Deutschland</span></div>
+</div>
+</div>
+</div>
+
+<div class="chain" aria-label="Interaktive Ammoniak-Wertschöpfungskette: Jede Station führt zu einer Fallstudie">
+<div class="scroll">
+<svg id="chain" viewBox="0 0 1200 330" role="img" aria-label="Wertschöpfungskette: erneuerbarer Strom, H2 und N2, Haber-Bosch-Synthese, Lagerung und Betankung mit Freisetzungsminderung, Motor und SOFC, Energie. Additive Fertigung liefert Hardware.">
+<defs>
+<g id="mol"><circle r="6" fill="#a993ff"/><circle cx="-7" cy="-5" r="3" fill="#e8eff1"/><circle cx="7" cy="-5" r="3" fill="#e8eff1"/><circle cx="0" cy="8" r="3" fill="#e8eff1"/></g>
+<g id="h2m"><circle cx="-3" r="4" fill="#ff7a52"/><circle cx="4" r="4" fill="#ff7a52"/></g>
+<g id="n2m"><circle cx="-3" r="4" fill="#4cc6d1"/><circle cx="4" r="4" fill="#4cc6d1"/></g>
+</defs>
+<g font-family="IBM Plex Sans, sans-serif" fill="#e8eff1">
+<path id="p1" d="M90 150H500" stroke="rgba(255,255,255,.18)" stroke-width="10" stroke-linecap="round" fill="none"/>
+<path id="p2" d="M500 150H1110" stroke="rgba(169,147,255,.25)" stroke-width="10" stroke-linecap="round" fill="none"/>
+<!-- safety shield -->
+<a href="projects/ammonia-mitigation.html" class="node" aria-label="Fallstudie Minderung von Ammoniakfreisetzungen">
+<path d="M655 112A70 70 0 0 1 765 112" fill="none" stroke="#ff7a52" stroke-width="3" stroke-dasharray="6 6"/>
+<text x="710" y="52" text-anchor="middle" font-size="14" font-weight="600" fill="#ff7a52">Freisetzungsminderung ↗</text>
+<text x="710" y="70" text-anchor="middle" font-size="12" fill="#a6b8be">Sicherheitsebene</text>
+</a>
+<!-- molecules -->
+<g id="flow">
+<use href="#h2m"><animateMotion dur="5s" repeatCount="indefinite" path="M90 150H500"/></use>
+<use href="#n2m"><animateMotion dur="5s" begin="-1.6s" repeatCount="indefinite" path="M90 150H500"/></use>
+<use href="#h2m"><animateMotion dur="5s" begin="-3.2s" repeatCount="indefinite" path="M90 150H500"/></use>
+<use href="#mol"><animateMotion dur="7s" repeatCount="indefinite" path="M500 150H1110"/></use>
+<use href="#mol"><animateMotion dur="7s" begin="-2.3s" repeatCount="indefinite" path="M500 150H1110"/></use>
+<use href="#mol"><animateMotion dur="7s" begin="-4.6s" repeatCount="indefinite" path="M500 150H1110"/></use>
+</g>
+<!-- nodes -->
+<g class="node"><circle class="ring" cx="90" cy="150" r="38" fill="#13252c" stroke="#a6b8be" stroke-width="2"/><text x="90" y="156" text-anchor="middle" font-weight="600" font-size="17">kW</text>
+<text x="90" y="216" text-anchor="middle" font-size="14" font-weight="600">Erneuerbarer Strom</text></g>
+<g class="node"><circle class="ring" cx="290" cy="150" r="38" fill="#13252c" stroke="#4cc6d1" stroke-width="2"/><text x="290" y="156" text-anchor="middle" font-weight="600" font-size="16">H₂ · N₂</text>
+<text x="290" y="216" text-anchor="middle" font-size="14" font-weight="600">Elektrolyse · PSA</text></g>
+<a href="projects/power-to-ammonia.html" class="node" aria-label="Fallstudie Power-to-Ammonia-Pilotanlage"><circle class="ring" cx="500" cy="150" r="46" fill="#1d1a35" stroke="#a993ff" stroke-width="2.5"/><text x="500" y="146" text-anchor="middle" font-weight="700" font-size="19">NH₃</text><text x="500" y="166" text-anchor="middle" font-size="11" fill="#a6b8be">Haber–Bosch</text>
+<text x="500" y="222" text-anchor="middle" font-size="14" font-weight="600" fill="#a993ff">Pilotanlage ↗</text><text x="500" y="240" text-anchor="middle" font-size="12" fill="#a6b8be">erzeugen</text></a>
+<a href="projects/ammonia-refueling.html" class="node" aria-label="Fallstudie Ammoniak-Tankstelle"><circle class="ring" cx="710" cy="150" r="42" fill="#13252c" stroke="#4cc6d1" stroke-width="2.5"/><text x="710" y="155" text-anchor="middle" font-weight="600" font-size="15">−33 °C</text>
+<text x="710" y="218" text-anchor="middle" font-size="14" font-weight="600" fill="#4cc6d1">Lagerung &amp; Betankung ↗</text><text x="710" y="236" text-anchor="middle" font-size="12" fill="#a6b8be">lagern · verteilen</text></a>
+<a href="projects/nh3-h2-combustion.html" class="node" aria-label="Fallstudie NH3/H2-Motorverbrennung"><circle class="ring" cx="905" cy="150" r="40" fill="#2a1712" stroke="#ff7a52" stroke-width="2.5"/><text x="905" y="155" text-anchor="middle" font-weight="600" font-size="14">NH₃+H₂</text>
+<text x="905" y="214" text-anchor="middle" font-size="14" font-weight="600" fill="#ff7a52">Motor ↗</text><text x="905" y="232" text-anchor="middle" font-size="12" fill="#a6b8be">umwandeln</text></a>
+<a href="projects/fuel-cell.html" class="node" aria-label="Fallstudie SOFC-System"><rect class="ring" x="954" y="92" width="76" height="40" rx="8" fill="#13252c" stroke="#a993ff" stroke-width="2"/><text x="992" y="117" text-anchor="middle" font-size="13" font-weight="600">SOFC ↗</text>
+<path d="M992 132V150" stroke="#a993ff" stroke-width="2"/></a>
+<g class="node"><circle class="ring" cx="1110" cy="150" r="38" fill="#13252c" stroke="#a6b8be" stroke-width="2"/><text x="1110" y="156" text-anchor="middle" font-weight="600" font-size="17">kW</text>
+<text x="1110" y="216" text-anchor="middle" font-size="14" font-weight="600">Energie</text></g>
+<!-- manufacturing -->
+<a href="projects/laser-ded.html" class="node" aria-label="Fallstudie Laser-DED additive Fertigung">
+<path d="M860 282H1010V160" fill="none" stroke="#a6b8be" stroke-width="1.5" stroke-dasharray="3 5"/>
+<rect x="640" y="262" width="220" height="40" rx="20" fill="#13252c" stroke="#a6b8be" stroke-width="1.5"/>
+<text x="750" y="287" text-anchor="middle" font-size="13" font-weight="600">Metall-AM-Hardware · Laser-DED ↗</text></a>
+</g>
+</svg>
+</div>
+<p class="hint">Hervorgehobene Station antippen, um die Fallstudie zu öffnen. Auf dem Smartphone die Kette seitlich wischen.</p>
+</div>
+
+</div>
+</header>
+
+<section class="band" id="projects">
+<div class="wrap">
+<h2>Ein Molekül, sechs Engineering-Aufgaben</h2>
+<p class="sub">Jede Fallstudie zeigt die Aufgabe, die Entscheidungen, was schiefging und wie es gelöst wurde.</p>
+
+<a class="feat reveal" href="projects/power-to-ammonia.html">
+<div class="art"><svg viewBox="0 0 520 260" aria-hidden="true"><g fill="none" stroke-width="3">
+<rect x="20" y="30" width="110" height="70" rx="6" stroke="#4cc6d1"/><rect x="20" y="150" width="110" height="70" rx="6" stroke="#ff7a52"/>
+<path d="M130 65H190V115M130 185H190V135" stroke="#e8eff1" stroke-dasharray="6 7"/>
+<circle cx="200" cy="125" r="14" stroke="#e8eff1"/>
+<rect x="250" y="40" width="180" height="170" rx="6" stroke="#a993ff"/>
+<rect x="272" y="70" width="40" height="110" rx="18" stroke="#e8eff1"/><rect x="330" y="70" width="40" height="110" rx="18" stroke="#e8eff1"/>
+<polyline points="384,125 392,110 400,140 408,110 416,140" stroke="#ff7a52"/>
+<path d="M214 125H250M430 125H480V200" stroke="#a993ff" stroke-dasharray="6 7"/>
+<rect x="450" y="200" width="60" height="40" rx="6" stroke="#a993ff"/></g>
+<g font-family="IBM Plex Sans,sans-serif" font-size="14" fill="#a6b8be" font-weight="600"><text x="75" y="70" text-anchor="middle" fill="#4cc6d1">PSA</text><text x="75" y="190" text-anchor="middle" fill="#ff7a52">H₂</text><text x="340" y="30" text-anchor="middle" fill="#a993ff">HBS-Container</text></g></svg></div>
+<div class="txt">
+<div class="meta"><span class="st on">Laufend</span><span>INP Greifswald</span><span>Erzeugen</span></div>
+<h3 style="font-size:clamp(24px,2.6vw,32px)">Containerisierte Power-to-Ammonia-Pilotanlage</h3>
+<p>Aufstellungsplan, Fundamente, Rohr- und Kabeltrassen, R&amp;I-Fließbilder, Beschaffung des NH₃-Speichers, Integration des PSA- und des Haber-Bosch-Synthesecontainers. In Vorbereitung: eine DoE-Versuchskampagne und ein Anlagenmodell für den dynamischen Betrieb.</p>
+<p class="more">Zur Fallstudie →</p>
+</div>
+</a>
+
+<div class="grid">
+<a class="card reveal" href="projects/nh3-h2-combustion.html">
+<div class="art"><svg viewBox="0 0 140 110" aria-hidden="true"><g fill="none" stroke-width="3"><rect x="45" y="10" width="50" height="80" rx="4" stroke="var(--ink)"/><rect x="49" y="50" width="42" height="24" fill="var(--mute)" opacity=".4" stroke="none"/><path d="M70 74V104" stroke="var(--ink)"/><ellipse cx="70" cy="28" rx="16" ry="9" fill="var(--h2)" opacity=".5" stroke="none"/><path d="M95 30H130" stroke="var(--n2)" stroke-dasharray="4 4"/><path d="M5 30H45" stroke="var(--nh3)"/></g></svg></div>
+<div class="txt"><div class="meta"><span class="st on">Laufend</span><span>Umwandeln</span></div>
+<h3>NH₃/H₂-Motorverbrennung</h3>
+<p>Verbrennung von Kraftstoffgemischen auf dem Motorprüfstand: Zylinderdruck, Brennverlaufsanalyse in Python und NOx-Emissionen für einen Yachtmotor.</p><p class="more">Zur Fallstudie →</p></div></a>
+
+<a class="card reveal" href="projects/ammonia-mitigation.html">
+<div class="art"><svg viewBox="0 0 160 110" aria-hidden="true"><g fill="none" stroke-width="3"><rect x="10" y="15" width="55" height="85" rx="8" stroke="var(--n2)"/><rect x="12" y="62" width="51" height="36" rx="6" fill="var(--n2)" opacity=".2" stroke="none"/><path d="M22 28L18 44M37 28V44M52 28L56 44" stroke="var(--n2)"/><rect x="85" y="30" width="65" height="30" rx="15" stroke="var(--nh3)"/><path d="M65 40H85" stroke="var(--nh3)" stroke-dasharray="4 4"/><rect x="95" y="78" width="45" height="22" rx="4" stroke="var(--h2)"/></g></svg></div>
+<div class="txt"><div class="meta"><span class="st on">Laufend</span><span>Schützen</span></div>
+<h3>Minderung von Ammoniakfreisetzungen</h3>
+<p>Zweistufige Abscheidung (Wasserwäsche, dann Membrankontaktor mit Schwefelsäure) mit dem Ziel ≥ 99 % NH₃-Entfernung auf einer ammoniakbetriebenen Yacht.</p><p class="more">Zur Fallstudie →</p></div></a>
+
+<a class="card reveal" href="projects/ammonia-refueling.html">
+<div class="art"><svg viewBox="0 0 170 110" aria-hidden="true"><g fill="none" stroke-width="3"><rect x="10" y="30" width="60" height="50" rx="22" stroke="var(--n2)"/><rect x="100" y="30" width="60" height="50" rx="22" stroke="var(--h2)"/><path d="M40 30V12H130V30" stroke="var(--nh3)" stroke-dasharray="4 4"/><path d="M130 80V98H40V80" stroke="var(--h2)" stroke-dasharray="4 4"/><path d="M78 92L92 104M78 104L92 92" stroke="var(--ink)"/></g></svg></div>
+<div class="txt"><div class="meta"><span class="st ds">Konzeptplanung</span><span>Lagern</span></div>
+<h3>Ammoniak-Tankstelle</h3>
+<p>Tiefkalte (−33 °C) und druckverflüssigte Lagerung mit Rückgewinnung des Boil-off-Gases und bedarfsgerechtem Wechsel zwischen beiden Formen.</p><p class="more">Zur Fallstudie →</p></div></a>
+
+<a class="card reveal" href="projects/fuel-cell.html">
+<div class="art"><svg viewBox="0 0 140 110" aria-hidden="true"><g fill="none" stroke-width="5"><path d="M25 20H115M25 36H115M25 52H115M25 68H115" stroke="var(--nh3)" opacity=".7"/></g><rect x="20" y="10" width="100" height="70" rx="4" fill="none" stroke="var(--ink)" stroke-width="2.5"/><rect x="30" y="88" width="80" height="16" rx="3" fill="none" stroke="var(--h2)" stroke-width="2.5"/><g fill="var(--h2)"><circle cx="45" cy="96" r="2"/><circle cx="57" cy="96" r="2"/><circle cx="69" cy="96" r="2"/><circle cx="81" cy="96" r="2"/><circle cx="93" cy="96" r="2"/></g></svg></div>
+<div class="txt"><div class="meta"><span class="st cp">Abgeschlossen</span><span>Sunfire</span><span>Umwandeln</span></div>
+<h3>SOFC-System: kleiner, sauberer, NH₃-fähig</h3>
+<p>Brenner-Neukonstruktion für vollständige Verbrennung, ein einteiliger additiv gefertigter Brenner-Wärmeübertrager und die Ursache der Interkonnektor-Schäden im Ammoniakbetrieb.</p><p class="more">Zur Fallstudie →</p></div></a>
+
+<a class="card reveal" href="projects/laser-ded.html">
+<div class="art"><svg viewBox="0 0 140 110" aria-hidden="true"><path d="M45 8H95L84 50H56Z" fill="none" stroke="var(--ink)" stroke-width="2.5"/><path d="M70 4V78" stroke="var(--h2)" stroke-width="4"/><path d="M58 50L69 78M82 50L71 78" stroke="var(--n2)" stroke-width="2.5" stroke-dasharray="3 4"/><rect x="30" y="80" width="80" height="9" rx="4" fill="var(--nh3)" opacity=".55"/><rect x="30" y="89" width="80" height="9" rx="4" fill="var(--nh3)" opacity=".35"/><rect x="20" y="98" width="100" height="8" fill="none" stroke="var(--ink)" stroke-width="2"/></svg></div>
+<div class="txt"><div class="meta"><span class="st cp">Abgeschlossen</span><span>Fraunhofer IWS</span><span>Fertigen</span></div>
+<h3>Laser-DED von Ti-6Al-4V</h3>
+<p>DoE-Parameterentwicklung von Einzelspuren bis zu Zugproben, G-Code-Korrekturen für hohe Aufbauten und warum die Aufbaurichtung Festigkeit und Duktilität verändert.</p><p class="more">Zur Fallstudie →</p></div></a>
+
+<div class="card reveal" style="background:var(--deep);color:var(--on);border-color:var(--deep)">
+<div class="txt" style="justify-content:center">
+<div class="meta"><span class="st" style="background:var(--dnh3);color:var(--deep)">Der rote Faden</span></div>
+<h3 style="font-size:26px">Konzept → Planung → Aufbau → Daten</h3>
+<p style="color:var(--onm)">Sechs Projekte, eine Arbeitsweise: die Physik verstehen, sicher auslegen, systematisch testen und die Daten entscheiden lassen.</p>
+<a class="more" href="#approach" style="color:var(--dn2);text-decoration:none">Zur Arbeitsweise →</a>
+</div></div>
+</div>
+</div>
+</section>
+
+<section class="band" id="approach" style="background:var(--paper);border-block:1px solid var(--rule)">
+<div class="wrap reveal">
+<h2>Von der Skizze zu den Daten</h2>
+<p class="sub">Dieselben vier Schritte ziehen sich durch jedes Projekt: vom Testfeld in Greifswald bis zur Laserzelle in Dresden.</p>
+<div class="steps">
+<div><b>1 · Konzept &amp; Sicherheit</b><h3>Die Physik verstehen</h3><p>Literaturrecherche, Thermodynamik, Gefährdungsbetrachtung. Ammoniak und Wasserstoff verzeihen keine Abkürzungen.</p></div>
+<div><b>2 · Engineering</b><h3>Baubar machen</h3><p>Verfahrensfließbilder und R&amp;I-Fließbilder, Aufstellungspläne, Komponentenspezifikation, CAD und fertigungsgerechte Konstruktion für die additive Fertigung.</p></div>
+<div><b>3 · Aufbau &amp; Test</b><h3>Messen, was zählt</h3><p>Prüfstände, Messtechnik, Unterstützung bei der Inbetriebnahme und DoE-basierte Versuchskampagnen.</p></div>
+<div><b>4 · Analyse &amp; Modell</b><h3>Die Daten entscheiden lassen</h3><p>Python-Workflows, Brennverlaufsanalyse sowie Komponenten- und Anlagenmodelle, validiert am Experiment.</p></div>
+</div>
+</div>
+</section>
+
+<section class="band" id="experience">
+<div class="wrap">
+<h2 class="reveal">Werdegang &amp; Ausbildung</h2>
+<p class="sub reveal">Forschungsinstitute und Industrie, alle in der deutschen Wasserstoff- und Fertigungstechnik-Landschaft.</p>
+<div class="tl">
+<div class="it reveal"><div class="when">seit 2024</div><div><h3>Wissenschaftlicher Mitarbeiter</h3><div class="org">Leibniz-Institut für Plasmaforschung und Technologie (INP), Greifswald</div><p>Grünes Ammoniak und Power-to-X: Planung und Integration einer containerisierten Pilotanlage, Minderung von Ammoniakfreisetzungen, NH₃/H₂-Motorverbrennung, Betankungskonzepte, Anlagensicherheit und Modellierung.</p><a href="projects/power-to-ammonia.html">Fallstudie Pilotanlage →</a></div></div>
+<div class="it reveal"><div class="when">2023 – 2024</div><div><h3>Entwicklungsingenieur</h3><div class="org">Sunfire Fuel Cells GmbH</div><p>SOFC-Systeme: Neukonstruktion von Startbrenner und Wärmeübertrager, Konstruktion für die additive Fertigung, Abgasanalyse und Ursachenanalyse im Ammoniakbetrieb.</p><a href="projects/fuel-cell.html">Fallstudie SOFC →</a></div></div>
+<div class="it reveal"><div class="when">2021 – 2022</div><div><h3>Studentische Hilfskraft · Masterarbeit</h3><div class="org">Fraunhofer IWS, Dresden</div><p>Laser-Auftragschweißen (Laser-DED) von Ti-6Al-4V: DoE-Parameterentwicklung, CNC-Programmierung, Zugversuche.</p><a href="projects/laser-ded.html">Fallstudie Laser-DED →</a></div></div>
+<div class="it ed reveal"><div class="when">M.Sc.</div><div><h3>Merge Technologies for Resource Efficiency</h3><div class="org">Technische Universität Chemnitz</div><p>Vertiefung additive Fertigung und Verbundwerkstoffe.</p></div></div>
+<div class="it ed reveal"><div class="when">B.E. · 2017</div><div><h3>Maschinenbau</h3><div class="org">Chaitanya Bharathi Institute of Technology (CBIT), Hyderabad</div><p>Thermodynamik, Wärmeübertragung, Strömungsmechanik, Verbrennungsmotoren und Maschinenelemente.</p></div></div>
+</div>
+</div>
+</section>
+
+<section class="band" id="toolbox" style="background:var(--paper);border-block:1px solid var(--rule)">
+<div class="wrap">
+<h2 class="reveal">Werkzeugkasten</h2>
+<p class="sub reveal">Gruppiert nach Einsatzzweck.</p>
+<div class="tools">
+<div class="reveal"><h3>Verfahren &amp; Anlage</h3><div class="chips"><span>Verfahrensfließbild / R&amp;I</span><span>Aufstellungspläne</span><span>Massen- &amp; Energiebilanzen</span><span>Komponentenauswahl</span><span>Integration von Package-Units</span><span>Drucksysteme</span></div></div>
+<div class="reveal"><h3>Wasserstoff &amp; Ammoniak</h3><div class="chips"><span>Haber–Bosch</span><span>Power-to-X</span><span>NH₃-Lagerung &amp; BOG</span><span>NH₃-Cracking</span><span>Gaswäsche</span><span>Membrankontaktoren</span></div></div>
+<div class="reveal"><h3>Experimente</h3><div class="chips"><span>Prüfstandsauslegung</span><span>DOE</span><span>Motorprüfstand</span><span>Zylinderdruckindizierung</span><span>Gasanalyse</span><span>MFCs &amp; Messtechnik</span></div></div>
+<div class="reveal"><h3>Daten &amp; Modellierung</h3><div class="chips"><span>Python</span><span>NumPy · Pandas · Matplotlib</span><span>Brennverlaufsanalyse</span><span>0D- / dynamische Modellierung</span><span>PyPSA</span><span>Regression &amp; ML</span></div></div>
+<div class="reveal"><h3>Sicherheit</h3><div class="chips"><span>HAZOP / HAZID</span><span>Ammoniaksicherheit</span><span>Wasserstoffsicherheit</span><span>Gaswarntechnik</span><span>Dichtheitsprüfung</span></div></div>
+<div class="reveal"><h3>Konstruktion &amp; Fertigung</h3><div class="chips"><span>SolidWorks</span><span>Autodesk Plant 3D</span><span>AM-gerechte Konstruktion</span><span>Laser DED</span><span>G-Code / M-Code</span><span>Zugversuche</span></div></div>
+</div>
+</div>
+</section>
+
+<section class="band" id="about">
+<div class="wrap about">
+<div class="reveal">
+<h2>Mehr als der Lebenslauf</h2>
+<p>Ein Maschinenbauingenieur aus Hyderabad, der für ein Masterstudium in Ressourceneffizienz nach Deutschland kam und wegen der Energiewende geblieben ist. Der Weg führt von lasergeschmolzenem Titan in Dresden über Brennstoffzellensysteme bei Sunfire zu grünem Ammoniak am Leibniz-INP. Jeder Schritt führte näher an die Frage, die die Arbeit heute antreibt: Wie wird Ammoniak zu einem sicheren, praxistauglichen Träger für erneuerbare Energie?</p>
+<p>Am liebsten dort, wo die Zeichnung auf die Hardware trifft: wenn aus einem R&amp;I-Fließbild ein laufender Versuchsstand wird oder ein Druckverlauf erklärt, warum sich etwas so verhält, wie es sich verhält.</p>
+<div class="now"><b>Aktuell im Aufbau:</b> dynamische Komponenten- und Anlagenmodelle der Pilotanlage in Python, Energiesystemmodellierung mit PyPSA und maschinelles Lernen für Ingenieurdaten.</div>
+</div>
+<dl class="facts reveal">
+<div><dt>Wohnort</dt><dd style="margin:0">Rostock, Deutschland</dd></div>
+<div><dt>Herkunft</dt><dd style="margin:0">Hyderabad, Indien</dd></div>
+<div><dt>Sprachen</dt><dd style="margin:0">Englisch (fließend) · Deutsch (A2–B1, wird aktiv verbessert)</dd></div>
+<div><dt>Schwerpunkte</dt><dd style="margin:0">Power-to-X, grünes Ammoniak, Verfahrenstechnik, Verbrennungsforschung</dd></div>
+<div><dt>Offen für</dt><dd style="margin:0">Stellen in Verfahrenstechnik, PtX und F&amp;E in Deutschland</dd></div>
+</dl>
+</div>
+</section>
+
+<section class="band contact" id="contact">
+<div class="wrap reveal">
+<h2>Gemeinsam die Wasserstoffwirtschaft aufbauen: sicher.</h2>
+<p>Offen für Stellen in Verfahrenstechnik, Power-to-X und Energieforschung. Am schnellsten per E-Mail oder LinkedIn.</p>
+<div class="addr">nitin14999@gmail.com</div>
+<div class="btns"><a class="btn p" href="mailto:nitin14999@gmail.com">E-Mail senden</a><a class="btn s" href="https://www.linkedin.com/in/nitinmahankali14999/">LinkedIn ↗</a></div>
+</div>
+</section>
+
+<footer><span>© 2026 Nitin Mahankali · Maschinenbau- &amp; Verfahrensingenieur · Wissenschaftlicher Mitarbeiter</span><a href="#home" style="color:var(--on)">Nach oben ↑</a></footer>
+
+<script>
+{
+const io=new IntersectionObserver(es=>{for(const e of es){if(e.isIntersecting){e.target.classList.add('in');io.unobserve(e.target)}}},{threshold:.1});
+document.querySelectorAll('.reveal').forEach(el=>io.observe(el));
+const chain=document.getElementById('chain');
+const rm=window.matchMedia('(prefers-reduced-motion: reduce)');
+if(rm.matches){const f=document.getElementById('flow');if(f)f.style.display='none'}
+}
+</script>
+</body>
+</html>

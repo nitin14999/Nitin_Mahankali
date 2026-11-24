@@ -1,0 +1,315 @@
+<!DOCTYPE html>
+<html lang="de">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Power-to-Ammonia-Pilotanlage | Nitin Mahankali</title>
+<link rel="icon" href="data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 64 64'%3E%3Crect width='64' height='64' rx='15' fill='%2313252c' stroke='%232c4a54' stroke-width='1.5'/%3E%3Ctext x='32' y='40' text-anchor='middle' font-family='IBM Plex Sans Condensed, Arial Narrow, Arial, sans-serif' font-weight='700' font-size='28' letter-spacing='-0.5' fill='%23e8eff1'%3ENM%3C/text%3E%3Crect x='14' y='48' width='12' height='4' rx='2' fill='%234cc6d1'/%3E%3Crect x='26' y='48' width='12' height='4' fill='%23a993ff'/%3E%3Crect x='38' y='48' width='12' height='4' rx='2' fill='%23ff7a52'/%3E%3C/svg%3E">
+<link rel="alternate" hreflang="en" href="https://nitin14999.github.io/Nitin_Mahankali/projects/power-to-ammonia.html">
+<link rel="alternate" hreflang="de" href="https://nitin14999.github.io/Nitin_Mahankali/de/projects/power-to-ammonia.html">
+<link rel="alternate" hreflang="x-default" href="https://nitin14999.github.io/Nitin_Mahankali/projects/power-to-ammonia.html">
+<meta name="description" content="Fallstudie: Planung, Integration, Inbetriebnahme, geplante dynamische Haber-Bosch-Versuche und Anlagenmodellierung einer containerisierten Power-to-Ammonia-Pilotanlage am INP Greifswald.">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link href="https://fonts.googleapis.com/css2?family=IBM+Plex+Sans+Condensed:wght@600;700&family=IBM+Plex+Sans:wght@400;500;600&display=swap" rel="stylesheet">
+<style>
+/* VOICE: a confident engineering case study, factual, first person, no fluff.
+   IDEA: a process engineering drawing sheet: line colours, title block, tag labels.
+   PICTURE: the pilot-plant process loop drawn as a live block flow diagram with gas moving through it.
+   COLOUR and TYPE: drawing-paper white, ink, H2 vermilion, N2 teal, NH3 violet; IBM Plex Sans Condensed + Plex Sans.
+   LAYOUT: headline + key figures, then the diagram full width, then phases, decisions, story, model, skills. */
+:root{color-scheme:light dark;
+--bg:light-dark(#fbfbf8,#0f1418);--paper:light-dark(#ffffff,#151c21);--ink:light-dark(#141a1f,#e9edef);
+--mute:light-dark(#56606a,#9aa6ae);--rule:light-dark(#d9ddd8,#2a343b);
+--h2:light-dark(#d4441c,#ff7a52);--n2:light-dark(#0b7a86,#4cc6d1);--nh3:light-dark(#5b3fb5,#a993ff);--soft:light-dark(#f1f2ee,#1b2329)}
+:root[data-theme=light]{color-scheme:light}:root[data-theme=dark]{color-scheme:dark}
+*{box-sizing:border-box;min-width:0}
+body{margin:0;background:var(--bg);color:var(--ink);font:16.5px/1.6 "IBM Plex Sans",system-ui,sans-serif;overflow-x:clip}
+h1,h2,h3{font-family:"IBM Plex Sans Condensed","IBM Plex Sans",sans-serif;line-height:1.08;text-wrap:balance;margin:0}
+h1{font-size:clamp(32px,4.6vw,50px);max-width:26ch}
+h2{font-size:clamp(26px,3vw,34px);margin-bottom:18px}
+h3{font-size:20px;margin-bottom:8px}
+p{margin:0 0 14px;max-width:68ch}
+a{color:var(--n2)}
+.band{padding:clamp(28px,4vw,64px) max(5vw,16px)}
+.wrap{max-width:1240px;margin:0 auto}
+.paper{background:var(--paper);border-block:1px solid var(--rule)}
+nav{display:flex;flex-wrap:wrap;gap:8px 22px;align-items:center;padding:14px max(5vw,16px);border-bottom:1px solid var(--rule);background:var(--paper)}
+nav a{color:var(--ink);text-decoration:none;font-weight:500;padding:10px 0}
+nav .logo{font-family:"IBM Plex Sans Condensed","IBM Plex Sans",sans-serif;font-weight:700;font-size:20px;margin-right:auto}
+.kicker{color:var(--mute);font-weight:500;margin-bottom:14px}
+.lede{font-size:18.5px;color:var(--mute);margin-top:18px}
+.figs{display:grid;grid-template-columns:repeat(4,minmax(0,1fr));gap:0;margin-top:30px;border-top:2px solid var(--ink)}
+.figs div{padding:14px 16px 4px 0;border-right:1px solid var(--rule);margin-right:16px}
+.figs div:last-child{border:0}
+.figs b{display:block;font:700 clamp(26px,3.2vw,36px)/1.1 "IBM Plex Sans Condensed","IBM Plex Sans",sans-serif;white-space:nowrap}
+.figs span{color:var(--mute);font-size:14px}
+.scroll{overflow-x:auto}
+.diagram{min-width:720px}
+.diagram svg{width:100%;height:auto;display:block}
+.cap{color:var(--mute);font-size:14px;margin-top:10px}
+.flow{stroke-dasharray:7 9;animation:run 1.6s linear infinite}
+@keyframes run{to{stroke-dashoffset:-32}}
+.legend{display:flex;flex-wrap:wrap;gap:6px 20px;font-size:14px;color:var(--mute);margin-top:6px}
+.legend i{display:inline-block;width:22px;height:3px;vertical-align:middle;margin-right:6px}
+.two{display:grid;grid-template-columns:minmax(0,1fr) minmax(0,1fr);gap:clamp(24px,4vw,56px)}
+.phases{display:grid;grid-template-columns:repeat(2,minmax(0,1fr));gap:20px}
+.phase{background:var(--paper);border:1px solid var(--rule);padding:22px 22px 10px}
+.phase .tag{font:600 13px "IBM Plex Sans Condensed","IBM Plex Sans",sans-serif;color:var(--n2);margin-bottom:6px}
+.phase ul{margin:0 0 12px;padding-left:18px}.phase li{margin-bottom:7px}
+.kw{display:flex;flex-wrap:wrap;gap:6px;margin:4px 0 14px}
+.kw span,.skills span{font-size:13px;border:1px solid var(--rule);padding:3px 9px;border-radius:99px;background:var(--soft)}
+.decide{display:grid;grid-template-columns:repeat(3,minmax(0,1fr));gap:20px}
+.decide div{border-top:3px solid var(--nh3);padding-top:14px}
+.story{display:grid;grid-template-columns:repeat(4,minmax(0,1fr));gap:0;border:1px solid var(--rule);background:var(--paper)}
+.story div{padding:20px;border-right:1px solid var(--rule)}.story div:last-child{border:0}
+.story b{display:block;font:700 15px "IBM Plex Sans Condensed","IBM Plex Sans",sans-serif;margin-bottom:6px;color:var(--h2)}
+.doe{display:grid;grid-template-columns:minmax(0,1fr) 56px minmax(0,1fr);align-items:center;gap:10px}
+.col{display:grid;gap:10px}
+.col div{background:var(--paper);border:1px solid var(--rule);padding:12px 14px;font-weight:500}
+.col small{display:block;color:var(--mute);font-weight:400;font-size:14px}
+.arrow{font-size:30px;text-align:center;color:var(--mute)}
+.model{display:grid;gap:14px}
+.eq{display:grid;grid-template-columns:repeat(6,minmax(0,1fr));gap:10px}
+.eq div{background:var(--paper);border:1px solid var(--rule);padding:12px 10px;text-align:center;font-weight:500;font-size:15px}
+.plant{background:var(--ink);color:var(--bg);padding:16px 18px;text-align:center;font:600 18px "IBM Plex Sans Condensed","IBM Plex Sans",sans-serif}
+.valid{border:2px dashed var(--h2);padding:12px 16px;text-align:center;font-weight:500}
+.timeline{position:relative;display:grid;grid-template-columns:repeat(8,minmax(0,1fr));gap:8px;padding-top:26px}
+.timeline:before{content:"";position:absolute;top:8px;left:0;height:3px;width:var(--w,0%);background:var(--n2);transition:width 1.6s ease}
+.timeline div{font-size:14px;font-weight:500;position:relative}
+.timeline div:before{content:"";position:absolute;top:-24px;left:0;width:12px;height:12px;border-radius:50%;background:var(--paper);border:3px solid var(--n2)}
+.skills{display:flex;flex-wrap:wrap;gap:8px}
+.note{font-size:14px;color:var(--mute);border-left:3px solid var(--rule);padding-left:12px}
+.reveal{opacity:0;transform:translateY(22px);transition:opacity .7s ease,transform .7s ease}
+.reveal.in{opacity:1;transform:none}
+footer{padding:30px max(5vw,16px);border-top:1px solid var(--rule);color:var(--mute);font-size:14px;display:flex;flex-wrap:wrap;justify-content:space-between;gap:10px}
+@media(max-width:900px){.phases,.two,.decide{grid-template-columns:minmax(0,1fr)}.story{grid-template-columns:repeat(2,minmax(0,1fr))}.story div:nth-child(2){border-right:0}.story div{border-bottom:1px solid var(--rule)}.eq{grid-template-columns:repeat(3,minmax(0,1fr))}.timeline{grid-template-columns:repeat(4,minmax(0,1fr));row-gap:40px}.timeline:before{display:none}}
+@media(max-width:600px){.figs{grid-template-columns:repeat(2,minmax(0,1fr))}.figs div:nth-child(2){border:0}.story{grid-template-columns:minmax(0,1fr)}.story div{border-right:0}.doe{grid-template-columns:minmax(0,1fr)}.arrow{transform:rotate(90deg)}.eq{grid-template-columns:repeat(2,minmax(0,1fr))}.timeline{grid-template-columns:repeat(2,minmax(0,1fr))}}
+@media(prefers-reduced-motion:reduce){.flow{animation:none}.reveal{opacity:1;transform:none;transition:none}.timeline:before{transition:none}}
+h1,h2,h3,p,li,small,.col div,.rig{hyphens:auto;-webkit-hyphens:auto;overflow-wrap:break-word}
+</style>
+</head>
+<body>
+<nav>
+<a class="logo" href="https://nitin14999.github.io/Nitin_Mahankali/de/" aria-label="Nitin Mahankali, Startseite" style="display:flex;align-items:center;gap:10px;text-decoration:none"><svg viewBox="0 0 64 64" width="34" height="34" aria-hidden="true"><rect width="64" height="64" rx="15" fill="#13252c" stroke="#2c4a54" stroke-width="1.5"/><text x="32" y="40" text-anchor="middle" font-family="IBM Plex Sans Condensed, Arial Narrow, Arial, sans-serif" font-weight="700" font-size="28" letter-spacing="-0.5" fill="#e8eff1">NM</text><rect x="14" y="48" width="12" height="4" rx="2" fill="#4cc6d1"/><rect x="26" y="48" width="12" height="4" fill="#a993ff"/><rect x="38" y="48" width="12" height="4" rx="2" fill="#ff7a52"/></svg>Nitin Mahankali</a>
+<a href="#work">Umfang</a><a href="#decisions">Entscheidungen</a><a href="#experiments">Experimente</a><a href="#modelling">Modellierung</a>
+<a href="https://nitin14999.github.io/Nitin_Mahankali/de/#projects">Alle Projekte</a>
+<span class="lang" style="display:inline-flex;align-items:center;gap:6px;font-weight:600;font-size:14px;border:1px solid currentColor;border-radius:99px;padding:6px 12px;opacity:.9"><a href="../../projects/power-to-ammonia.html" hreflang="en" lang="en" style="text-decoration:none;padding:0" aria-label="English version">EN</a><span aria-hidden="true">|</span><b>DE</b></span>
+</nav>
+
+<header class="band">
+<div class="wrap">
+<div class="kicker">Fallstudie · INP Greifswald · Wissenschaftlicher Mitarbeiter · seit 2024</div>
+<h1>Planung und Integration einer containerisierten Power-to-Ammonia-Pilotanlage</h1>
+<p class="lede">Von der leeren Fläche zur Anlage, die auf ihre ersten Versuche vorbereitet wird: Aufstellungsplan, Fundamente, Rohr- und Kabeltrassen, R&amp;I-Fließbilder, Ammoniakspeicher, Integration des PSA- und des Haber-Bosch-Synthesecontainers sowie Unterstützung bei der Inbetriebnahme. Eine dynamische Synthesekampagne ist in Planung, Komponenten- und Anlagenmodelle sind in Entwicklung.</p>
+<div class="figs">
+<div><b>&lt;150 bar</b><span>Synthesedruck</span></div>
+<div><b>&lt;600 °C</b><span>Reaktortemperatur</span></div>
+<div><b>1:1 – 4:1</b><span>geplante H₂:N₂-Verhältnisse im Feed</span></div>
+<div><b>4</b><span>geplante DoE-Faktoren</span></div>
+</div>
+</div>
+</header>
+
+<section class="band paper" aria-label="Prozessübersicht">
+<div class="wrap">
+<div class="scroll"><div class="diagram">
+<svg viewBox="0 0 960 420" role="img" aria-label="Grundfließbild: Wasserstoff und PSA-Stickstoff werden gemischt, verdichtet und im HBS-Container mit zwei Reaktoren und internem Wärmeübertrager umgesetzt; Ammoniak wird abgeschieden und druckverflüssigt gelagert, nicht umgesetztes Gas wird zurückgeführt">
+<defs><marker id="ah" viewBox="0 0 10 10" refX="8" refY="5" markerWidth="7" markerHeight="7" orient="auto"><path d="M0 0L10 5L0 10z" fill="currentColor"/></marker></defs>
+<g font-family="IBM Plex Sans, sans-serif" font-size="14" fill="var(--ink)">
+<!-- recycle -->
+<path class="flow" d="M840 150V40H340V105" fill="none" stroke="var(--nh3)" stroke-width="3" opacity=".6"/>
+<text x="590" y="30" text-anchor="middle" fill="var(--mute)" font-size="13">Rückführung von nicht umgesetztem H₂ / N₂</text>
+<!-- H2 -->
+<rect x="90" y="65" width="160" height="80" rx="4" fill="var(--soft)" stroke="var(--ink)" stroke-width="1.5"/>
+<text x="170" y="100" text-anchor="middle" font-weight="600">H₂-Versorgung</text>
+<text x="170" y="120" text-anchor="middle" fill="var(--mute)" font-size="13">aus Elektrolyse</text>
+<path class="flow" d="M250 105H340V190" fill="none" stroke="var(--h2)" stroke-width="3.5"/>
+<circle cx="340" cy="105" r="5" fill="var(--ink)"/>
+<!-- Air / PSA -->
+<path class="flow" d="M28 300H90" fill="none" stroke="var(--mute)" stroke-width="3"/>
+<text x="30" y="288" fill="var(--mute)" font-size="13">Luft</text>
+<rect x="90" y="255" width="160" height="90" rx="4" fill="var(--paper)" stroke="var(--n2)" stroke-width="2.5"/>
+<text x="170" y="292" text-anchor="middle" font-weight="600">PSA-Container</text>
+<text x="170" y="312" text-anchor="middle" fill="var(--mute)" font-size="13">N₂-Erzeugung</text>
+<path class="flow" d="M250 300H340V220" fill="none" stroke="var(--n2)" stroke-width="3.5"/>
+<!-- mixer / compressor -->
+<circle cx="340" cy="205" r="15" fill="var(--paper)" stroke="var(--ink)" stroke-width="2"/>
+<text x="340" y="250" text-anchor="middle" font-size="13" fill="var(--mute)">1:1 – 4:1</text>
+<path class="flow" d="M355 205H400" fill="none" stroke="var(--ink)" stroke-width="3.5"/>
+<circle cx="418" cy="205" r="18" fill="var(--paper)" stroke="var(--ink)" stroke-width="2"/>
+<path d="M404 196L432 199M404 214L432 211" stroke="var(--ink)" stroke-width="1.5"/>
+<text x="418" y="250" text-anchor="middle" font-size="13" fill="var(--mute)">Verdichtung</text>
+<path class="flow" d="M436 205H492" fill="none" stroke="var(--ink)" stroke-width="3.5"/>
+<!-- HBS -->
+<rect x="492" y="95" width="256" height="220" rx="4" fill="var(--paper)" stroke="var(--nh3)" stroke-width="2.5"/>
+<text x="620" y="122" text-anchor="middle" font-weight="600">HBS-Container</text>
+<rect x="516" y="140" width="48" height="140" rx="20" fill="var(--soft)" stroke="var(--ink)" stroke-width="1.5"/>
+<rect x="596" y="140" width="48" height="140" rx="20" fill="var(--soft)" stroke="var(--ink)" stroke-width="1.5"/>
+<text x="540" y="300" text-anchor="middle" font-size="12" fill="var(--mute)">R-1</text>
+<text x="620" y="300" text-anchor="middle" font-size="12" fill="var(--mute)">R-2</text>
+<path class="flow" d="M564 205H596M644 205H672" fill="none" stroke="var(--nh3)" stroke-width="3"/>
+<polyline points="672,205 680,190 690,220 700,190 710,220 720,205" fill="none" stroke="var(--h2)" stroke-width="2"/>
+<text x="696" y="300" text-anchor="middle" font-size="12" fill="var(--mute)">interner WÜ</text>
+<path class="flow" d="M720 205H780" fill="none" stroke="var(--nh3)" stroke-width="3.5"/>
+<!-- separator -->
+<rect x="780" y="150" width="120" height="100" rx="4" fill="var(--paper)" stroke="var(--ink)" stroke-width="1.5"/>
+<text x="840" y="195" text-anchor="middle" font-weight="600">Kondensator /</text>
+<text x="840" y="214" text-anchor="middle" font-weight="600">Abscheider</text>
+<path class="flow" d="M840 250V310" fill="none" stroke="var(--nh3)" stroke-width="3.5"/>
+<!-- storage -->
+<rect x="760" y="310" width="170" height="80" rx="4" fill="var(--soft)" stroke="var(--nh3)" stroke-width="2.5"/>
+<text x="845" y="345" text-anchor="middle" font-weight="600">NH₃-Speichercontainer</text>
+<text x="845" y="365" text-anchor="middle" fill="var(--mute)" font-size="13">druckverflüssigt</text>
+</g>
+</svg>
+</div></div>
+<div class="legend"><span><i style="background:var(--h2)"></i>Wasserstoff</span><span><i style="background:var(--n2)"></i>Stickstoff</span><span><i style="background:var(--ink)"></i>Synthesegas</span><span><i style="background:var(--nh3)"></i>Ammoniak / Kreislaufgas</span></div>
+<p class="cap">Vereinfachtes Grundfließbild des Power-to-Ammonia-Testfelds. Für dieses Portfolio gezeichnet, nicht das vertrauliche R&amp;I-Fließbild der Anlage.</p>
+</div>
+</section>
+
+<section class="band reveal">
+<div class="wrap two">
+<div>
+<h2>Die Aufgabe</h2>
+<p>Konventionelle Haber-Bosch-Anlagen sind sehr groß, laufen im Dauerbetrieb und nutzen Katalysatoren, die sich nur langsam aufheizen und abkühlen. Erneuerbarer Strom schwankt; eine dezentrale Anlage für grünes Ammoniak muss daher häufig anfahren, abfahren und ihre Last ändern.</p>
+<p>Um das zu untersuchen, brauchte das INP eine containerisierte Pilotanlage: sicher im Umgang mit Wasserstoff und Ammoniak unter Druck, passend für ein reales Testfeld und so instrumentiert, dass sich das Verhalten eines schnell reagierenden Katalysators im dynamischen Betrieb zeigen lässt. Betriebsdaten, auf denen man aufbauen konnte, gab es kaum.</p>
+</div>
+<div>
+<h2>Rolle</h2>
+<p>Planungsingenieur für das Testfeld und Experimentator am Synthesekreislauf. Verantwortlich für Aufstellung, R&amp;I-Fließbilder, Komponenten und Messtechnik, Sicherheitsmaßnahmen und Containerintegration, in enger Zusammenarbeit mit Bauingenieuren, Lieferanten und dem Sicherheitsteam. Aktuell Vorbereitung der dynamischen Versuchskampagne und Entwicklung von Komponenten- und Anlagenmodellen.</p>
+<p class="note">Anlagenkapazität, Betriebsdaten und Zeichnungen sind vertraulich. Diese Seite zeigt Umfang und Methoden. Versuchsergebnisse folgen nach der Kampagne.</p>
+</div>
+</div>
+</section>
+
+<section class="band reveal" id="work" style="padding-top:0">
+<div class="wrap">
+<h2>Arbeitsumfang</h2>
+<div class="timeline" id="tl">
+<div>Aufstellung &amp; Bau</div><div>Fließbilder / R&amp;I</div><div>Beschaffung</div><div>Integration</div><div>HAZOP &amp; Sicherheit</div><div>Inbetriebnahme</div><div>DoE-Planung</div><div>Modellierung (laufend)</div>
+</div>
+<div class="phases" style="margin-top:34px">
+<div class="phase reveal"><div class="tag">Standort &amp; Anlagenaufstellung</div><h3>Aufstellungsplan für ein containerisiertes Testfeld</h3>
+<ul><li>Anordnung der Prozesscontainer und Versorgungseinheiten auf dem Testfeld: Aufstellungsplan, Sicherheitsabstände sowie Zugänglichkeit für Betrieb und Wartung.</li>
+<li>Planung der Rohrtrassen zwischen den Containern mit freien Staplerwegen, damit Container und Komponenten weiterhin bewegt und gewartet werden können.</li>
+<li>Führung der schweren Energiekabel über das Testfeld zu jedem Container.</li></ul>
+<div class="kw"><span>Aufstellungsplan</span><span>Rohrtrassierung</span><span>Kabeltrassierung</span><span>Modulare Anlage</span></div></div>
+
+<div class="phase reveal"><div class="tag">Schnittstelle Bau</div><h3>Baugrund und Fundamente</h3>
+<ul><li>Baugrunduntersuchung des Standorts gemeinsam mit Bauingenieuren.</li>
+<li>Fundamentplanung für jeden Container nach Lasten und Position, anschließend Unterstützung beim Bau.</li></ul>
+<div class="kw"><span>Baugrundgutachten</span><span>Fundamentplanung</span><span>Baukoordination</span></div></div>
+
+<div class="phase reveal"><div class="tag">Verfahrenstechnik</div><h3>Fließbilder, R&amp;I-Fließbilder und Schnittstellen des Testfelds</h3>
+<ul><li>Erstellung der Verfahrensfließbilder und R&amp;I-Fließbilder für das gesamte Testfeld, einschließlich Anbindung der Package-Units PSA (N₂) und HBS (Haber-Bosch-Synthese) an die Anlage.</li>
+<li>Festlegung der Schnittstellen (Battery Limits) zwischen den Lieferpaketen und dem Testfeld. Die internen R&amp;I-Fließbilder der Packages stammen von den Lieferanten.</li>
+<li>Konzeption des Abgas- und Entlüftungssystems sowie des Sicherheitssystems der Anlage.</li>
+<li>Betriebsbereich unter 150 bar und 600 °C, H₂:N₂-Verhältnisse im Feed von 1:1 bis 4:1.</li></ul>
+<div class="kw"><span>Verfahrensfließbild</span><span>R&amp;I-Fließbild</span><span>Battery Limits</span><span>Integration von Package-Units</span><span>Abgas- &amp; Entlüftungssystem</span><span>Sicherheitskonzept</span></div></div>
+
+<div class="phase reveal"><div class="tag">Komponenten &amp; Beschaffung</div><h3>Ammoniakspeicher und Anlagenkomponenten</h3>
+<ul><li>Auswahl des Speicherkonzepts, Spezifikation eines <strong>Speichercontainers für druckverflüssigtes Ammoniak</strong> sowie Planung und Auslösung der Bestellung.</li>
+<li>Auslegung, Spezifikation und Beschaffung der Anlagenkomponenten und Messtechnik.</li></ul>
+<div class="kw"><span>Technische Spezifikation</span><span>Lieferantenabstimmung</span><span>Messtechnik</span><span>NH₃-Lagerung</span></div></div>
+
+<div class="phase reveal"><div class="tag">Systemintegration</div><h3>PSA- und HBS-Container</h3>
+<ul><li>Integration der PSA- und HBS-Container <strong>mechanisch</strong> (Prozessrohrleitungen und Anschlüsse) und <strong>elektrisch</strong> (Energie, Signale und Messtechnik) mit den übrigen Containern.</li>
+<li>Festlegung der Schnittstellen zwischen den Lieferantencontainern und der INP-Infrastruktur.</li></ul>
+<div class="kw"><span>Mechanische Anbindung</span><span>Elektrische Integration</span><span>EMSR-Schnittstellen</span></div></div>
+
+<div class="phase reveal"><div class="tag">Sicherheit &amp; Inbetriebnahme</div><h3>HAZOP, Sicherheitseinrichtungen und Dichtheitsprüfung</h3>
+<ul><li>Teilnahme an den HAZOP-Workshops, Umsetzung der daraus abgeleiteten Sicherheitsmaßnahmen sowie Spezifikation und Beschaffung der Sicherheitseinrichtungen.</li>
+<li>Mitarbeit an der Dichtheitsprüfung des HBS-Containers und an der N₂-Erzeugung mit dem PSA-Container.</li></ul>
+<div class="kw"><span>HAZOP</span><span>H₂-/NH₃-Sicherheit</span><span>Dichtheitsprüfung</span><span>Inbetriebnahme</span></div></div>
+</div>
+</div>
+</section>
+
+<section class="band paper reveal" id="decisions">
+<div class="wrap">
+<h2>Wichtige technische Entscheidungen</h2>
+<div class="decide">
+<div><h3>Druckverflüssigte NH₃-Lagerung</h3><p>Ammoniak wird unter seinem eigenen Dampfdruck flüssig gelagert. Im Pilotmaßstab ist das einfacher und braucht weniger Infrastruktur als eine tiefkalte Lagerung; zudem passt es zur nachgelagerten Handhabung.</p></div>
+<div><h3>Aufstellung nach Zugänglichkeit</h3><p>Rohr- und Kabeltrassen wurden so geführt, dass die Staplerwege frei bleiben. Auf einem Testfeld werden Container und Komponenten bewegt und getauscht; Zugänglichkeit war deshalb eine Planungsanforderung und kein nachträglicher Gedanke.</p></div>
+<div><h3>Versuchsplanung mit DoE</h3><p>Die geplanten Betriebspunkte leiten sich aus den Grenzen von Reaktor und Katalysator ab. Ein statistischer Versuchsplan zeigt Haupteffekte und Wechselwirkungen mit deutlich weniger Versuchen, und jeder Versuch dient zugleich als Validierungsdatensatz für das Modell.</p></div>
+</div>
+</div>
+</section>
+
+<section class="band reveal" id="experiments">
+<div class="wrap">
+<h2>Geplante dynamische Haber-Bosch-Kampagne</h2>
+<p>Der Katalysator heizt sich deutlich schneller auf und kühlt schneller ab als konventionelle Ammoniaksynthese-Katalysatoren; genau das ermöglicht einen flexiblen Betrieb. Die Kampagne in Vorbereitung soll dieses dynamische Verhalten messen.</p>
+<div class="doe" style="margin-top:22px">
+<div class="col">
+<div>Druck<small>unter 150 bar</small></div>
+<div>Temperatur<small>unter 600 °C</small></div>
+<div>Gesamtvolumenstrom<small>Lastwechsel</small></div>
+<div>H₂:N₂-Verhältnis<small>von 1:1 bis 4:1</small></div>
+</div>
+<div class="arrow" aria-hidden="true">→</div>
+<div class="col">
+<div>NH₃-Umsatz<small>über Druck, Temperatur und Volumenstrom</small></div>
+<div>Temperaturprofile im Reaktor<small>Wärmefluss über Reaktor und internen Wärmeübertrager</small></div>
+<div>An- und Abfahrverhalten<small>Zeit bis zur NH₃-Produktion</small></div>
+<div>Energiebedarf<small>für Energiebilanz und Modell</small></div>
+</div>
+</div>
+<p class="cap">Links: zu variierende Faktoren (DoE-Eingänge). Rechts: zu messende Zielgrößen.</p>
+</div>
+</section>
+
+<section class="band paper reveal">
+<div class="wrap">
+<h2>Die größte Herausforderung: kaum Ausgangsdaten</h2>
+<div class="story">
+<div><b>Herausforderung</b>Für diesen Reaktor und Katalysator gab es unter dynamischen Bedingungen fast keine Betriebsdaten. Anfangs ließ sich nur der Temperaturverlauf beobachten.</div>
+<div><b>Risiko</b>Unstrukturierte Versuche würden zu lange dauern und Daten liefern, die sich weder vergleichen noch für ein Modell nutzen lassen.</div>
+<div><b>Vorgehen</b>Zuerst Dichtheit und N₂-Versorgung sicherstellen. Betriebsfenster werden aus den Grenzen von Reaktor und Katalysator abgeleitet, mit einem DoE-Plan zur Reduzierung der Versuchsanzahl und eigenen An- und Abfahrversuchen.</div>
+<div><b>Ziel</b>Ein strukturierter Datensatz für jeden Betriebspunkt mit Umsatz, Temperaturprofilen und Energie, der direkt in das Anlagenmodell einfließen kann.</div>
+</div>
+</div>
+</section>
+
+<section class="band reveal" id="modelling">
+<div class="wrap">
+<h2>Von Komponentenmodellen zum Anlagenmodell (in Arbeit)</h2>
+<p>Jede Komponente wird einzeln modelliert (Massen- und Energiebilanzen, wo nötig mit dynamischem Verhalten). Die Komponentenmodelle werden zu einem Anlagenmodell verknüpft, das nach der Kampagne mit Daten der Pilotanlage validiert wird.</p>
+<div class="model" style="margin-top:20px">
+<div class="eq"><div>PSA (N₂)</div><div>Verdichter</div><div>Synthesereaktor</div><div>Wärmeübertrager</div><div>Abscheider</div><div>NH₃-Lagerung</div></div>
+<div class="arrow" aria-hidden="true">↓</div>
+<div class="plant">Dynamisches Anlagenmodell des Power-to-Ammonia-Testfelds</div>
+<div class="valid">Geplante Validierung mit Kampagnendaten: Umsatz, Temperaturprofile, Energie</div>
+</div>
+<p class="cap">In Arbeit: Python-basierte 0D- und dynamische Modellierung, die zu einem digitalen Zwilling des Testfelds ausgebaut werden soll.</p>
+</div>
+</section>
+
+<section class="band paper reveal">
+<div class="wrap two">
+<div>
+<h2>Nächste Schritte</h2>
+<p>Versuchsplan fertigstellen und die dynamische Kampagne durchführen, dann Reaktor- und Anlagenmodell am gemessenen An- und Lastwechselverhalten validieren. Danach kann das Anlagenmodell Betriebsstrategien mit realen Erzeugungsprofilen erneuerbarer Energien testen, bevor sie an der Anlage erprobt werden.</p>
+</div>
+<div>
+<h2>Gezeigte Kompetenzen</h2>
+<div class="skills"><span>Anlagenaufstellung</span><span>Fließbilder / R&amp;I</span><span>Komponentenspezifikation</span><span>Beschaffung</span><span>Schnittstelle Bau</span><span>Mechanische &amp; elektrische Integration</span><span>HAZOP</span><span>Inbetriebnahme</span><span>Dichtheitsprüfung</span><span>Haber–Bosch</span><span>PSA</span><span>DoE-Planung</span><span>Dynamischer Betrieb</span><span>Prozessmodellierung</span><span>Python</span></div>
+</div>
+</div>
+</section>
+
+<footer><span>© 2026 Nitin Mahankali · Maschinenbauingenieur · Wissenschaftlicher Mitarbeiter</span><a href="https://nitin14999.github.io/Nitin_Mahankali/de/#projects">← Zurück zu den Projekten</a></footer>
+
+<script>
+{
+const els=document.querySelectorAll('.reveal');
+const io=new IntersectionObserver(es=>{for(const e of es){if(e.isIntersecting){e.target.classList.add('in');io.unobserve(e.target)}}},{threshold:.12});
+els.forEach(el=>io.observe(el));
+const tl=document.getElementById('tl');
+const tio=new IntersectionObserver(es=>{if(es[0].isIntersecting){tl.style.setProperty('--w','100%');tio.disconnect()}},{threshold:.5});
+tio.observe(tl);
+}
+</script>
+</body>
+</html>

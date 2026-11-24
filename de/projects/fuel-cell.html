@@ -1,0 +1,322 @@
+<!DOCTYPE html>
+<html lang="de">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>SOFC-Systementwicklung | Nitin Mahankali</title>
+<link rel="icon" href="data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 64 64'%3E%3Crect width='64' height='64' rx='15' fill='%2313252c' stroke='%232c4a54' stroke-width='1.5'/%3E%3Ctext x='32' y='40' text-anchor='middle' font-family='IBM Plex Sans Condensed, Arial Narrow, Arial, sans-serif' font-weight='700' font-size='28' letter-spacing='-0.5' fill='%23e8eff1'%3ENM%3C/text%3E%3Crect x='14' y='48' width='12' height='4' rx='2' fill='%234cc6d1'/%3E%3Crect x='26' y='48' width='12' height='4' fill='%23a993ff'/%3E%3Crect x='38' y='48' width='12' height='4' rx='2' fill='%23ff7a52'/%3E%3C/svg%3E">
+<link rel="alternate" hreflang="en" href="https://nitin14999.github.io/Nitin_Mahankali/projects/fuel-cell.html">
+<link rel="alternate" hreflang="de" href="https://nitin14999.github.io/Nitin_Mahankali/de/projects/fuel-cell.html">
+<link rel="alternate" hreflang="x-default" href="https://nitin14999.github.io/Nitin_Mahankali/projects/fuel-cell.html">
+<meta name="description" content="Fallstudie: SOFC-Systementwicklung bei Sunfire: Neukonstruktion des Propan-Startbrenners, Optimierung des Wärmeübertragers, Konstruktion für die additive Fertigung und Ammoniakbetrieb mit Ursachenanalyse.">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link href="https://fonts.googleapis.com/css2?family=IBM+Plex+Sans+Condensed:wght@600;700&family=IBM+Plex+Sans:wght@400;500;600&display=swap" rel="stylesheet">
+<style>
+/* VOICE: a confident engineering case study, factual, first person, no fluff.
+   IDEA: a process engineering drawing sheet: line colours, title block, tag labels.
+   PICTURE: the pilot-plant process loop drawn as a live block flow diagram with gas moving through it.
+   COLOUR and TYPE: drawing-paper white, ink, H2 vermilion, N2 teal, NH3 violet; IBM Plex Sans Condensed + Plex Sans.
+   LAYOUT: headline + key figures, then the diagram full width, then phases, decisions, story, model, skills. */
+:root{color-scheme:light dark;
+--bg:light-dark(#fbfbf8,#0f1418);--paper:light-dark(#ffffff,#151c21);--ink:light-dark(#141a1f,#e9edef);
+--mute:light-dark(#56606a,#9aa6ae);--rule:light-dark(#d9ddd8,#2a343b);
+--h2:light-dark(#d4441c,#ff7a52);--n2:light-dark(#0b7a86,#4cc6d1);--nh3:light-dark(#5b3fb5,#a993ff);--soft:light-dark(#f1f2ee,#1b2329)}
+:root[data-theme=light]{color-scheme:light}:root[data-theme=dark]{color-scheme:dark}
+*{box-sizing:border-box;min-width:0}
+body{margin:0;background:var(--bg);color:var(--ink);font:16.5px/1.6 "IBM Plex Sans",system-ui,sans-serif;overflow-x:clip}
+h1,h2,h3{font-family:"IBM Plex Sans Condensed","IBM Plex Sans",sans-serif;line-height:1.08;text-wrap:balance;margin:0}
+h1{font-size:clamp(32px,4.6vw,50px);max-width:26ch}
+h2{font-size:clamp(26px,3vw,34px);margin-bottom:18px}
+h3{font-size:20px;margin-bottom:8px}
+p{margin:0 0 14px;max-width:68ch}
+a{color:var(--n2)}
+.band{padding:clamp(28px,4vw,64px) max(5vw,16px)}
+.wrap{max-width:1240px;margin:0 auto}
+.paper{background:var(--paper);border-block:1px solid var(--rule)}
+nav{display:flex;flex-wrap:wrap;gap:8px 22px;align-items:center;padding:14px max(5vw,16px);border-bottom:1px solid var(--rule);background:var(--paper)}
+nav a{color:var(--ink);text-decoration:none;font-weight:500;padding:10px 0}
+nav .logo{font-family:"IBM Plex Sans Condensed","IBM Plex Sans",sans-serif;font-weight:700;font-size:20px;margin-right:auto}
+.kicker{color:var(--mute);font-weight:500;margin-bottom:14px}
+.lede{font-size:18.5px;color:var(--mute);margin-top:18px}
+.figs{display:grid;grid-template-columns:repeat(4,minmax(0,1fr));gap:0;margin-top:30px;border-top:2px solid var(--ink)}
+.figs div{padding:14px 16px 4px 0;border-right:1px solid var(--rule);margin-right:16px}
+.figs div:last-child{border:0}
+.figs b{display:block;font:700 clamp(26px,3.2vw,36px)/1.1 "IBM Plex Sans Condensed","IBM Plex Sans",sans-serif;white-space:nowrap}
+.figs span{color:var(--mute);font-size:14px}
+.scroll{overflow-x:auto}
+.diagram{min-width:720px}
+.diagram svg{width:100%;height:auto;display:block}
+.cap{color:var(--mute);font-size:14px;margin-top:10px}
+.flow{stroke-dasharray:7 9;animation:run 1.6s linear infinite}
+@keyframes run{to{stroke-dashoffset:-32}}
+.legend{display:flex;flex-wrap:wrap;gap:6px 20px;font-size:14px;color:var(--mute);margin-top:6px}
+.legend i{display:inline-block;width:22px;height:3px;vertical-align:middle;margin-right:6px}
+.two{display:grid;grid-template-columns:minmax(0,1fr) minmax(0,1fr);gap:clamp(24px,4vw,56px)}
+.phases{display:grid;grid-template-columns:repeat(2,minmax(0,1fr));gap:20px}
+.phase{background:var(--paper);border:1px solid var(--rule);padding:22px 22px 10px}
+.phase .tag{font:600 13px "IBM Plex Sans Condensed","IBM Plex Sans",sans-serif;color:var(--n2);margin-bottom:6px}
+.phase ul{margin:0 0 12px;padding-left:18px}.phase li{margin-bottom:7px}
+.kw{display:flex;flex-wrap:wrap;gap:6px;margin:4px 0 14px}
+.kw span,.skills span{font-size:13px;border:1px solid var(--rule);padding:3px 9px;border-radius:99px;background:var(--soft)}
+.decide{display:grid;grid-template-columns:repeat(3,minmax(0,1fr));gap:20px}
+.decide div{border-top:3px solid var(--nh3);padding-top:14px}
+.story{display:grid;grid-template-columns:repeat(4,minmax(0,1fr));gap:0;border:1px solid var(--rule);background:var(--paper)}
+.story div{padding:20px;border-right:1px solid var(--rule)}.story div:last-child{border:0}
+.story b{display:block;font:700 15px "IBM Plex Sans Condensed","IBM Plex Sans",sans-serif;margin-bottom:6px;color:var(--h2)}
+.doe{display:grid;grid-template-columns:minmax(0,1fr) 56px minmax(0,1fr);align-items:center;gap:10px}
+.col{display:grid;gap:10px}
+.col div{background:var(--paper);border:1px solid var(--rule);padding:12px 14px;font-weight:500}
+.col small{display:block;color:var(--mute);font-weight:400;font-size:14px}
+.arrow{font-size:30px;text-align:center;color:var(--mute)}
+.model{display:grid;gap:14px}
+.eq{display:grid;grid-template-columns:repeat(6,minmax(0,1fr));gap:10px}
+.eq div{background:var(--paper);border:1px solid var(--rule);padding:12px 10px;text-align:center;font-weight:500;font-size:15px}
+.plant{background:var(--ink);color:var(--bg);padding:16px 18px;text-align:center;font:600 18px "IBM Plex Sans Condensed","IBM Plex Sans",sans-serif}
+.valid{border:2px dashed var(--h2);padding:12px 16px;text-align:center;font-weight:500}
+.timeline{position:relative;display:grid;grid-template-columns:repeat(8,minmax(0,1fr));gap:8px;padding-top:26px}
+.timeline:before{content:"";position:absolute;top:8px;left:0;height:3px;width:var(--w,0%);background:var(--n2);transition:width 1.6s ease}
+.timeline div{font-size:14px;font-weight:500;position:relative}
+.timeline div:before{content:"";position:absolute;top:-24px;left:0;width:12px;height:12px;border-radius:50%;background:var(--paper);border:3px solid var(--n2)}
+.skills{display:flex;flex-wrap:wrap;gap:8px}
+.note{font-size:14px;color:var(--mute);border-left:3px solid var(--rule);padding-left:12px}
+.reveal{opacity:0;transform:translateY(22px);transition:opacity .7s ease,transform .7s ease}
+.reveal.in{opacity:1;transform:none}
+footer{padding:30px max(5vw,16px);border-top:1px solid var(--rule);color:var(--mute);font-size:14px;display:flex;flex-wrap:wrap;justify-content:space-between;gap:10px}
+@media(max-width:900px){.phases,.two,.decide{grid-template-columns:minmax(0,1fr)}.story{grid-template-columns:repeat(2,minmax(0,1fr))}.story div:nth-child(2){border-right:0}.story div{border-bottom:1px solid var(--rule)}.eq{grid-template-columns:repeat(3,minmax(0,1fr))}.timeline{grid-template-columns:repeat(4,minmax(0,1fr));row-gap:40px}.timeline:before{display:none}}
+@media(max-width:600px){.figs{grid-template-columns:repeat(2,minmax(0,1fr))}.figs div:nth-child(2){border:0}.story{grid-template-columns:minmax(0,1fr)}.story div{border-right:0}.doe{grid-template-columns:minmax(0,1fr)}.arrow{transform:rotate(90deg)}.eq{grid-template-columns:repeat(2,minmax(0,1fr))}.timeline{grid-template-columns:repeat(2,minmax(0,1fr))}}
+@media(prefers-reduced-motion:reduce){.flow{animation:none}.reveal{opacity:1;transform:none;transition:none}.timeline:before{transition:none}}
+.t6{grid-template-columns:repeat(6,minmax(0,1fr))}
+.pool{animation:glow 1.4s ease-in-out infinite}
+@keyframes glow{50%{opacity:.45}}
+.cmp{display:grid;grid-template-columns:minmax(0,1fr) minmax(0,1fr);gap:20px}
+.cmp>div{background:var(--paper);border:1px solid var(--rule);padding:22px 22px 8px}
+.cmp .c1{border-top:4px solid var(--h2)}.cmp .c2{border-top:4px solid var(--n2)}
+.small{font-size:14px;color:var(--mute)}
+.learn{padding-left:18px;margin:0}.learn li{margin-bottom:9px}
+@media(max-width:900px){.t6{grid-template-columns:repeat(3,minmax(0,1fr))}}
+@media(max-width:600px){.cmp,.t6{grid-template-columns:minmax(0,1fr)}.t6{grid-template-columns:repeat(2,minmax(0,1fr))}}
+@media(prefers-reduced-motion:reduce){.pool{animation:none}}
+h1,h2,h3,p,li,small,.col div,.rig{hyphens:auto;-webkit-hyphens:auto;overflow-wrap:break-word}
+</style>
+</head>
+<body>
+<nav>
+<a class="logo" href="https://nitin14999.github.io/Nitin_Mahankali/de/" aria-label="Nitin Mahankali, Startseite" style="display:flex;align-items:center;gap:10px;text-decoration:none"><svg viewBox="0 0 64 64" width="34" height="34" aria-hidden="true"><rect width="64" height="64" rx="15" fill="#13252c" stroke="#2c4a54" stroke-width="1.5"/><text x="32" y="40" text-anchor="middle" font-family="IBM Plex Sans Condensed, Arial Narrow, Arial, sans-serif" font-weight="700" font-size="28" letter-spacing="-0.5" fill="#e8eff1">NM</text><rect x="14" y="48" width="12" height="4" rx="2" fill="#4cc6d1"/><rect x="26" y="48" width="12" height="4" fill="#a993ff"/><rect x="38" y="48" width="12" height="4" rx="2" fill="#ff7a52"/></svg>Nitin Mahankali</a>
+<a href="#objective">Zielsetzung</a><a href="#scope">Umfang</a><a href="#burner">Brenner-Neukonstruktion</a><a href="#ammonia">Ammoniakbetrieb</a>
+<a href="https://nitin14999.github.io/Nitin_Mahankali/de/#projects">Alle Projekte</a>
+<span class="lang" style="display:inline-flex;align-items:center;gap:6px;font-weight:600;font-size:14px;border:1px solid currentColor;border-radius:99px;padding:6px 12px;opacity:.9"><a href="../../projects/fuel-cell.html" hreflang="en" lang="en" style="text-decoration:none;padding:0" aria-label="English version">EN</a><span aria-hidden="true">|</span><b>DE</b></span>
+</nav>
+
+<header class="band">
+<div class="wrap">
+<div class="kicker">Fallstudie · Sunfire Fuel Cells GmbH · Entwicklungsingenieur · Apr. 2023 – März 2024</div>
+<h1>Ein Festoxid-Brennstoffzellensystem: kleiner, sauberer und bereit für Ammoniak</h1>
+<p class="lede">Entwicklungsarbeit an einem portablen SOFC-Stromerzeuger: ein neu konstruierter Propan-Startbrenner mit vollständiger Verbrennung, ein größerer und wirksamerer Wärmeübertrager, ein einteiliger, additiv gefertigter Brenner-Wärmeübertrager-Block in der Grundplatte und die Ursachenanalyse von Interkonnektor-Schäden im Ammoniakbetrieb.</p>
+<div class="figs">
+<div><b>↓ Gewicht</b><span>leichteres System</span></div>
+<div><b>R450 → R250</b><span>450 W auf 250 W, tragbareres Modell</span></div>
+<div><b>↓ Volumen</b><span>kompakteres System</span></div>
+<div><b>1 Block</b><span>Brenner + WÜ als ein Teil gedruckt</span></div>
+</div>
+</div>
+</header>
+
+<section class="band paper" aria-label="Übersicht SOFC-System">
+<div class="wrap">
+<div class="scroll"><div class="diagram">
+<svg viewBox="0 0 960 390" role="img" aria-label="SOFC-System: Propan oder gecracktes Ammoniak versorgt den Stack; Luft wird im Brenner-Wärmeübertrager-Block vorgewärmt; das Stack-Abgas wird im Block verbrannt; das Abgas geht zur Gasanalyse">
+<g font-family="IBM Plex Sans, sans-serif" font-size="14" fill="var(--ink)">
+<rect x="40" y="50" width="140" height="50" rx="4" fill="var(--soft)" stroke="var(--ink)" stroke-width="1.5"/>
+<text x="110" y="80" text-anchor="middle" font-weight="600">Propan</text>
+<rect x="40" y="130" width="140" height="50" rx="4" fill="var(--soft)" stroke="var(--ink)" stroke-width="1.5"/>
+<text x="110" y="160" text-anchor="middle" font-weight="600">NH₃</text>
+<rect x="215" y="130" width="125" height="50" rx="4" fill="var(--paper)" stroke="var(--n2)" stroke-width="2.5"/>
+<text x="277" y="152" text-anchor="middle" font-weight="600">NH₃-Cracker</text>
+<text x="277" y="170" text-anchor="middle" font-size="12" fill="var(--mute)">NH₃ → N₂ + H₂</text>
+<path class="flow" d="M180 155H215" fill="none" stroke="var(--n2)" stroke-width="3"/>
+<path class="flow" d="M340 155H380" fill="none" stroke="var(--n2)" stroke-width="3"/>
+<path class="flow" d="M180 75H360V110H380" fill="none" stroke="var(--h2)" stroke-width="3"/>
+<text x="250" y="66" font-size="12" fill="var(--mute)">Brennstoff</text>
+<!-- stack -->
+<rect x="380" y="60" width="220" height="175" rx="4" fill="var(--paper)" stroke="var(--ink)" stroke-width="2"/>
+<text x="490" y="84" text-anchor="middle" font-weight="600">SOFC-Stack</text>
+<g stroke-width="5">
+<path d="M400 104H580M400 134H580M400 164H580M400 194H580M400 224H580" stroke="var(--nh3)" opacity=".7"/>
+<path d="M400 119H580M400 149H580M400 179H580M400 209H580" stroke="var(--soft)"/>
+</g>
+<path d="M490 60V22" stroke="var(--ink)" stroke-width="2"/>
+<text x="502" y="30" font-size="13" font-weight="600">Gleichstrom · Stackspannung</text>
+<!-- burner hx block -->
+<rect x="380" y="275" width="220" height="80" rx="4" fill="var(--soft)" stroke="var(--h2)" stroke-width="2.5"/>
+<text x="490" y="306" text-anchor="middle" font-weight="600">Brenner + Wärmeübertrager</text>
+<text x="490" y="326" text-anchor="middle" font-size="12" fill="var(--mute)">ein AM-Block in der Grundplatte</text>
+<path class="flow" d="M30 320H380" fill="none" stroke="var(--mute)" stroke-width="3"/>
+<text x="40" y="310" font-size="13" fill="var(--mute)">Luft</text>
+<path class="flow" d="M490 275V235" fill="none" stroke="var(--h2)" stroke-width="3"/>
+<text x="500" y="260" font-size="12" fill="var(--mute)">vorgewärmte Luft</text>
+<path class="flow" d="M600 120H660V290H600" fill="none" stroke="var(--nh3)" stroke-width="3"/>
+<text x="670" y="200" font-size="12" fill="var(--mute)">Stack-Abgas</text>
+<path class="flow" d="M600 340H760" fill="none" stroke="var(--ink)" stroke-width="3"/>
+<rect x="760" y="310" width="170" height="60" rx="4" fill="var(--paper)" stroke="var(--ink)" stroke-width="1.5"/>
+<text x="845" y="336" text-anchor="middle" font-weight="600">Abgasanalyse</text>
+<text x="845" y="355" text-anchor="middle" font-size="12" fill="var(--mute)">CO · Verbrennungsprodukte</text>
+</g>
+</svg>
+</div></div>
+<div class="legend"><span><i style="background:var(--h2)"></i>Propan / Heißluft</span><span><i style="background:var(--n2)"></i>Ammoniakpfad</span><span><i style="background:var(--nh3)"></i>Metallische Interkonnektoren / Abgas</span></div>
+<p class="cap">Vereinfachtes Schema der bearbeiteten Bereiche des SOFC-Systems. Für dieses Portfolio gezeichnet, nicht das Produktdesign.</p>
+</div>
+</section>
+
+<section class="band reveal" id="objective">
+<div class="wrap two">
+<div>
+<h2>Zielsetzung</h2>
+<p>Ein portables SOFC-System wiegt etwa 60–70 kg. Den größten Teil des Volumens nimmt die keramische Isolierung ein, doch die Metallteile drumherum (Brenner, Wärmeübertrager, Rohrleitungen, Grundplatte) lassen viel Raum ungenutzt und erfordern viele Montageschritte.</p>
+<p>Die Ziele: <strong>Volumen, Gewicht und Anzahl der Montageteile reduzieren</strong>, beim Startbrenner die <strong>CO-Emissionen unter die Grenzwerte bringen</strong> und <strong>Ammoniak als alternativen Brennstoff bewerten</strong>.</p>
+</div>
+<div>
+<h2>Rolle</h2>
+<p>Entwicklungsingenieur im SOFC-Systemteam, verantwortlich für die Konstruktion von Startbrenner und Wärmeübertrager, deren Neukonstruktion für die additive Fertigung sowie die Erprobung mit Propan und Ammoniak einschließlich Abgasanalyse und Fehlersuche.</p>
+<p class="note">Produktdetails werden nur auf Ebene öffentlicher Modellbezeichnungen und übergeordneter Ergebnisse gezeigt.</p>
+</div>
+</div>
+</section>
+
+<section class="band reveal" id="scope" style="padding-top:0">
+<div class="wrap">
+<h2>Arbeitsumfang</h2>
+<div class="timeline t6" id="tl">
+<div>Literaturrecherche</div><div>Brenner-Neukonstruktion</div><div>Optimierung des Wärmeübertragers</div><div>Einteiliger DfAM-Block</div><div>Erprobung &amp; Abgasanalyse</div><div>Ammoniakbetrieb &amp; Ursache</div>
+</div>
+<div class="phases" style="margin-top:34px">
+<div class="phase reveal"><div class="tag">Forschung</div><h3>Überblick SOFC-Technologie</h3>
+<ul><li>Auswertung der SOFC-Systementwicklung mit Fokus auf geringeres Systemvolumen und weniger Bauteile.</li>
+<li>Untersuchung der Interkonnektor-Werkstoffe: warum sie so aufgebaut sind und wie sie sich in verschiedenen Brenngasatmosphären verhalten.</li></ul>
+<div class="kw"><span>SOFC</span><span>Interkonnektoren</span><span>Literaturrecherche</span></div></div>
+
+<div class="phase reveal"><div class="tag">Verbrennung</div><h3>Propan-Startbrenner</h3>
+<ul><li>Neukonstruktion des mit dem Wärmeübertrager kombinierten Startbrenners für eine vollständige Propanverbrennung.</li>
+<li>Viele kleine Brennerporen als Flammensperre, die einen Flammenrückschlag in die Propanzufuhr verhindern.</li></ul>
+<div class="kw"><span>Brennerkonstruktion</span><span>Vollständige Verbrennung</span><span>Rückschlagsicherung</span><span>CO-Minderung</span></div></div>
+
+<div class="phase reveal"><div class="tag">Wärmeübertragung</div><h3>Größere Wärmeübertragungsfläche</h3>
+<ul><li>Vergrößerung der Wärmeübertragerfläche, damit mehr Brennerwärme die zuströmende Luft vorwärmt und weniger mit dem Abgas verloren geht.</li>
+<li>Das verbessert die Wärmerückgewinnung beim Anfahren.</li></ul>
+<div class="kw"><span>Wärmeübertrager</span><span>Wärmerückgewinnung</span><span>Thermomanagement</span></div></div>
+
+<div class="phase reveal"><div class="tag">AM-gerechte Konstruktion</div><h3>Ein Block statt vieler Teile</h3>
+<ul><li>Neukonstruktion von Brenner und Wärmeübertrager als kompakter, rechteckiger Block in der Grundplatte, der bisher ungenutzten Raum ausfüllt.</li>
+<li>Runde Bauteile und Rohrleitungen wurden ins Innere des Blocks verlegt, sodass er in einem Stück 3D-gedruckt werden kann und weniger Teile zu montieren sind.</li></ul>
+<div class="kw"><span>DfAM</span><span>Bauteilintegration</span><span>Metall-AM</span><span>CAD</span></div></div>
+
+<div class="phase reveal"><div class="tag">Erprobung</div><h3>Leistung und Emissionen</h3>
+<ul><li>Erprobung des Systems bei variiertem Luft- und Brennstoffvolumenstrom, mit der Stackspannung als wichtigster Zielgröße.</li>
+<li>Arbeit an der Anfahrprozedur und Analyse des Abgases mit Schwerpunkt auf CO-Emissionen.</li></ul>
+<div class="kw"><span>Stackspannung</span><span>Luft- / Brennstoffstrom</span><span>Anfahrprozedur</span><span>Abgasanalyse</span></div></div>
+
+<div class="phase reveal"><div class="tag">Alternativer Brennstoff</div><h3>Ammoniak statt Propan</h3>
+<ul><li>Betrieb der Module mit Ammoniak und Vergleich der elektrischen Leistung mit dem Propanbetrieb.</li>
+<li>Untersuchung der aufgetretenen Interkonnektor-Schäden und Bewertung des Ammoniak-Crackings vor dem Stack als Lösung.</li></ul>
+<div class="kw"><span>Ammoniak als Brennstoff</span><span>Ursachenanalyse</span><span>NH₃-Cracking</span><span>Werkstoffdegradation</span></div></div>
+</div>
+</div>
+</section>
+
+<section class="band paper reveal" id="burner">
+<div class="wrap">
+<h2>Konstruktion für die additive Fertigung: von der Baugruppe zum Block</h2>
+<div class="scroll" style="margin:18px 0 8px"><div class="diagram">
+<svg viewBox="0 0 960 300" role="img" aria-label="Vorher: separater Brenner, Wärmeübertrager, Rohrleitungen und Grundplatte. Nachher: ein rechteckiger gedruckter Block in der Grundplatte mit internen Kanälen und Flammensperr-Poren.">
+<g font-family="IBM Plex Sans, sans-serif" font-size="14" fill="var(--ink)">
+<text x="230" y="26" text-anchor="middle" font-weight="600">Vorher: Einzelteile, ungenutzter Raum</text>
+<text x="720" y="26" text-anchor="middle" font-weight="600">Nachher: ein gedruckter Block</text>
+<line x1="480" y1="40" x2="480" y2="290" stroke="var(--rule)" stroke-width="2"/>
+<rect x="60" y="250" width="340" height="22" fill="var(--soft)" stroke="var(--ink)"/>
+<text x="230" y="266" text-anchor="middle" font-size="12" fill="var(--mute)">Grundplatte</text>
+<rect x="90" y="120" width="60" height="120" rx="28" fill="var(--paper)" stroke="var(--h2)" stroke-width="2"/>
+<text x="120" y="110" text-anchor="middle" font-size="12" fill="var(--mute)">Brenner</text>
+<rect x="210" y="90" width="80" height="150" rx="6" fill="var(--paper)" stroke="var(--ink)" stroke-width="1.8"/>
+<path d="M222 110H278M222 130H278M222 150H278M222 170H278M222 190H278M222 210H278" stroke="var(--mute)"/>
+<text x="250" y="80" text-anchor="middle" font-size="12" fill="var(--mute)">Wärmeübertrager</text>
+<path d="M150 150H210M150 200C180 200 180 230 210 230M290 120C340 120 340 70 370 70M290 200H350V240" fill="none" stroke="var(--ink)" stroke-width="5" opacity=".35"/>
+<g fill="var(--ink)"><circle cx="100" cy="245" r="4"/><circle cx="140" cy="245" r="4"/><circle cx="220" cy="245" r="4"/><circle cx="280" cy="245" r="4"/><circle cx="345" cy="245" r="4"/></g>
+<text x="330" y="160" font-size="12" fill="var(--mute)">Lücken,</text><text x="330" y="176" font-size="12" fill="var(--mute)">Verschraubungen</text>
+<rect x="550" y="250" width="340" height="22" fill="var(--soft)" stroke="var(--ink)"/>
+<rect x="600" y="80" width="240" height="170" rx="4" fill="var(--paper)" stroke="var(--h2)" stroke-width="2.5"/>
+<g fill="none" stroke="var(--mute)" stroke-width="2" stroke-dasharray="4 4"><circle cx="650" cy="130" r="20"/><circle cx="650" cy="200" r="20"/><path d="M690 110H820M690 140H820M690 170H820"/></g>
+<g fill="var(--h2)"><circle cx="700" cy="215" r="3"/><circle cx="715" cy="215" r="3"/><circle cx="730" cy="215" r="3"/><circle cx="745" cy="215" r="3"/><circle cx="760" cy="215" r="3"/><circle cx="775" cy="215" r="3"/><circle cx="790" cy="215" r="3"/><circle cx="805" cy="215" r="3"/></g>
+<text x="755" y="240" text-anchor="middle" font-size="12" fill="var(--h2)" font-weight="600">Flammensperr-Poren</text>
+<text x="755" y="196" text-anchor="middle" font-size="12" fill="var(--mute)">interne WÜ-Kanäle</text>
+<text x="720" y="66" text-anchor="middle" font-size="12" fill="var(--mute)">Rohre und runde Teile ins Innere verlegt</text>
+</g>
+</svg>
+</div></div>
+<p class="cap">Konzeptschema. Die tatsächliche Geometrie gehört dem Unternehmen und wird nicht gezeigt.</p>
+
+<div class="story" style="margin-top:22px">
+<div><b>Problem</b>Der Propan-Startbrenner erzeugte CO über den zulässigen Grenzwerten, und ein Teil seiner Wärme ging mit dem Abgas verloren, statt das System aufzuheizen.</div>
+<div><b>Ursache</b>Unvollständige Verbrennung im Brenner und eine zu kleine Wärmeübertragerfläche für die Wärmerückgewinnung.</div>
+<div><b>Lösung</b>Neukonstruktion des Brenners für vollständige Verbrennung, mit feinen Poren gegen Flammenrückschlag. Vergrößerte Wärmeübertragungsfläche und Integration beider Komponenten in einen Block, konstruiert für die additive Fertigung.</div>
+<div><b>Ergebnis</b>Propan verbrannte vollständig, die CO-Emissionen lagen innerhalb der Grenzwerte. Mehr Wärme blieb im System, und für die Montage waren weniger Teile nötig.</div>
+</div>
+</div>
+</section>
+
+<section class="band reveal" id="ammonia">
+<div class="wrap">
+<h2>Ammoniakbetrieb: Warum die Interkonnektoren versagten</h2>
+<p>Die ersten Ammoniakversuche liefen gut. Bei längerem Betrieb wurden jedoch die metallischen Interkonnektoren beschädigt. Sie leiten den Strom zwischen den Zellen und sind nach den Zellen selbst die kritischste Komponente.</p>
+<div class="story" style="margin-top:18px">
+<div><b>Problem</b>Der Interkonnektor-Werkstoff degradierte, sobald Ammoniak direkt in die Brennstoffzellenmodule geleitet wurde.</div>
+<div><b>Ursache</b>Bei SOFC-Betriebstemperaturen greift Ammoniak die metallischen Interkonnektoren an (etwa durch Nitrierung) und verursacht korrosiven Verschleiß. Die Untersuchung verglich den Betrieb mit und ohne vorgeschaltetes Cracking, variierte Luft- und Brennstoffstrom und betrachtete die Interkonnektor-Werkstoffe.</div>
+<div><b>Lösung</b>Das Ammoniak <em>vor</em> dem Stack-Eintritt in Wasserstoff und Stickstoff spalten, damit die Interkonnektoren bei hoher Temperatur nie reinem NH₃ ausgesetzt sind.</div>
+<div><b>Ergebnis</b>Ein praxistauglicher Weg zum Ammoniakbetrieb von SOFC-Modulen, gestützt durch einen Vergleich der elektrischen Leistung mit Ammoniak und mit Propan.</div>
+</div>
+</div>
+</section>
+
+<section class="band paper reveal">
+<div class="wrap">
+<h2>Ergebnisse</h2>
+<div class="cmp">
+<div class="c1"><h3>System</h3>
+<p>Beitrag zum tragbareren Modell <strong>R250</strong> (250 W), abgeleitet vom <strong>R450</strong> (450 W), mit <strong>geringerem Gewicht und Volumen</strong>.</p></div>
+<div class="c2"><h3>Brenner und Brennstoff</h3>
+<p><strong>Vollständige Propanverbrennung</strong> mit CO innerhalb der Grenzwerte, besserer Wärmerückgewinnung, einem einteiligen AM-Block und einem Konzept mit <strong>Ammoniak-Cracking</strong> für den Ammoniakbetrieb.</p></div>
+</div>
+</div>
+</section>
+
+<section class="band reveal">
+<div class="wrap two">
+<div>
+<h2>Wichtigste Erkenntnisse</h2>
+<ul class="learn">
+<li>Additive Fertigung lohnt sich am meisten, wenn die Konstruktion neu gedacht und nicht nur kopiert wird: Bauteilintegration und bessere Raumnutzung schlagen das Drucken alter Teile.</li>
+<li>Verbrennungsqualität und Wärmerückgewinnung müssen in einem kompakten System gemeinsam ausgelegt werden.</li>
+<li>Ein neuer Brennstoff bringt neue Schadensmechanismen: Ammoniak ist ein Wasserstoffträger, greift aber bei hohen Temperaturen Werkstoffe an. Die Aufbereitung des Brennstoffs kann daher so wichtig sein wie der Stack selbst.</li>
+<li>Ursachenanalyse braucht sowohl Betriebsdaten als auch Werkstoffwissen.</li>
+</ul>
+</div>
+<div>
+<h2>Gezeigte Kompetenzen</h2>
+<div class="skills"><span>SOFC-Systeme</span><span>Brennerkonstruktion</span><span>Wärmeübertrager-Auslegung</span><span>AM-gerechte Konstruktion</span><span>Bauteilintegration</span><span>CAD (SolidWorks)</span><span>Thermomanagement</span><span>Abgasanalyse</span><span>CO-Emissionen</span><span>Ammoniak als Brennstoff</span><span>NH₃-Cracking</span><span>Interkonnektor-Degradation</span><span>Ursachenanalyse</span><span>Systemerprobung</span></div>
+</div>
+</div>
+</section>
+
+<footer><span>© 2026 Nitin Mahankali · Maschinenbauingenieur · Wissenschaftlicher Mitarbeiter</span><a href="https://nitin14999.github.io/Nitin_Mahankali/de/#projects">← Zurück zu den Projekten</a></footer>
+
+<script>
+{
+const els=document.querySelectorAll('.reveal');
+const io=new IntersectionObserver(es=>{for(const e of es){if(e.isIntersecting){e.target.classList.add('in');io.unobserve(e.target)}}},{threshold:.12});
+els.forEach(el=>io.observe(el));
+const tl=document.getElementById('tl');
+const tio=new IntersectionObserver(es=>{if(es[0].isIntersecting){tl.style.setProperty('--w','100%');tio.disconnect()}},{threshold:.5});
+tio.observe(tl);
+}
+</script>
+</body>
+</html>

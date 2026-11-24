@@ -1,0 +1,303 @@
+<!DOCTYPE html>
+<html lang="de">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Ammoniak-Tankstelle | Nitin Mahankali</title>
+<link rel="icon" href="data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 64 64'%3E%3Crect width='64' height='64' rx='15' fill='%2313252c' stroke='%232c4a54' stroke-width='1.5'/%3E%3Ctext x='32' y='40' text-anchor='middle' font-family='IBM Plex Sans Condensed, Arial Narrow, Arial, sans-serif' font-weight='700' font-size='28' letter-spacing='-0.5' fill='%23e8eff1'%3ENM%3C/text%3E%3Crect x='14' y='48' width='12' height='4' rx='2' fill='%234cc6d1'/%3E%3Crect x='26' y='48' width='12' height='4' fill='%23a993ff'/%3E%3Crect x='38' y='48' width='12' height='4' rx='2' fill='%23ff7a52'/%3E%3C/svg%3E">
+<link rel="alternate" hreflang="en" href="https://nitin14999.github.io/Nitin_Mahankali/projects/ammonia-refueling.html">
+<link rel="alternate" hreflang="de" href="https://nitin14999.github.io/Nitin_Mahankali/de/projects/ammonia-refueling.html">
+<link rel="alternate" hreflang="x-default" href="https://nitin14999.github.io/Nitin_Mahankali/projects/ammonia-refueling.html">
+<meta name="description" content="Fallstudie: Konzept und Engineering einer Ammoniak-Tankstelle mit tiefkalter und druckverflüssigter Lagerung, Rückgewinnung des Boil-off-Gases und Wechsel zwischen den Lagerformen, INP Greifswald.">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link href="https://fonts.googleapis.com/css2?family=IBM+Plex+Sans+Condensed:wght@600;700&family=IBM+Plex+Sans:wght@400;500;600&display=swap" rel="stylesheet">
+<style>
+/* VOICE: a confident engineering case study, factual, first person, no fluff.
+   IDEA: a process engineering drawing sheet: line colours, title block, tag labels.
+   PICTURE: the pilot-plant process loop drawn as a live block flow diagram with gas moving through it.
+   COLOUR and TYPE: drawing-paper white, ink, H2 vermilion, N2 teal, NH3 violet; IBM Plex Sans Condensed + Plex Sans.
+   LAYOUT: headline + key figures, then the diagram full width, then phases, decisions, story, model, skills. */
+:root{color-scheme:light dark;
+--bg:light-dark(#fbfbf8,#0f1418);--paper:light-dark(#ffffff,#151c21);--ink:light-dark(#141a1f,#e9edef);
+--mute:light-dark(#56606a,#9aa6ae);--rule:light-dark(#d9ddd8,#2a343b);
+--h2:light-dark(#d4441c,#ff7a52);--n2:light-dark(#0b7a86,#4cc6d1);--nh3:light-dark(#5b3fb5,#a993ff);--soft:light-dark(#f1f2ee,#1b2329)}
+:root[data-theme=light]{color-scheme:light}:root[data-theme=dark]{color-scheme:dark}
+*{box-sizing:border-box;min-width:0}
+body{margin:0;background:var(--bg);color:var(--ink);font:16.5px/1.6 "IBM Plex Sans",system-ui,sans-serif;overflow-x:clip}
+h1,h2,h3{font-family:"IBM Plex Sans Condensed","IBM Plex Sans",sans-serif;line-height:1.08;text-wrap:balance;margin:0}
+h1{font-size:clamp(32px,4.6vw,50px);max-width:26ch}
+h2{font-size:clamp(26px,3vw,34px);margin-bottom:18px}
+h3{font-size:20px;margin-bottom:8px}
+p{margin:0 0 14px;max-width:68ch}
+a{color:var(--n2)}
+.band{padding:clamp(28px,4vw,64px) max(5vw,16px)}
+.wrap{max-width:1240px;margin:0 auto}
+.paper{background:var(--paper);border-block:1px solid var(--rule)}
+nav{display:flex;flex-wrap:wrap;gap:8px 22px;align-items:center;padding:14px max(5vw,16px);border-bottom:1px solid var(--rule);background:var(--paper)}
+nav a{color:var(--ink);text-decoration:none;font-weight:500;padding:10px 0}
+nav .logo{font-family:"IBM Plex Sans Condensed","IBM Plex Sans",sans-serif;font-weight:700;font-size:20px;margin-right:auto}
+.kicker{color:var(--mute);font-weight:500;margin-bottom:14px}
+.lede{font-size:18.5px;color:var(--mute);margin-top:18px}
+.figs{display:grid;grid-template-columns:repeat(4,minmax(0,1fr));gap:0;margin-top:30px;border-top:2px solid var(--ink)}
+.figs div{padding:14px 16px 4px 0;border-right:1px solid var(--rule);margin-right:16px}
+.figs div:last-child{border:0}
+.figs b{display:block;font:700 clamp(26px,3.2vw,36px)/1.1 "IBM Plex Sans Condensed","IBM Plex Sans",sans-serif;white-space:nowrap}
+.figs span{color:var(--mute);font-size:14px}
+.scroll{overflow-x:auto}
+.diagram{min-width:720px}
+.diagram svg{width:100%;height:auto;display:block}
+.cap{color:var(--mute);font-size:14px;margin-top:10px}
+.flow{stroke-dasharray:7 9;animation:run 1.6s linear infinite}
+@keyframes run{to{stroke-dashoffset:-32}}
+.legend{display:flex;flex-wrap:wrap;gap:6px 20px;font-size:14px;color:var(--mute);margin-top:6px}
+.legend i{display:inline-block;width:22px;height:3px;vertical-align:middle;margin-right:6px}
+.two{display:grid;grid-template-columns:minmax(0,1fr) minmax(0,1fr);gap:clamp(24px,4vw,56px)}
+.phases{display:grid;grid-template-columns:repeat(2,minmax(0,1fr));gap:20px}
+.phase{background:var(--paper);border:1px solid var(--rule);padding:22px 22px 10px}
+.phase .tag{font:600 13px "IBM Plex Sans Condensed","IBM Plex Sans",sans-serif;color:var(--n2);margin-bottom:6px}
+.phase ul{margin:0 0 12px;padding-left:18px}.phase li{margin-bottom:7px}
+.kw{display:flex;flex-wrap:wrap;gap:6px;margin:4px 0 14px}
+.kw span,.skills span{font-size:13px;border:1px solid var(--rule);padding:3px 9px;border-radius:99px;background:var(--soft)}
+.decide{display:grid;grid-template-columns:repeat(3,minmax(0,1fr));gap:20px}
+.decide div{border-top:3px solid var(--nh3);padding-top:14px}
+.story{display:grid;grid-template-columns:repeat(4,minmax(0,1fr));gap:0;border:1px solid var(--rule);background:var(--paper)}
+.story div{padding:20px;border-right:1px solid var(--rule)}.story div:last-child{border:0}
+.story b{display:block;font:700 15px "IBM Plex Sans Condensed","IBM Plex Sans",sans-serif;margin-bottom:6px;color:var(--h2)}
+.doe{display:grid;grid-template-columns:minmax(0,1fr) 56px minmax(0,1fr);align-items:center;gap:10px}
+.col{display:grid;gap:10px}
+.col div{background:var(--paper);border:1px solid var(--rule);padding:12px 14px;font-weight:500}
+.col small{display:block;color:var(--mute);font-weight:400;font-size:14px}
+.arrow{font-size:30px;text-align:center;color:var(--mute)}
+.model{display:grid;gap:14px}
+.eq{display:grid;grid-template-columns:repeat(6,minmax(0,1fr));gap:10px}
+.eq div{background:var(--paper);border:1px solid var(--rule);padding:12px 10px;text-align:center;font-weight:500;font-size:15px}
+.plant{background:var(--ink);color:var(--bg);padding:16px 18px;text-align:center;font:600 18px "IBM Plex Sans Condensed","IBM Plex Sans",sans-serif}
+.valid{border:2px dashed var(--h2);padding:12px 16px;text-align:center;font-weight:500}
+.timeline{position:relative;display:grid;grid-template-columns:repeat(8,minmax(0,1fr));gap:8px;padding-top:26px}
+.timeline:before{content:"";position:absolute;top:8px;left:0;height:3px;width:var(--w,0%);background:var(--n2);transition:width 1.6s ease}
+.timeline div{font-size:14px;font-weight:500;position:relative}
+.timeline div:before{content:"";position:absolute;top:-24px;left:0;width:12px;height:12px;border-radius:50%;background:var(--paper);border:3px solid var(--n2)}
+.skills{display:flex;flex-wrap:wrap;gap:8px}
+.note{font-size:14px;color:var(--mute);border-left:3px solid var(--rule);padding-left:12px}
+.reveal{opacity:0;transform:translateY(22px);transition:opacity .7s ease,transform .7s ease}
+.reveal.in{opacity:1;transform:none}
+footer{padding:30px max(5vw,16px);border-top:1px solid var(--rule);color:var(--mute);font-size:14px;display:flex;flex-wrap:wrap;justify-content:space-between;gap:10px}
+@media(max-width:900px){.phases,.two,.decide{grid-template-columns:minmax(0,1fr)}.story{grid-template-columns:repeat(2,minmax(0,1fr))}.story div:nth-child(2){border-right:0}.story div{border-bottom:1px solid var(--rule)}.eq{grid-template-columns:repeat(3,minmax(0,1fr))}.timeline{grid-template-columns:repeat(4,minmax(0,1fr));row-gap:40px}.timeline:before{display:none}}
+@media(max-width:600px){.figs{grid-template-columns:repeat(2,minmax(0,1fr))}.figs div:nth-child(2){border:0}.story{grid-template-columns:minmax(0,1fr)}.story div{border-right:0}.doe{grid-template-columns:minmax(0,1fr)}.arrow{transform:rotate(90deg)}.eq{grid-template-columns:repeat(2,minmax(0,1fr))}.timeline{grid-template-columns:repeat(2,minmax(0,1fr))}}
+@media(prefers-reduced-motion:reduce){.flow{animation:none}.reveal{opacity:1;transform:none;transition:none}.timeline:before{transition:none}}
+.t6{grid-template-columns:repeat(6,minmax(0,1fr))}
+.pool{animation:glow 1.4s ease-in-out infinite}
+@keyframes glow{50%{opacity:.45}}
+.cmp{display:grid;grid-template-columns:minmax(0,1fr) minmax(0,1fr);gap:20px}
+.cmp>div{background:var(--paper);border:1px solid var(--rule);padding:22px 22px 8px}
+.cmp .c1{border-top:4px solid var(--h2)}.cmp .c2{border-top:4px solid var(--n2)}
+.small{font-size:14px;color:var(--mute)}
+.learn{padding-left:18px;margin:0}.learn li{margin-bottom:9px}
+@media(max-width:900px){.t6{grid-template-columns:repeat(3,minmax(0,1fr))}}
+@media(max-width:600px){.cmp,.t6{grid-template-columns:minmax(0,1fr)}.t6{grid-template-columns:repeat(2,minmax(0,1fr))}}
+@media(prefers-reduced-motion:reduce){.pool{animation:none}}
+.eqn{font:600 clamp(18px,2.2vw,22px) "IBM Plex Sans",sans-serif;background:var(--paper);border:1px solid var(--rule);padding:14px 18px;display:inline-block;max-width:100%}
+.rig{background:var(--paper);border:1px solid var(--rule);padding:20px}
+.rig .tag{font:600 14px "IBM Plex Sans Condensed","IBM Plex Sans",sans-serif;color:var(--n2)}
+.rig .doe{margin:14px 0}
+.rig .doe{grid-template-columns:minmax(0,1fr) 34px minmax(0,1fr)}
+.spray{animation:glow 1.2s ease-in-out infinite}
+@media(prefers-reduced-motion:reduce){.spray{animation:none}}
+.ptab{width:100%;border-collapse:collapse;background:var(--paper);font-size:15px;min-width:640px}
+.ptab th,.ptab td{border-bottom:1px solid var(--rule);padding:10px 12px;text-align:left;vertical-align:top}
+.ptab th{font-family:"IBM Plex Sans Condensed","IBM Plex Sans",sans-serif;font-size:15px;border-bottom:2px solid var(--ink)}
+.ptab td:nth-child(2),.ptab td:nth-child(3){white-space:nowrap}
+.fig2{max-width:680px}.fig2 svg{width:100%;height:auto;display:block}
+.piston{animation:pist 1.2s ease-in-out infinite}@keyframes pist{50%{transform:translateY(26px)}}
+.flame{animation:glow 1.2s ease-in-out infinite}
+.eqn{overflow-x:auto}
+@media(prefers-reduced-motion:reduce){.piston,.flame{animation:none}}
+.bars{display:grid;gap:12px;margin:18px 0 6px;max-width:900px}
+.bars .row{display:grid;grid-template-columns:minmax(0,240px) minmax(0,1fr) 92px;gap:12px;align-items:center}
+.bars .lab{font-size:15px}.bars b{text-align:right;white-space:nowrap}
+.bars .bar{height:16px;background:var(--soft);border:1px solid var(--rule)}
+.bars .bar i{display:block;height:100%;transform-origin:left;transform:scaleX(0);transition:transform 1.2s ease}
+.bars.in .bar i{transform:scaleX(1)}
+@media(max-width:600px){.bars .row{grid-template-columns:minmax(0,1fr) 80px}.bars .bar{grid-column:1/-1;grid-row:2}}
+@media(prefers-reduced-motion:reduce){.bars .bar i{transform:none;transition:none}}
+h1,h2,h3,p,li,small,.col div,.rig{hyphens:auto;-webkit-hyphens:auto;overflow-wrap:break-word}
+</style>
+</head>
+<body>
+<nav>
+<a class="logo" href="https://nitin14999.github.io/Nitin_Mahankali/de/" aria-label="Nitin Mahankali, Startseite" style="display:flex;align-items:center;gap:10px;text-decoration:none"><svg viewBox="0 0 64 64" width="34" height="34" aria-hidden="true"><rect width="64" height="64" rx="15" fill="#13252c" stroke="#2c4a54" stroke-width="1.5"/><text x="32" y="40" text-anchor="middle" font-family="IBM Plex Sans Condensed, Arial Narrow, Arial, sans-serif" font-weight="700" font-size="28" letter-spacing="-0.5" fill="#e8eff1">NM</text><rect x="14" y="48" width="12" height="4" rx="2" fill="#4cc6d1"/><rect x="26" y="48" width="12" height="4" fill="#a993ff"/><rect x="38" y="48" width="12" height="4" rx="2" fill="#ff7a52"/></svg>Nitin Mahankali</a>
+<a href="#objective">Zielsetzung</a><a href="#concept">Prozesskonzept</a><a href="#hydrogen">NH₃ vs. H₂</a><a href="#scope">Umfang</a>
+<a href="https://nitin14999.github.io/Nitin_Mahankali/de/#projects">Alle Projekte</a>
+<span class="lang" style="display:inline-flex;align-items:center;gap:6px;font-weight:600;font-size:14px;border:1px solid currentColor;border-radius:99px;padding:6px 12px;opacity:.9"><a href="../../projects/ammonia-refueling.html" hreflang="en" lang="en" style="text-decoration:none;padding:0" aria-label="English version">EN</a><span aria-hidden="true">|</span><b>DE</b></span>
+</nav>
+
+<header class="band">
+<div class="wrap">
+<div class="kicker">Fallstudie · INP Greifswald · Wissenschaftlicher Mitarbeiter · Konzept &amp; Engineering</div>
+<h1>Eine Ammoniak-Tankstelle für tiefkaltes und druckverflüssigtes NH₃</h1>
+<p class="lede">Konzept und Engineering einer Tankstelle, die Ammoniak in beiden flüssigen Formen lagert und abgibt: tiefkalt bei etwa −33 °C und druckverflüssigt bei Umgebungstemperatur. Boil-off-Gas wird zurückgewonnen, und Ammoniak kann bei Bedarf zwischen beiden Formen überführt werden. Die Arbeit umfasst Verfahrens- und R&amp;I-Fließbilder, die Überführungs- und Boil-off-Logik sowie das Betankungsprotokoll.</p>
+<div class="figs">
+<div><b>≈ −33 °C</b><span>tiefkalte Lagerung bei ≈ 1 bar</span></div>
+<div><b>≈ 10 bar</b><span>druckverflüssigt bei Umgebungstemperatur</span></div>
+<div><b>2</b><span>Lagerformen, beide abgabefähig</span></div>
+<div><b>BOG</b><span>zurückgewonnen, nicht abgeblasen</span></div>
+</div>
+</div>
+</header>
+
+<section class="band paper" aria-label="Prozesskonzept">
+<div class="wrap">
+<div class="scroll"><div class="diagram">
+<svg viewBox="0 0 960 430" role="img" aria-label="Tiefkalter Tank und Drucktank. Boil-off-Gas aus dem tiefkalten Tank wird in den Drucktank verdichtet. Flüssigkeit wird vom tiefkalten in den Druckspeicher gefördert. Druckverflüssigtes Ammoniak wird über ein Expansionsventil entspannt und gekühlt in den tiefkalten Tank zurückgeführt. Jeder Tank versorgt eine eigene Zapfstelle.">
+<g font-family="IBM Plex Sans, sans-serif" font-size="14" fill="var(--ink)">
+<!-- cold tank -->
+<rect x="110" y="120" width="220" height="140" rx="60" fill="var(--paper)" stroke="var(--n2)" stroke-width="2.5"/>
+<rect x="114" y="185" width="212" height="71" rx="30" fill="var(--n2)" opacity=".18"/>
+<text x="220" y="152" text-anchor="middle" font-weight="600">Tiefkaltes NH₃</text>
+<text x="220" y="172" text-anchor="middle" font-size="12" fill="var(--mute)">≈ −33 °C · ≈ 1 bar · isoliert</text>
+<polyline points="170,230 180,215 190,245 200,215 210,245 220,215 230,245 240,230" fill="none" stroke="var(--n2)" stroke-width="2"/>
+<text x="275" y="236" font-size="12" fill="var(--n2)" font-weight="600">Kühler</text>
+<!-- pressure tank -->
+<rect x="590" y="120" width="220" height="140" rx="60" fill="var(--paper)" stroke="var(--h2)" stroke-width="2.5"/>
+<rect x="594" y="185" width="212" height="71" rx="30" fill="var(--h2)" opacity=".14"/>
+<text x="700" y="152" text-anchor="middle" font-weight="600">Druckverflüssigtes NH₃</text>
+<text x="700" y="172" text-anchor="middle" font-size="12" fill="var(--mute)">Umgebung · ≈ 10 bar · T50-Tanks</text>
+<!-- BOG route -->
+<path class="flow" d="M220 120V60H440M476 60H700V120" fill="none" stroke="var(--nh3)" stroke-width="3"/>
+<circle cx="458" cy="60" r="18" fill="var(--paper)" stroke="var(--ink)" stroke-width="2"/>
+<path d="M444 51L472 54M444 69L472 66" stroke="var(--ink)" stroke-width="1.5"/>
+<text x="458" y="32" text-anchor="middle" font-weight="600" font-size="13">Boil-off-Gas → Verdichter</text>
+<!-- pump route -->
+<path class="flow" d="M330 225H440M476 225H590" fill="none" stroke="var(--n2)" stroke-width="3"/>
+<circle cx="458" cy="225" r="18" fill="var(--paper)" stroke="var(--ink)" stroke-width="2"/>
+<path d="M450 215L470 225L450 235" fill="none" stroke="var(--ink)" stroke-width="1.6"/>
+<text x="458" y="200" text-anchor="middle" font-size="13" font-weight="600">Überführung: kalt → Druck</text>
+<!-- expansion route -->
+<path class="flow" d="M700 260V320H472M444 320H220V260" fill="none" stroke="var(--h2)" stroke-width="3"/>
+<path d="M444 308L472 332M444 332L472 308M444 308V332M472 308V332" fill="var(--paper)" stroke="var(--ink)" stroke-width="2"/>
+<text x="458" y="352" text-anchor="middle" font-size="13" font-weight="600">Expansionsventil: Entspannungskühlung</text>
+<text x="458" y="370" text-anchor="middle" font-size="12" fill="var(--mute)">Druck → kalt</text>
+<!-- dispensers -->
+<path class="flow" d="M110 190H60V380" fill="none" stroke="var(--n2)" stroke-width="2.5"/>
+<rect x="20" y="380" width="170" height="40" rx="4" fill="var(--soft)" stroke="var(--n2)" stroke-width="2"/>
+<text x="105" y="405" text-anchor="middle" font-weight="600" font-size="13">Zapfstelle · tiefkalt</text>
+<path class="flow" d="M810 190H860V380" fill="none" stroke="var(--h2)" stroke-width="2.5"/>
+<rect x="760" y="380" width="180" height="40" rx="4" fill="var(--soft)" stroke="var(--h2)" stroke-width="2"/>
+<text x="850" y="405" text-anchor="middle" font-weight="600" font-size="13">Zapfstelle · Druck</text>
+</g>
+</svg>
+</div></div>
+<div class="legend"><span><i style="background:var(--n2)"></i>Tiefkalte Flüssigkeit</span><span><i style="background:var(--h2)"></i>Druckverflüssigt</span><span><i style="background:var(--nh3)"></i>Boil-off-Gas</span></div>
+<p class="cap">Vereinfachtes Konzeptschema, für dieses Portfolio gezeichnet. Nicht das R&amp;I-Fließbild des Projekts.</p>
+</div>
+</section>
+
+<section class="band reveal" id="objective">
+<div class="wrap two">
+<div>
+<h2>Zielsetzung</h2>
+<p>Wenn Ammoniak Fahrzeuge und Schiffe antreiben soll, braucht es Tankstellen, ähnlich wie heutige Benzintankstellen. Ammoniak ist unter Umgebungsbedingungen gasförmig und muss daher auf eine von zwei Arten flüssig gelagert werden: <strong>tiefkalt</strong> unterhalb seines Siedepunkts von etwa −33 °C bei Atmosphärendruck oder <strong>druckverflüssigt</strong> bei etwa 10 bar und Umgebungstemperatur.</p>
+<p>Ziel ist ein Tankstellenkonzept, das beide Formen lagern kann, <strong>Boil-off-Gas zurückgewinnt statt es abzublasen</strong>, bei Bedarf zwischen den Formen wechselt und die vom Kunden benötigte Form abgibt.</p>
+</div>
+<div>
+<h2>Rolle</h2>
+<p>Wissenschaftlicher Mitarbeiter, verantwortlich für Literaturrecherche, Prozesskonzept, Verfahrens- und R&amp;I-Fließbilder, Boil-off- und Überführungslogik sowie das Betankungsprotokoll vom Lagertank zum Fahrzeug.</p>
+<p class="note">Status: Konzept und Engineering. Die Tankstelle ist noch nicht gebaut; für eine spätere Umsetzung ist eine Fläche auf dem Testfeld vorgesehen.</p>
+</div>
+</div>
+</section>
+
+<section class="band paper reveal" id="concept">
+<div class="wrap">
+<h2>So funktioniert die Tankstelle</h2>
+<div class="phases">
+<div class="phase"><div class="tag">Boil-off-Gas-Management</div><h3>Wärmeeintrag zurückgewinnen statt abblasen</h3>
+<p>Auch ein gut isolierter tiefkalter Tank nimmt Wärme auf, sodass etwas Ammoniak als Boil-off-Gas (BOG) verdampft. Statt es abzublasen, wird das BOG gesammelt und in den Druckspeicher verdichtet, wo es bei Umgebungstemperatur flüssig gehalten wird.</p></div>
+<div class="phase"><div class="tag">Kalt → Druck</div><h3>Bedarf an druckverflüssigtem Ammoniak decken</h3>
+<p>Braucht ein Kunde druckverflüssigtes Ammoniak und ist nur tiefkalter Vorrat vorhanden, wird Ammoniak aus dem tiefkalten Tank entnommen und in den Drucktanks auf Speicherdruck gebracht, bereit zur Abgabe.</p></div>
+<div class="phase"><div class="tag">Druck → kalt</div><h3>Entspannungskühlung über ein Expansionsventil</h3>
+<p>Für tiefkalten Bedarf wird druckverflüssigtes Ammoniak über ein Expansionsventil entspannt. Bei dieser adiabaten Entspannung verdampft ein Teil der Flüssigkeit und kühlt den Rest auf etwa −33 °C ab. Ein Kühler oder Kondensator im tiefkalten Tank verflüssigt den Entspannungsdampf wieder.</p></div>
+<div class="phase"><div class="tag">Abgabe</div><h3>Zwei Zapfstellen, ein Protokoll</h3>
+<p>Jede Lagerform versorgt eine eigene Zapfstelle. Ein Betankungsprotokoll legt fest, wie Ammoniak von den Tanks der Station in das Fahrzeug gelangt: Ankoppeln, Überführen, Abkoppeln und die zugehörigen Sicherheitsprüfungen.</p></div>
+</div>
+</div>
+</section>
+
+<section class="band reveal" id="hydrogen">
+<div class="wrap">
+<h2>Warum Ammoniak: ein praxistauglicher Wasserstoffträger</h2>
+<p>Ammoniak besteht zu etwa 17,8 Gew.-% aus Wasserstoff und lässt sich dort, wo Wasserstoff gebraucht wird, wieder in Wasserstoff und Stickstoff spalten. Im Vergleich zu Flüssigwasserstoff ist es weitaus einfacher flüssig zu halten:</p>
+<div class="bars">
+<div class="row"><span class="lab">Lagertemperatur flüssiges NH₃</span><span class="bar"><i style="width:13%;background:var(--n2)"></i></span><b>≈ −33 °C</b></div>
+<div class="row"><span class="lab">Lagertemperatur flüssiger H₂</span><span class="bar"><i style="width:100%;background:var(--h2)"></i></span><b>≈ −253 °C</b></div>
+<div class="row"><span class="lab">H₂ pro m³: flüssiges NH₃</span><span class="bar"><i style="width:100%;background:var(--n2)"></i></span><b>≈ 121 kg</b></div>
+<div class="row"><span class="lab">H₂ pro m³: flüssiger H₂</span><span class="bar"><i style="width:59%;background:var(--h2)"></i></span><b>≈ 71 kg</b></div>
+</div>
+<p class="cap">Ungefähre Literaturwerte. Die Temperaturbalken zeigen die Kühlung unter 0 °C. Flüssiges Ammoniak enthält pro Kubikmeter mehr Wasserstoff als flüssiger Wasserstoff selbst.</p>
+<div class="cmp" style="margin-top:22px">
+<div class="c2"><h3>Ammoniak-Pfad</h3><p>Ammoniak bei −33 °C oder etwa 10 bar lagern und transportieren. Direkt als Kraftstoff nutzen oder vor Ort cracken (NH₃ → N₂ + H₂) für Wasserstoffanwendungen.</p></div>
+<div class="c1"><h3>Flüssigwasserstoff-Pfad</h3><p>Erfordert kryogene Lagerung bei −253 °C: mehr Energie für die Verflüssigung, aufwendigere Isolierung und höhere Boil-off-Verluste.</p></div>
+</div>
+</div>
+</section>
+
+<section class="band paper reveal" id="scope">
+<div class="wrap">
+<h2>Arbeitsumfang</h2>
+<div class="timeline t6" id="tl">
+<div>Literaturrecherche</div><div>Prozesskonzept</div><div>Fließbilder / R&amp;I</div><div>BOG- &amp; Überführungslogik</div><div>Betankungsprotokoll</div><div>Fläche auf dem Testfeld</div>
+</div>
+<div class="phases" style="margin-top:34px">
+<div class="phase reveal"><div class="tag">Forschung</div><h3>Ammoniaklagerung und Betankung</h3>
+<ul><li>Literaturrecherche zu tiefkalter und druckverflüssigter Ammoniaklagerung, Boil-off-Verhalten, Betankungspraxis und Ammoniaksicherheit.</li></ul>
+<div class="kw"><span>Literaturrecherche</span><span>NH₃-Thermodynamik</span><span>Lagerkonzepte</span></div></div>
+<div class="phase reveal"><div class="tag">Verfahrenstechnik</div><h3>Verfahrens- und R&amp;I-Fließbilder</h3>
+<ul><li>Erstellung der Verfahrens- und R&amp;I-Fließbilder für die Station: tiefkalte und druckverflüssigte Lagerung, BOG-Verdichtung, Entspannungs- und Kühlpfad, Überführung und Abgabe.</li>
+<li>Planung von UN-T50-Tankcontainern für die druckverflüssigte Lagerung.</li></ul>
+<div class="kw"><span>Verfahrensfließbild</span><span>R&amp;I-Fließbild</span><span>Druckbehälter</span><span>T50-Tanks</span></div></div>
+<div class="phase reveal"><div class="tag">Betriebslogik</div><h3>Wechsel zwischen den Lagerformen</h3>
+<ul><li>Festlegung, wie Ammoniak zwischen beiden Lagerformen wechselt: BOG-Rückgewinnung, Überführung von kalt nach Druck sowie Entspannungskühlung von Druck nach kalt mit Rückverflüssigung.</li></ul>
+<div class="kw"><span>Boil-off-Gas</span><span>Verdichtung</span><span>Expansionsventil</span><span>Rückverflüssigung</span></div></div>
+<div class="phase reveal"><div class="tag">Betrieb &amp; Sicherheit</div><h3>Betankungsprotokoll</h3>
+<ul><li>Festlegung des Protokolls für die Überführung von Ammoniak aus den Lagertanks ins Fahrzeug, mit Sicherheitsmaßnahmen für den Umgang mit giftigem, unter Druck stehendem und tiefkaltem Ammoniak.</li></ul>
+<div class="kw"><span>Betankungsprotokoll</span><span>Ammoniaksicherheit</span><span>Rückhaltung</span></div></div>
+</div>
+</div>
+</section>
+
+<section class="band reveal">
+<div class="wrap two">
+<div>
+<h2>Wichtigste Erkenntnisse</h2>
+<ul class="learn">
+<li>Boil-off ist bei tiefkalter Lagerung unvermeidbar. Wer die BOG-Rückgewinnung von Anfang an einplant, macht aus Verlust und Sicherheitsrisiko nutzbares Produkt.</li>
+<li>Die Kombination aus tiefkalter und druckverflüssigter Lagerung schafft Flexibilität: Großvorrat bei niedrigem Druck plus Druckpuffer für Kunden und zurückgewonnenes BOG.</li>
+<li>Die Thermodynamik bestimmt die Komponentenwahl: Verdichtung, um Dampf auf höheren Druck zu bringen, adiabate Entspannung und Kühlung, um die Flüssigkeitstemperatur zu senken.</li>
+<li>Die deutlich milderen Lagerbedingungen im Vergleich zu Flüssigwasserstoff sind ein zentrales Argument für Ammoniak als Wasserstoffträger.</li>
+</ul>
+<h2 style="margin-top:30px">Nächste Schritte</h2>
+<p>Detail-Engineering und Komponentenauslegung für die vorgesehene Testfeldfläche, HAZOP des Betankungsablaufs und Umsetzung, sobald eine Projektförderung vorliegt.</p>
+</div>
+<div>
+<h2>Gezeigte Kompetenzen</h2>
+<div class="skills"><span>Ammoniaklagerung</span><span>Tiefkaltes NH₃</span><span>Druckverflüssigtes NH₃</span><span>Boil-off-Gas-Management</span><span>Fließbilder / R&amp;I</span><span>Prozesskonzeption</span><span>Verdichtung &amp; Entspannung</span><span>Rückverflüssigung</span><span>Betankungsprotokolle</span><span>Ammoniaksicherheit</span><span>Wasserstoffträger</span><span>NH₃-Cracking</span></div>
+</div>
+</div>
+</section>
+
+<footer><span>© 2026 Nitin Mahankali · Maschinenbauingenieur · Wissenschaftlicher Mitarbeiter</span><a href="https://nitin14999.github.io/Nitin_Mahankali/de/#projects">← Zurück zu den Projekten</a></footer>
+
+<script>
+{
+const els=document.querySelectorAll('.reveal');
+const io=new IntersectionObserver(es=>{for(const e of es){if(e.isIntersecting){e.target.classList.add('in');io.unobserve(e.target)}}},{threshold:.12});
+els.forEach(el=>io.observe(el));
+const tl=document.getElementById('tl');
+const tio=new IntersectionObserver(es=>{if(es[0].isIntersecting){tl.style.setProperty('--w','100%');tio.disconnect()}},{threshold:.5});
+tio.observe(tl);
+const bo=new IntersectionObserver(es=>{for(const e of es){if(e.isIntersecting){e.target.classList.add('in');bo.unobserve(e.target)}}},{threshold:.3});
+document.querySelectorAll('.bars').forEach(b=>bo.observe(b));
+}
+</script>
+</body>
+</html>

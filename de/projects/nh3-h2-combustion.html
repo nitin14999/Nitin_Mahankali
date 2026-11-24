@@ -1,0 +1,318 @@
+<!DOCTYPE html>
+<html lang="de">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>NH₃/H₂-Motorverbrennung | Nitin Mahankali</title>
+<link rel="icon" href="data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 64 64'%3E%3Crect width='64' height='64' rx='15' fill='%2313252c' stroke='%232c4a54' stroke-width='1.5'/%3E%3Ctext x='32' y='40' text-anchor='middle' font-family='IBM Plex Sans Condensed, Arial Narrow, Arial, sans-serif' font-weight='700' font-size='28' letter-spacing='-0.5' fill='%23e8eff1'%3ENM%3C/text%3E%3Crect x='14' y='48' width='12' height='4' rx='2' fill='%234cc6d1'/%3E%3Crect x='26' y='48' width='12' height='4' fill='%23a993ff'/%3E%3Crect x='38' y='48' width='12' height='4' rx='2' fill='%23ff7a52'/%3E%3C/svg%3E">
+<link rel="alternate" hreflang="en" href="https://nitin14999.github.io/Nitin_Mahankali/projects/nh3-h2-combustion.html">
+<link rel="alternate" hreflang="de" href="https://nitin14999.github.io/Nitin_Mahankali/de/projects/nh3-h2-combustion.html">
+<link rel="alternate" hreflang="x-default" href="https://nitin14999.github.io/Nitin_Mahankali/projects/nh3-h2-combustion.html">
+<meta name="description" content="Fallstudie: Verbrennung von Ammoniak-Wasserstoff-Gemischen in einem Schiffsmotor auf dem Motorprüfstand: Zylinderdruck, Brennverlaufsanalyse in Python und Abgasanalyse am INP Greifswald.">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link href="https://fonts.googleapis.com/css2?family=IBM+Plex+Sans+Condensed:wght@600;700&family=IBM+Plex+Sans:wght@400;500;600&display=swap" rel="stylesheet">
+<style>
+/* VOICE: a confident engineering case study, factual, first person, no fluff.
+   IDEA: a process engineering drawing sheet: line colours, title block, tag labels.
+   PICTURE: the pilot-plant process loop drawn as a live block flow diagram with gas moving through it.
+   COLOUR and TYPE: drawing-paper white, ink, H2 vermilion, N2 teal, NH3 violet; IBM Plex Sans Condensed + Plex Sans.
+   LAYOUT: headline + key figures, then the diagram full width, then phases, decisions, story, model, skills. */
+:root{color-scheme:light dark;
+--bg:light-dark(#fbfbf8,#0f1418);--paper:light-dark(#ffffff,#151c21);--ink:light-dark(#141a1f,#e9edef);
+--mute:light-dark(#56606a,#9aa6ae);--rule:light-dark(#d9ddd8,#2a343b);
+--h2:light-dark(#d4441c,#ff7a52);--n2:light-dark(#0b7a86,#4cc6d1);--nh3:light-dark(#5b3fb5,#a993ff);--soft:light-dark(#f1f2ee,#1b2329)}
+:root[data-theme=light]{color-scheme:light}:root[data-theme=dark]{color-scheme:dark}
+*{box-sizing:border-box;min-width:0}
+body{margin:0;background:var(--bg);color:var(--ink);font:16.5px/1.6 "IBM Plex Sans",system-ui,sans-serif;overflow-x:clip}
+h1,h2,h3{font-family:"IBM Plex Sans Condensed","IBM Plex Sans",sans-serif;line-height:1.08;text-wrap:balance;margin:0}
+h1{font-size:clamp(32px,4.6vw,50px);max-width:26ch}
+h2{font-size:clamp(26px,3vw,34px);margin-bottom:18px}
+h3{font-size:20px;margin-bottom:8px}
+p{margin:0 0 14px;max-width:68ch}
+a{color:var(--n2)}
+.band{padding:clamp(28px,4vw,64px) max(5vw,16px)}
+.wrap{max-width:1240px;margin:0 auto}
+.paper{background:var(--paper);border-block:1px solid var(--rule)}
+nav{display:flex;flex-wrap:wrap;gap:8px 22px;align-items:center;padding:14px max(5vw,16px);border-bottom:1px solid var(--rule);background:var(--paper)}
+nav a{color:var(--ink);text-decoration:none;font-weight:500;padding:10px 0}
+nav .logo{font-family:"IBM Plex Sans Condensed","IBM Plex Sans",sans-serif;font-weight:700;font-size:20px;margin-right:auto}
+.kicker{color:var(--mute);font-weight:500;margin-bottom:14px}
+.lede{font-size:18.5px;color:var(--mute);margin-top:18px}
+.figs{display:grid;grid-template-columns:repeat(4,minmax(0,1fr));gap:0;margin-top:30px;border-top:2px solid var(--ink)}
+.figs div{padding:14px 16px 4px 0;border-right:1px solid var(--rule);margin-right:16px}
+.figs div:last-child{border:0}
+.figs b{display:block;font:700 clamp(26px,3.2vw,36px)/1.1 "IBM Plex Sans Condensed","IBM Plex Sans",sans-serif;white-space:nowrap}
+.figs span{color:var(--mute);font-size:14px}
+.scroll{overflow-x:auto}
+.diagram{min-width:720px}
+.diagram svg{width:100%;height:auto;display:block}
+.cap{color:var(--mute);font-size:14px;margin-top:10px}
+.flow{stroke-dasharray:7 9;animation:run 1.6s linear infinite}
+@keyframes run{to{stroke-dashoffset:-32}}
+.legend{display:flex;flex-wrap:wrap;gap:6px 20px;font-size:14px;color:var(--mute);margin-top:6px}
+.legend i{display:inline-block;width:22px;height:3px;vertical-align:middle;margin-right:6px}
+.two{display:grid;grid-template-columns:minmax(0,1fr) minmax(0,1fr);gap:clamp(24px,4vw,56px)}
+.phases{display:grid;grid-template-columns:repeat(2,minmax(0,1fr));gap:20px}
+.phase{background:var(--paper);border:1px solid var(--rule);padding:22px 22px 10px}
+.phase .tag{font:600 13px "IBM Plex Sans Condensed","IBM Plex Sans",sans-serif;color:var(--n2);margin-bottom:6px}
+.phase ul{margin:0 0 12px;padding-left:18px}.phase li{margin-bottom:7px}
+.kw{display:flex;flex-wrap:wrap;gap:6px;margin:4px 0 14px}
+.kw span,.skills span{font-size:13px;border:1px solid var(--rule);padding:3px 9px;border-radius:99px;background:var(--soft)}
+.decide{display:grid;grid-template-columns:repeat(3,minmax(0,1fr));gap:20px}
+.decide div{border-top:3px solid var(--nh3);padding-top:14px}
+.story{display:grid;grid-template-columns:repeat(4,minmax(0,1fr));gap:0;border:1px solid var(--rule);background:var(--paper)}
+.story div{padding:20px;border-right:1px solid var(--rule)}.story div:last-child{border:0}
+.story b{display:block;font:700 15px "IBM Plex Sans Condensed","IBM Plex Sans",sans-serif;margin-bottom:6px;color:var(--h2)}
+.doe{display:grid;grid-template-columns:minmax(0,1fr) 56px minmax(0,1fr);align-items:center;gap:10px}
+.col{display:grid;gap:10px}
+.col div{background:var(--paper);border:1px solid var(--rule);padding:12px 14px;font-weight:500}
+.col small{display:block;color:var(--mute);font-weight:400;font-size:14px}
+.arrow{font-size:30px;text-align:center;color:var(--mute)}
+.model{display:grid;gap:14px}
+.eq{display:grid;grid-template-columns:repeat(6,minmax(0,1fr));gap:10px}
+.eq div{background:var(--paper);border:1px solid var(--rule);padding:12px 10px;text-align:center;font-weight:500;font-size:15px}
+.plant{background:var(--ink);color:var(--bg);padding:16px 18px;text-align:center;font:600 18px "IBM Plex Sans Condensed","IBM Plex Sans",sans-serif}
+.valid{border:2px dashed var(--h2);padding:12px 16px;text-align:center;font-weight:500}
+.timeline{position:relative;display:grid;grid-template-columns:repeat(8,minmax(0,1fr));gap:8px;padding-top:26px}
+.timeline:before{content:"";position:absolute;top:8px;left:0;height:3px;width:var(--w,0%);background:var(--n2);transition:width 1.6s ease}
+.timeline div{font-size:14px;font-weight:500;position:relative}
+.timeline div:before{content:"";position:absolute;top:-24px;left:0;width:12px;height:12px;border-radius:50%;background:var(--paper);border:3px solid var(--n2)}
+.skills{display:flex;flex-wrap:wrap;gap:8px}
+.note{font-size:14px;color:var(--mute);border-left:3px solid var(--rule);padding-left:12px}
+.reveal{opacity:0;transform:translateY(22px);transition:opacity .7s ease,transform .7s ease}
+.reveal.in{opacity:1;transform:none}
+footer{padding:30px max(5vw,16px);border-top:1px solid var(--rule);color:var(--mute);font-size:14px;display:flex;flex-wrap:wrap;justify-content:space-between;gap:10px}
+@media(max-width:900px){.phases,.two,.decide{grid-template-columns:minmax(0,1fr)}.story{grid-template-columns:repeat(2,minmax(0,1fr))}.story div:nth-child(2){border-right:0}.story div{border-bottom:1px solid var(--rule)}.eq{grid-template-columns:repeat(3,minmax(0,1fr))}.timeline{grid-template-columns:repeat(4,minmax(0,1fr));row-gap:40px}.timeline:before{display:none}}
+@media(max-width:600px){.figs{grid-template-columns:repeat(2,minmax(0,1fr))}.figs div:nth-child(2){border:0}.story{grid-template-columns:minmax(0,1fr)}.story div{border-right:0}.doe{grid-template-columns:minmax(0,1fr)}.arrow{transform:rotate(90deg)}.eq{grid-template-columns:repeat(2,minmax(0,1fr))}.timeline{grid-template-columns:repeat(2,minmax(0,1fr))}}
+@media(prefers-reduced-motion:reduce){.flow{animation:none}.reveal{opacity:1;transform:none;transition:none}.timeline:before{transition:none}}
+.t6{grid-template-columns:repeat(6,minmax(0,1fr))}
+.pool{animation:glow 1.4s ease-in-out infinite}
+@keyframes glow{50%{opacity:.45}}
+.cmp{display:grid;grid-template-columns:minmax(0,1fr) minmax(0,1fr);gap:20px}
+.cmp>div{background:var(--paper);border:1px solid var(--rule);padding:22px 22px 8px}
+.cmp .c1{border-top:4px solid var(--h2)}.cmp .c2{border-top:4px solid var(--n2)}
+.small{font-size:14px;color:var(--mute)}
+.learn{padding-left:18px;margin:0}.learn li{margin-bottom:9px}
+@media(max-width:900px){.t6{grid-template-columns:repeat(3,minmax(0,1fr))}}
+@media(max-width:600px){.cmp,.t6{grid-template-columns:minmax(0,1fr)}.t6{grid-template-columns:repeat(2,minmax(0,1fr))}}
+@media(prefers-reduced-motion:reduce){.pool{animation:none}}
+.eqn{font:600 clamp(18px,2.2vw,22px) "IBM Plex Sans",sans-serif;background:var(--paper);border:1px solid var(--rule);padding:14px 18px;display:inline-block;max-width:100%}
+.rig{background:var(--paper);border:1px solid var(--rule);padding:20px}
+.rig .tag{font:600 14px "IBM Plex Sans Condensed","IBM Plex Sans",sans-serif;color:var(--n2)}
+.rig .doe{margin:14px 0}
+.rig .doe{grid-template-columns:minmax(0,1fr) 34px minmax(0,1fr)}
+.spray{animation:glow 1.2s ease-in-out infinite}
+@media(prefers-reduced-motion:reduce){.spray{animation:none}}
+.ptab{width:100%;border-collapse:collapse;background:var(--paper);font-size:15px;min-width:640px}
+.ptab th,.ptab td{border-bottom:1px solid var(--rule);padding:10px 12px;text-align:left;vertical-align:top}
+.ptab th{font-family:"IBM Plex Sans Condensed","IBM Plex Sans",sans-serif;font-size:15px;border-bottom:2px solid var(--ink)}
+.ptab td:nth-child(2),.ptab td:nth-child(3){white-space:nowrap}
+.fig2{max-width:680px}.fig2 svg{width:100%;height:auto;display:block}
+.piston{animation:pist 1.2s ease-in-out infinite}@keyframes pist{50%{transform:translateY(26px)}}
+.flame{animation:glow 1.2s ease-in-out infinite}
+.eqn{overflow-x:auto}
+@media(prefers-reduced-motion:reduce){.piston,.flame{animation:none}}
+h1,h2,h3,p,li,small,.col div,.rig{hyphens:auto;-webkit-hyphens:auto;overflow-wrap:break-word}
+</style>
+</head>
+<body>
+<nav>
+<a class="logo" href="https://nitin14999.github.io/Nitin_Mahankali/de/" aria-label="Nitin Mahankali, Startseite" style="display:flex;align-items:center;gap:10px;text-decoration:none"><svg viewBox="0 0 64 64" width="34" height="34" aria-hidden="true"><rect width="64" height="64" rx="15" fill="#13252c" stroke="#2c4a54" stroke-width="1.5"/><text x="32" y="40" text-anchor="middle" font-family="IBM Plex Sans Condensed, Arial Narrow, Arial, sans-serif" font-weight="700" font-size="28" letter-spacing="-0.5" fill="#e8eff1">NM</text><rect x="14" y="48" width="12" height="4" rx="2" fill="#4cc6d1"/><rect x="26" y="48" width="12" height="4" fill="#a993ff"/><rect x="38" y="48" width="12" height="4" rx="2" fill="#ff7a52"/></svg>Nitin Mahankali</a>
+<a href="#objective">Zielsetzung</a><a href="#fuels">NH₃ vs. H₂</a><a href="#setup">Prüfstand</a><a href="#analysis">Analyse</a>
+<a href="https://nitin14999.github.io/Nitin_Mahankali/de/#projects">Alle Projekte</a>
+<span class="lang" style="display:inline-flex;align-items:center;gap:6px;font-weight:600;font-size:14px;border:1px solid currentColor;border-radius:99px;padding:6px 12px;opacity:.9"><a href="../../projects/nh3-h2-combustion.html" hreflang="en" lang="en" style="text-decoration:none;padding:0" aria-label="English version">EN</a><span aria-hidden="true">|</span><b>DE</b></span>
+</nav>
+
+<header class="band">
+<div class="wrap">
+<div class="kicker">Fallstudie · INP Greifswald · Wissenschaftlicher Mitarbeiter · laufend</div>
+<h1>NH₃/H₂-Verbrennung in einem Schiffsmotor auf dem Prüfstand</h1>
+<p class="lede">Kontrollierte Verbrennungsversuche mit Ammoniak-Wasserstoff-Gemischen in einem Verbrennungsmotor für eine ammoniakbetriebene Yacht. Kurbelwinkelaufgelöster Zylinderdruck, Drehmoment vom Prüfstand und Abgasanalyse werden in einem Python-Workflow zusammengeführt, um die Kraftstoffzusammensetzung mit Verbrennungsverhalten, Leistung und Emissionen zu verknüpfen.</p>
+<div class="figs">
+<div><b>NH₃ + H₂</b><span>Kraftstoffgemisch</span></div>
+<div><b>p(θ)</b><span>Zylinderdruck über Kurbelwinkel</span></div>
+<div><b>Drehmoment</b><span>Motorprüfstand</span></div>
+<div><b>NOx</b><span>Abgasanalyse</span></div>
+</div>
+</div>
+</header>
+
+<section class="band paper" aria-label="Prüfstand">
+<div class="wrap" id="setup">
+<div class="scroll"><div class="diagram">
+<svg viewBox="0 0 960 380" role="img" aria-label="Prüfstand: NH3 und H2 werden gemischt und dem Motor zugeführt, der mit einer Belastungsmaschine gekoppelt ist. Zylinderdrucksensor und Kurbelwinkelgeber liefern Daten an die Messdatenerfassung und Python-Analyse. Das Abgas geht zu einem Gasanalysator.">
+<g font-family="IBM Plex Sans, sans-serif" font-size="14" fill="var(--ink)">
+<rect x="30" y="50" width="120" height="50" rx="4" fill="var(--soft)" stroke="var(--nh3)" stroke-width="2"/>
+<text x="90" y="80" text-anchor="middle" font-weight="600">NH₃</text>
+<rect x="30" y="130" width="120" height="50" rx="4" fill="var(--soft)" stroke="var(--h2)" stroke-width="2"/>
+<text x="90" y="160" text-anchor="middle" font-weight="600">H₂</text>
+<path class="flow" d="M150 75H210V105H230M150 155H210V125H230" fill="none" stroke="var(--ink)" stroke-width="2.5"/>
+<rect x="230" y="85" width="120" height="60" rx="4" fill="var(--paper)" stroke="var(--ink)" stroke-width="1.6"/>
+<text x="290" y="110" text-anchor="middle" font-weight="600">Mischung</text>
+<text x="290" y="128" text-anchor="middle" font-size="12" fill="var(--mute)">NH₃/H₂-Verhältnis</text>
+<path class="flow" d="M350 115H420" fill="none" stroke="var(--ink)" stroke-width="3"/>
+<!-- engine -->
+<rect x="420" y="60" width="170" height="210" rx="6" fill="var(--paper)" stroke="var(--ink)" stroke-width="2"/>
+<text x="505" y="84" text-anchor="middle" font-weight="600">Verbrennungsmotor</text>
+<rect x="465" y="100" width="80" height="120" fill="var(--soft)" stroke="var(--ink)" stroke-width="1.5"/>
+<rect x="469" y="150" width="72" height="40" fill="var(--mute)" opacity=".5" class="piston"/>
+<path d="M505 190V240" stroke="var(--ink)" stroke-width="4"/>
+<ellipse cx="505" cy="122" rx="24" ry="12" fill="var(--h2)" opacity=".45" class="flame"/>
+<circle cx="452" cy="160" r="9" fill="var(--paper)" stroke="var(--n2)" stroke-width="2.5"/>
+<path d="M443 160H405V321H400" fill="none" stroke="var(--n2)" stroke-width="1.8"/>
+<text x="508" y="262" text-anchor="middle" font-size="12" fill="var(--mute)">Kurbeltrieb</text>
+<!-- dyno -->
+<path d="M590 220H680" stroke="var(--ink)" stroke-width="6"/>
+<rect x="680" y="180" width="140" height="80" rx="6" fill="var(--soft)" stroke="var(--ink)" stroke-width="1.8"/>
+<text x="750" y="214" text-anchor="middle" font-weight="600">Belastungsmaschine</text>
+<text x="750" y="234" text-anchor="middle" font-size="12" fill="var(--mute)">Drehmoment · Drehzahl</text>
+<!-- exhaust -->
+<path class="flow" d="M590 90H760V70" fill="none" stroke="var(--mute)" stroke-width="3"/>
+<rect x="700" y="20" width="230" height="50" rx="4" fill="var(--paper)" stroke="var(--ink)" stroke-width="1.6"/>
+<text x="815" y="42" text-anchor="middle" font-weight="600">Abgasanalyse</text>
+<text x="815" y="60" text-anchor="middle" font-size="12" fill="var(--mute)">NOx · unverbranntes NH₃</text>
+<!-- DAQ -->
+<rect x="130" y="290" width="270" height="62" rx="4" fill="var(--paper)" stroke="var(--n2)" stroke-width="2.5"/>
+<text x="265" y="316" text-anchor="middle" font-weight="600">Messdatenerfassung → Python</text>
+<text x="265" y="336" text-anchor="middle" font-size="12" fill="var(--mute)">p(θ), Brennverlauf, Drehmoment, Emissionen</text>
+<text x="265" y="372" text-anchor="middle" font-size="12" fill="var(--mute)">Zylinderdrucksensor + Kurbelwinkelsignal</text>
+</g>
+</svg>
+</div></div>
+<div class="legend"><span><i style="background:var(--nh3)"></i>Ammoniak</span><span><i style="background:var(--h2)"></i>Wasserstoff</span><span><i style="background:var(--n2)"></i>Messsignale</span></div>
+<p class="cap">Vereinfachtes Schema des Motorprüfstands, für dieses Portfolio gezeichnet.</p>
+</div>
+</section>
+
+<section class="band reveal" id="objective">
+<div class="wrap two">
+<div>
+<h2>Zielsetzung</h2>
+<p>Ammoniak ist ein kohlenstofffreier Kraftstoff, der sich an Bord leichter lagern und mitführen lässt als Wasserstoff. Im Motor verbrennt er jedoch schwer: Er zündet schlecht, brennt langsam und kann aus dem enthaltenen Stickstoff NOx bilden. Wasserstoffzugabe beschleunigt die Verbrennung, zu viel Wasserstoff erhöht aber Verbrennungstemperaturen und NOx.</p>
+<p>Ziel ist herauszufinden, <strong>wie Mischungsverhältnis NH₃/H₂ und Betriebsbedingungen Verbrennung, Motorleistung und Emissionen beeinflussen</strong>, und zwar in einem Motor für eine ammoniakbetriebene Yacht.</p>
+</div>
+<div>
+<h2>Rolle</h2>
+<p>Wissenschaftlicher Mitarbeiter am Motorprüfstand. Aufgaben: Literaturrecherche zu NH₃ und H₂ als Motorkraftstoffe, kontrollierte Verbrennungsversuche auf dem Prüfstand, Zylinderdruck- und Abgasmessungen sowie ein Python-Workflow zur Aufbereitung und Analyse der Verbrennungsdaten.</p>
+<p class="note">Die Versuche laufen. Quantitative Ergebnisse folgen, sobald sie veröffentlicht werden dürfen.</p>
+</div>
+</div>
+</section>
+
+<section class="band paper reveal" id="fuels">
+<div class="wrap">
+<h2>Warum mischen? Ammoniak und Wasserstoff ergänzen sich</h2>
+<div class="scroll">
+<table class="ptab">
+<thead><tr><th>Eigenschaft (ca., Literatur)</th><th>NH₃</th><th>H₂</th><th>Wirkung im Gemisch</th></tr></thead>
+<tbody>
+<tr><td>Laminare Brenngeschwindigkeit, stöchiometrisch</td><td>≈ 7 cm/s</td><td>≈ 200+ cm/s</td><td>H₂ beschleunigt die langsame NH₃-Flamme</td></tr>
+<tr><td>Zündgrenzen in Luft</td><td>≈ 15–28 Vol.-%</td><td>≈ 4–75 Vol.-%</td><td>H₂ erweitert den stabilen Betriebsbereich</td></tr>
+<tr><td>Heizwert</td><td>≈ 18,6 MJ/kg</td><td>≈ 120 MJ/kg</td><td>NH₃ braucht mehr Kraftstoffmasse je Energieeinheit</td></tr>
+<tr><td>Lagerung</td><td>flüssig bei ≈ 8–10 bar</td><td>verdichtet oder tiefkalt</td><td>NH₃ ist der praktikable Energieträger an Bord</td></tr>
+<tr><td>Kohlenstoffgehalt</td><td>keiner</td><td>keiner</td><td>kein CO₂ aus der Verbrennung</td></tr>
+</tbody>
+</table>
+</div>
+<div class="cmp" style="margin-top:26px">
+<div class="c2"><h3>Ammoniak: Vor- und Nachteile</h3>
+<p><strong>+</strong> kohlenstofffrei, hohe Energiedichte als Flüssigkeit, etablierte Handhabung, hohe Klopffestigkeit.</p>
+<p><strong>−</strong> schlechte Zündwilligkeit und langsame Verbrennung, was die Verbrennungsstabilität begrenzt. Der Brennstoffstickstoff kann NOx bilden, unverbranntes NH₃ kann ins Abgas gelangen (NH₃-Schlupf), und es ist giftig.</p></div>
+<div class="c1"><h3>Wasserstoff: Vor- und Nachteile</h3>
+<p><strong>+</strong> schnelle, leicht zündbare Verbrennung, die die NH₃-Flamme stärkt und stabilisiert.</p>
+<p><strong>−</strong> bei hohen H₂-Anteilen erhöhen höhere Verbrennungstemperaturen das thermische NOx. Die Literaturrecherche zeigte dies als zentralen Zielkonflikt, ebenso die schwierige H₂-Speicherung an Bord.</p></div>
+</div>
+<div class="tradeoff" style="margin-top:26px">
+<div class="fig2">
+<svg viewBox="0 0 640 300" role="img" aria-label="Qualitative Trends: Die Verbrennungsstabilität steigt mit dem Wasserstoffanteil, NOx ebenfalls; dazwischen liegt ein ausgewogenes Betriebsfenster">
+<g font-family="IBM Plex Sans, sans-serif" font-size="13" fill="var(--ink)">
+<rect x="250" y="30" width="150" height="220" fill="var(--n2)" opacity=".1"/>
+<text x="325" y="50" text-anchor="middle" font-size="12" fill="var(--n2)" font-weight="600">ausgewogenes Fenster</text>
+<path d="M60 250H610M60 250V20" stroke="var(--ink)" stroke-width="1.5"/>
+<path d="M60 220C150 210 200 120 300 90C400 64 500 58 600 55" fill="none" stroke="var(--n2)" stroke-width="3"/>
+<path d="M60 235C200 232 300 205 400 150C480 105 540 70 600 40" fill="none" stroke="var(--h2)" stroke-width="3"/>
+<text x="600" y="38" text-anchor="end" fill="var(--n2)" font-weight="600">Brenngeschwindigkeit &amp; Stabilität</text>
+<text x="440" y="190" fill="var(--h2)" font-weight="600">NOx (thermisch)</text>
+<text x="335" y="280" text-anchor="middle" fill="var(--mute)">H₂-Anteil im Gemisch →</text>
+<text x="50" y="140" text-anchor="middle" fill="var(--mute)" transform="rotate(-90 50 140)">relative Wirkung</text>
+</g>
+</svg>
+</div>
+<p class="cap">Qualitativer Trend aus der Literatur, der die Versuche leitet. Keine Messdaten.</p>
+</div>
+</div>
+</section>
+
+<section class="band reveal">
+<div class="wrap">
+<h2>Kontrollierte Verbrennungsversuche</h2>
+<div class="doe" style="margin-top:12px">
+<div class="col">
+<div>Mischungsverhältnis NH₃/H₂<small>Kraftstoffzusammensetzung</small></div>
+<div>Betriebsbedingungen des Motors<small>Drehzahl, Last, Gemischbildung</small></div>
+<div>Zünd- / Verbrennungseinstellungen<small>unter kontrollierten Bedingungen</small></div>
+</div>
+<div class="arrow" aria-hidden="true">→</div>
+<div class="col">
+<div>Zylinderdruck über Kurbelwinkel<small>Verbrennungsverhalten</small></div>
+<div>Drehmoment<small>von der Belastungsmaschine</small></div>
+<div>Abgaszusammensetzung<small>NOx und unverbranntes NH₃</small></div>
+</div>
+</div>
+<p class="cap">Links: variierte Faktoren. Rechts: gemessene Größen.</p>
+</div>
+</section>
+
+<section class="band paper reveal" id="analysis">
+<div class="wrap two">
+<div>
+<h2>Vom Druckverlauf zum Brennverlauf</h2>
+<p>Der Zylinderdruck wird über dem Kurbelwinkel aufgezeichnet und anschließend in Python (NumPy, Pandas, Matplotlib) verarbeitet. Der Heizverlauf ergibt sich aus dem ersten Hauptsatz der Thermodynamik:</p>
+<p class="eqn">dQ/dθ = γ/(γ−1) · p · dV/dθ + 1/(γ−1) · V · dp/dθ</p>
+<p>Daraus wertet der Workflow Brennverlauf, Verbrennungsschwerpunktlage und Stabilität aus und korreliert sie mit Kraftstoffzusammensetzung, Betriebspunkt, Drehmoment und Abgasemissionen.</p>
+</div>
+<div>
+<h2>Arbeitsumfang</h2>
+<ul class="learn">
+<li>Literaturrecherche zu Ammoniak und Wasserstoff als Motorkraftstoffe: Verbrennungseigenschaften, Vor- und Nachteile, Emissionspfade.</li>
+<li>Kontrollierte Verbrennungsversuche mit NH₃/H₂-Gemischen auf dem Motorprüfstand.</li>
+<li>Kurbelwinkelaufgelöste Zylinderdruckmessung und Messdatenerfassung.</li>
+<li>Abgasanalyse mit Schwerpunkt auf NOx und unverbranntem Ammoniak.</li>
+<li>Python-Workflows für Datenaufbereitung, Brennverlaufsanalyse und Visualisierung.</li>
+<li>Korrelation von Kraftstoffzusammensetzung und Betriebsbedingungen mit Drehmoment und Verbrennungsverhalten.</li>
+</ul>
+</div>
+</div>
+</section>
+
+<section class="band reveal">
+<div class="wrap two">
+<div>
+<h2>Erkenntnisse bisher</h2>
+<ul class="learn">
+<li>Die Schwäche von Ammoniak, langsame und schwer zündbare Verbrennung, lässt sich mit Wasserstoff ausgleichen, aber nur bis zu einem gewissen Punkt.</li>
+<li>Der H₂-Anteil ist ein Zielkonflikt zwischen Verbrennungsstabilität und NOx; das „beste“ Gemisch hängt daher vom Betriebspunkt ab.</li>
+<li>Der Zylinderdruck über dem Kurbelwinkel ist der direkteste Blick in die Verbrennung, und ein solider Analyse-Workflow macht aus Rohdaten vergleichbare Kennwerte.</li>
+<li>Emissionen aus der Ammoniakverbrennung (NOx, NH₃-Schlupf) müssen von Anfang an berücksichtigt werden, besonders im maritimen Einsatz.</li>
+</ul>
+<h2 style="margin-top:30px">Nächste Schritte</h2>
+<p>Versuchsmatrix abschließen, Verbrennung und Emissionen über Mischungsverhältnisse und Betriebspunkte kartieren und ein empfohlenes Betriebsfenster für den Yachtmotor bestimmen.</p>
+</div>
+<div>
+<h2>Gezeigte Kompetenzen</h2>
+<div class="skills"><span>NH₃/H₂-Verbrennung</span><span>Verbrennungsmotoren</span><span>Motorprüfstand</span><span>Zylinderdruckindizierung</span><span>Brennverlaufsanalyse</span><span>Abgasanalyse</span><span>NOx</span><span>NH₃-Schlupf</span><span>Alternative Kraftstoffe</span><span>Messdatenerfassung</span><span>Python</span><span>NumPy · Pandas · Matplotlib</span><span>Schiffskraftstoffe</span></div>
+</div>
+</div>
+</section>
+
+<footer><span>© 2026 Nitin Mahankali · Maschinenbauingenieur · Wissenschaftlicher Mitarbeiter</span><a href="https://nitin14999.github.io/Nitin_Mahankali/de/#projects">← Zurück zu den Projekten</a></footer>
+
+<script>
+{
+const els=document.querySelectorAll('.reveal');
+const io=new IntersectionObserver(es=>{for(const e of es){if(e.isIntersecting){e.target.classList.add('in');io.unobserve(e.target)}}},{threshold:.12});
+els.forEach(el=>io.observe(el));
+}
+</script>
+</body>
+</html>
